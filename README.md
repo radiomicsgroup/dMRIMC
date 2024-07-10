@@ -7,7 +7,7 @@
 This code accompanies our publication (link to preprint), sharing the process of creating realistic cancer substrates, running Monte Carlo simulations in them and synthesizing the resulting MRI signal according to any user-specified PGSE protocol. The process can be broken down in the following stages:
 - Select region of interest (ROI) from histology (e.g using [QuPath](https://qupath.github.io/)) and take a high resolution screenshot making sure the scale bar is in view.
 - Segment the features of interest using ![Inkscape](https://inkscape.org/) and save the file as `svg`
-- Import the `svg` into Blender and obtain geometry files: 1 file for the whole substrate for extracellular simulations and n files corresponding to each individual cell.
+- Import the `svg` into [Blender](https://www.blender.org/) and obtain geometry files: 1 file for the whole substrate for extracellular simulations and n files corresponding to each individual cell.
 - Use the `ply` files with the MCDC simulator to get the random walks for all objects.
 - Synthesize the total signal (extracellular + intracellular) according to any PGSE protocol
 
