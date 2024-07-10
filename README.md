@@ -17,7 +17,7 @@ TODO -- HERE I NEED TO TALK ABOUT THE MASSIVE DICTIONARY
 This repository is distributed under the **Attribution-NonCommercial-ShareAlike 4.0 International license** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)). Copyright (c) 2024, Fundació Privada Institut d’Investigació Oncològica de Vall d’Hebron (Vall d'Hebron Institute of Oncology (VHIO), Barcelona, Spain). All rights reserved. Link to license [here](). 
 
 ## From histological image to MRI signal
-## Segmenting with Inkscape
+### Segmenting with Inkscape
 Inkscape is a very versatile software with its primary use being vector graphics. It is useful in our case because it can output `svg` files that store the information about their geometry in paths and can thus be converted to meshes. To perform the segmentation we used the pen tool as it allowed for the fast creation of arbitrary shapes.
 
 Once all desired features are segmented, the image has to be cropped to contain the segmented area only. This can be done by a Clip operation, just draw a rectangle over the segmented area (making sure it is higher up in the layer hierarchy) and with both it and the background image selected go to Object-->Clip-->Set clip. To also resize the canvas of the image, select everything with the mouse and then press Ctrl+D to open the document properties menu and click "Resize to content". Save the cropped segmented image as a separate file.
