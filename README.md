@@ -1,6 +1,9 @@
 
 # A Monte Carlo simulation framework for histology-informed diffusion MRI cancer characterisation and microstructural parameter estimation
 
+![logos/diagram2.pdf]
+
+
 This code accompanies our publication (link to preprint), sharing the process of creating realistic cancer substrates, running Monte Carlo simulations in them and synthesizing the resulting MRI signal according to any user-specified PGSE protocol. The process can be broken down in the following stages:
 - Select region of interest (ROI) from histology (e.g using QuPath) and take a high resolution screenshot making sure the scale bar is in view.
 - Segment the features of interest using Inkscape and save the file as `svg`
