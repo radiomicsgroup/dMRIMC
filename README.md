@@ -36,13 +36,13 @@ With the configuration files ready the simulations can be run using the `run_sim
 
 We now have the trajectories of the spins in the `.traj` files inside the `random_walks` folders.
 
-```python create_config_files_MISC.py mouse_example_CELLS/ mouse_example cells```
-```python create_config_files_ALL_STRUCTURES.py mouse_example_EXTRA/ mouse_example```
-```python run_sims_in_parallel.py mouse_example_CELLS intra 10```
-```python run_sims_in_parallel.py mouse_example_EXTRA extra 10```
+`python create_config_files_MISC.py mouse_example_CELLS/ mouse_example cells`
+`python create_config_files_ALL_STRUCTURES.py mouse_example_EXTRA/ mouse_example`
+`python run_sims_in_parallel.py mouse_example_CELLS intra 10`
+`python run_sims_in_parallel.py mouse_example_EXTRA extra 10`
 (optional)
-```python manual_testing.py mouse_example_EXTRA intra```
-```python manual_testing.py mouse_example_EXTRA extra```
+`python manual_testing.py mouse_example_EXTRA intra`
+`python manual_testing.py mouse_example_EXTRA extra`
 
 ## Signal synthesis
 The scripts included can synthesize any PGSE signal provided the parameters. Create a folder `sequence parameters` and in there a subfolder for any PGSE protocol you want to simulate. The subfolder has to contain four text files: 
