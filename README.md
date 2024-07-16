@@ -10,7 +10,8 @@ This code accompanies our publication (link to preprint), sharing the process of
 - Use the `ply` files with the [MCDC simulator](https://github.com/jonhrafe/MCDC_Simulator_public) to get the random walks for all objects.
 - Synthesize the total signal (extracellular + intracellular) according to any PGSE protocol
 
-IMAGE OF THE FRAMEWORK PROCESS
+**UNDER CONSTRUCTION**
+
 
 The generated signals can then be used to perform inference and obtain parametric maps of scans. In our publication we learn the forward model via maximum likelihood fitting in a leave-one-out fashion and 
 TODO -- HERE I NEED TO TALK ABOUT THE MASSIVE DICTIONARY
