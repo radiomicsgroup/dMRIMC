@@ -1,14 +1,13 @@
 
 # A Monte Carlo simulation framework for histology-informed diffusion MRI cancer characterisation and microstructural parameter estimation
 
-![framework_diagram](diagram2.svg)
 
 
 This code accompanies our publication (link to preprint), sharing the process of creating realistic cancer substrates, running Monte Carlo simulations in them and synthesizing the resulting MRI signal according to any user-specified PGSE protocol. The process can be broken down in the following stages:
-- Select region of interest (ROI) from histology (e.g using QuPath) and take a high resolution screenshot making sure the scale bar is in view.
-- Segment the features of interest using Inkscape and save the file as `svg`
-- Import the `svg` into Blender and obtain geometry files: 1 file for the whole substrate for extracellular simulations and n files corresponding to each individual cell.
-- Use the `ply` files with the MCDC simulator to get the random walks for all objects.
+- Select region of interest (ROI) from histology (e.g using [QuPath](https://qupath.github.io/)) and take a high resolution screenshot making sure the scale bar is in view.
+- Segment the features of interest using ![Inkscape](https://inkscape.org/) and save the file as `svg`
+- Import the `svg` into [Blender](https://www.blender.org/) and obtain geometry files: 1 file for the whole substrate for extracellular simulations and n files corresponding to each individual cell.
+- Use the `ply` files with the [MCDC simulator](https://github.com/jonhrafe/MCDC_Simulator_public) to get the random walks for all objects.
 - Synthesize the total signal (extracellular + intracellular) according to any PGSE protocol
 
 IMAGE OF THE FRAMEWORK PROCESS
@@ -39,17 +38,23 @@ With the configuration files ready the simulations can be run using the `run_sim
 
 We now have the trajectories of the spins in the `.traj` files inside the `random_walks` folders.
 
-Code to recreate the examples contained in the repo:
+Code to recreate the mouse example contained in the repo:
+
+Create configuration files for the simulations
 
 `python create_config_files_MISC.py mouse_example_CELLS/ mouse_example cells`
 
 `python create_config_files_ALL_STRUCTURES.py mouse_example_EXTRA/ mouse_example`
 
+
+Run simulations (both intra- and extracellular) using 10 threads
+
 `python run_sims_in_parallel.py mouse_example_CELLS intra 10`
 
 `python run_sims_in_parallel.py mouse_example_EXTRA extra 10`
 
-(optional)
+
+Run some sanity checks (optional)
 
 `python manual_testing.py mouse_example_EXTRA intra`
 
@@ -61,9 +66,24 @@ The scripts included can synthesize any PGSE signal provided the parameters. Cre
 - `custom.gdur1` - gradient duration 1 ($ms$)
 - `custom.gdur2` - gradient duration 2 ($ms$)
 - `custom.gsep12` - gradient separation 1-2 ($ms$)
-Each file should contain the parameter values for each measurement separated with a space. To perform the synthesis, run `run_all_for_misc.py` where misc stands for misc protocol. It requires the name of the protocol corresponding to the name of the folder where the files describing said protocol are (bvalue, timings), plus the substrate type (`cells` or `EXTRA`). It assumes that the trajectories' folder is located in `SIMULATIONS`.
+Each file should contain the parameter values for each measurement separated with a space. To perform the synthesis, run `run_all_for_misc.py` where misc stands for misc protocol. It requires the name of the protocol corresponding to the name of the folder where the files describing said protocol are (bvalue, timings), plus the substrate type (`cells` or `EXTRA`). It assumes that the trajectories' folder is located in `SIMULATIONS`. By default `run_all_for_misc.py` will look at the `playgrounds` folder and synthesize signals for all simulations matching the substrates contained there.
 
-After synthesizing both the intracellular and extracellular signal, use `aggregate_all_intra.py` and `aggregate_all_extra.py` to volume weight all the signals and collect them in one file for intracellular and one for extracellular. Note that this requires having the area of each cellular feature (e.g cells) in a dictionary for reading during runtime (for an example check `vol_INTRA_func_CUSTOM.py`). 
+After synthesizing both the intracellular and extracellular signal, use `aggregate_all_intra.py` and `aggregate_all_extra.py` to volume weight all the signals and collect them in one file for intracellular and one for extracellular. Note that this requires having the area of each cellular feature (e.g cells) in a dictionary for reading during runtime (for an example check `vol_INTRA_func_CUSTOM.py`).
+
+For the mouse example:
+
+Synthesize signals for the `mouse_example` substrate according to the `CUSTOM_PGSE` protocol for `EXTRA`cellular diffusion
+
+`python run_all_for_misc.py CUSTOM_PGSE EXTRA`
+
+Same but for intracellular diffusion (cells)
+
+`python run_all_for_misc.py CUSTOM_PGSE cells`
+
+Aggregate all extracellular and intracellular signals
+
+`python aggregate_all_extra.py`
+`python aggregate_all_intra.py`
 
 ## Code
 ### Simulations
@@ -81,7 +101,7 @@ After synthesizing both the intracellular and extracellular signal, use `aggrega
 	- `MRI_functions.load_trajectories_2D`: Loads the trajectories from MCDC and prepares them in a convenient way
 	- `MRI_functions.construct_signal_PGSE`: Simulates the MR signal from the set of random walks coming from the trajectory files and returns MRI signal at infinite SNR
 	- `MRI_functions.synthesis_misc_PGSE`: Function calling `MRI_functions.construct_signal_PGSE`
-- `run_all_for_misc.py`: Runs the synthesis process, asking for the protocol name as it appears in the folder name with the parameters (bval etc) and the substrate type `cells` or `EXTRA`. 
+- `run_all_for_misc.py`: Runs the synthesis process, asking for the protocol name as it appears in the folder name with the parameters (bval etc) and the substrate type `cells` or `EXTRA`. Will also keep track of any errors.
 - `synthesis_PGSE_one_file.py`: Standalone function to 
 - `vol_EXTRA_func_CUSTOM.py`: Contains the code for extracellular aggregation
 - `vol_INTRA_func_CUSTOM.py`: Contains the code for intracellular aggregation
