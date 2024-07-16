@@ -10,7 +10,7 @@
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/qr_img_MC_2024_paper.png" alt="qrcode" width="auto" height="auto">
 </div>
 
-## [MedArxiv preprint](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v1)
+## [medRxiv preprint](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v1)
 
 # UNDER CONSTRUCTION
 
