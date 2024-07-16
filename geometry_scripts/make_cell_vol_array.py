@@ -11,7 +11,7 @@ all_areas = {}
 for i in sub_directories:
     files = gb.glob(i + f"{geom_type}/plys/*.ply")
     if files != []:
-        name = files[0].split("/")[1]
+        name = files[0].split("/")[2]
         areas = {}  # mm
         vols = []   # mm
         for j in files:

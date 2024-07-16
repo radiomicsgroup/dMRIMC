@@ -17,11 +17,11 @@ if not os.path.exists(randomwalks_path):
     os.makedirs(randomwalks_path)
 
 # Simulation parameters
-Nvals = 1000
+Nvals = 10000
 T = 3000
 dur = 140 # ms
 ply_scale = 1
-dval = np.linspace(0.8, 3, 5)
+dval = np.linspace(0.8, 3, 10)
 dval = np.round(dval, decimals=4)
 scheme_file = "../scheme_files/scheme.scheme"
 substrate = sys.argv[2]

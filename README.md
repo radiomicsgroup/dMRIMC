@@ -1,5 +1,13 @@
 
 # A Monte Carlo simulation framework for histology-informed diffusion MRI cancer characterisation and microstructural parameter estimation
+<div align="center">
+  <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/diagram22.jpg" alt="qrcode" width="auto" height="auto">
+</div>
+
+
+<div align="center">
+  <img src="https://github.com/radiomicsgroup/dMRIMC/imgs/blob/main/qr_img_MC_2024_paper.png" alt="qrcode" width="auto" height="auto">
+</div>
 
 # UNDER CONSTRUCTION
 
@@ -83,8 +91,10 @@ Same but for intracellular diffusion (cells)
 
 Aggregate all extracellular and intracellular signals
 
-`python aggregate_all_extra.py`
-`python aggregate_all_intra.py`
+`python aggregate_all_extra.py CUSTOM_PGSE CUSTOM_PGSE`
+`python aggregate_all_intra.py CUSTOM_PGSE CUSTOM_PGSE`
+
+Now the in `SIGNAL_SYNTHESIS/aggregated_signals` we have two folders containing the intra- and extracellular components of the signal for each diffusivity value. Combining them with appropriate area/volume-weighting gives us the total measured signal of the simulated voxel.
 
 ## Code
 ### Simulations
