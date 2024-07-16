@@ -22,10 +22,9 @@ This code accompanies our [publication](https://www.medrxiv.org/content/10.1101/
 - Synthesize the total signal (extracellular + intracellular) according to any PGSE protocol
 
 
+The generated signals can then be used to perform inference and obtain parametric maps of scans. Note that in this repository as part of an example the segmented cells of a mouse histology sample are included in a zip file inside the `playgrounds` folder. All other files (such as trajectory files or signal files) are not included for practical reasons as the size would be too big to host here.
 
 
-The generated signals can then be used to perform inference and obtain parametric maps of scans. In our publication we learn the forward model via maximum likelihood fitting in a leave-one-out fashion and 
-TODO -- HERE I NEED TO TALK ABOUT THE MASSIVE DICTIONARY
 
 ## License
 This repository is distributed under the **Attribution-NonCommercial-ShareAlike 4.0 International license** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)). Copyright (c) 2024, Fundació Privada Institut d’Investigació Oncològica de Vall d’Hebron (Vall d'Hebron Institute of Oncology (VHIO), Barcelona, Spain). All rights reserved. Link to license [here](). 
