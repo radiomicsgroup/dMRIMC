@@ -10,6 +10,8 @@
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/qr_img_MC_2024_paper.png" alt="qrcode" width="auto" height="auto">
 </div>
 
+This code was developed by Athanasios Grigoriou (<agrigoriou@vhio.net>) and Francesco Grussu (<fgrussu@vhio.net>). **The project that gave rise to these results received the support of a fellowship from ”la Caixa” Foundation (ID 100010434). The fellowship code is "LCF/BQ/PR22/11920010"**.
+
 ## [medRxiv preprint](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v1)
 
 # UNDER CONSTRUCTION
