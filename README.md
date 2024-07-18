@@ -75,9 +75,9 @@ Run some sanity checks (optional)
 The scripts included can synthesize any PGSE signal provided the parameters. Create a folder `sequence parameters` and in there a subfolder for any PGSE protocol you want to simulate. The subfolder has to contain four text files: 
 - `custom.bval` - bvalues ($s/mm^2$)
 - `custom.gdur1` - gradient duration 1 ($ms$)
-- `custom.gdur2` - gradient duration 2 ($ms$)
+- `custom.gdur2` - gradient duration 2 ($ms$) (second file needed for legacy reasons)
 - `custom.gsep12` - gradient separation 1-2 ($ms$)
-Each file should contain the parameter values for each measurement separated with a space. To perform the synthesis, run `run_all_for_misc.py` where misc stands for misc protocol. It requires the name of the protocol corresponding to the name of the folder where the files describing said protocol are (bvalue, timings), plus the substrate type (`cells` or `EXTRA`). It assumes that the trajectories' folder is located in `SIMULATIONS`. By default `run_all_for_misc.py` will look at the `playgrounds` folder and synthesize signals for all simulations matching the substrates contained there.
+Each file should contain the parameter values for each measurement separated with a space. To perform the synthesis, run `run_all_for_misc.py` where misc stands for misc protocol. It requires the name of the protocol corresponding to the name of the folder where the files describing said protocol are (bvalue, timings), plus the substrate type (`cells` or `EXTRA`). It assumes that the trajectories' folder is located in `SIMULATIONS`. By default `run_all_for_misc.py` will look at the `playgrounds` folder and synthesize signals for all simulations matching the substrates contained there. Since we are dealing with 2D substrates, we are averaging the x,y directions
 
 After synthesizing both the intracellular and extracellular signal, use `aggregate_all_intra.py` and `aggregate_all_extra.py` to volume weight all the signals and collect them in one file for intracellular and one for extracellular. Note that this requires having the area of each cellular feature (e.g cells) in a dictionary for reading during runtime (for an example check `vol_INTRA_func_CUSTOM.py`).
 
