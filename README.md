@@ -5,18 +5,19 @@
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/diagram22.png" alt="qrcode" width="auto" height="auto">
 </div>
 
+This code was developed by Athanasios Grigoriou (<agrigoriou@vhio.net>) and Francesco Grussu (<fgrussu@vhio.net>). **The project that gave rise to these results received the support of a fellowship from ”la Caixa” Foundation (ID 100010434). The fellowship code is "LCF/BQ/PR22/11920010"**.
 
 <div align="center">
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/qr_img_MC_2024_paper.png" alt="qrcode" width="auto" height="auto">
 </div>
 
-This code was developed by Athanasios Grigoriou (<agrigoriou@vhio.net>) and Francesco Grussu (<fgrussu@vhio.net>). **The project that gave rise to these results received the support of a fellowship from ”la Caixa” Foundation (ID 100010434). The fellowship code is "LCF/BQ/PR22/11920010"**.
+If you find dMRIMC useful, please cite our preprint:
 
-## [medRxiv preprint](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v1)
+Athanasios Grigoriou, Carlos Macarro, Marco Palombo, Anna Voronova, Kinga Bernatowicz, Ignasi Barba, Alba Escriche, Emanuela Greco, María Abad, Sara Simonetti, Garazi Serna, Richard Mast, Xavier Merino, Núria Roson, Manuel Escobar, Maria Vieito, Paolo Nuciforo, Rodrigo Toledo, Elena Garralda, Roser Sala-Llonch, Els Fieremans, Dmitry S. Novikov, Raquel Perez-Lopez, and Francesco Grussu. **"A Monte Carlo simulation framework for histology-informed diffusion MRI cancer characterisation and microstructural parameter estimation"**. medRxiv 2024: 2024.07.15.24310280, doi: 10.1101/2024.07.15.24310280. Link to preprint [here](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v1).
 
 # UNDER CONSTRUCTION
 
-This code accompanies our [publication](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v1), sharing the process of creating realistic cancer substrates, running Monte Carlo simulations in them and synthesizing the resulting MRI signal according to any user-specified PGSE protocol. The process can be broken down in the following stages:
+This code accompanies our [preprint](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v1), sharing the process of creating realistic cancer substrates, running Monte Carlo simulations in them and synthesizing the resulting MRI signal according to any user-specified PGSE protocol. The process can be broken down in the following stages:
 - Select region of interest (ROI) from histology (e.g using [QuPath](https://qupath.github.io/)) and take a high resolution screenshot making sure the scale bar is in view.
 - Segment the features of interest using [Inkscape](https://inkscape.org/) and save the file as `svg`
 - Import the `svg` into [Blender](https://www.blender.org/) and obtain geometry files: 1 file for the whole substrate for extracellular simulations and n files corresponding to each individual cell.
