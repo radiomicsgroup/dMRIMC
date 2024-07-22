@@ -21,6 +21,10 @@ Athanasios Grigoriou, Carlos Macarro, Marco Palombo, Anna Voronova, Kinga Bernat
 
 This code accompanies our [preprint](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v1), sharing the process of creating realistic cancer substrates, running Monte Carlo simulations in them and synthesizing the resulting MRI signal according to any user-specified PGSE protocol. Those signals can the be used to inform microstructural parameter estimation.
 
+Here are detailed instructions on:
+
+- [Generating signals from histology](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md)
+- Using synthetic signals to inform microstructural parameter estimation
 
 ## License
 This repository is distributed under the **Attribution-NonCommercial-ShareAlike 4.0 International license** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)). Copyright (c) 2024, Fundació Privada Institut d’Investigació Oncològica de Vall d’Hebron (Vall d'Hebron Institute of Oncology (VHIO), Barcelona, Spain). All rights reserved. Link to license [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/license.txt). 
