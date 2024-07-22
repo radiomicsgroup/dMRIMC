@@ -15,9 +15,19 @@ If you find dMRIMC useful, please cite our preprint:
 
 Athanasios Grigoriou, Carlos Macarro, Marco Palombo, Anna Voronova, Kinga Bernatowicz, Ignasi Barba, Alba Escriche, Emanuela Greco, María Abad, Sara Simonetti, Garazi Serna, Richard Mast, Xavier Merino, Núria Roson, Manuel Escobar, Maria Vieito, Paolo Nuciforo, Rodrigo Toledo, Elena Garralda, Roser Sala-Llonch, Els Fieremans, Dmitry S. Novikov, Raquel Perez-Lopez, and Francesco Grussu. **"A Monte Carlo simulation framework for histology-informed diffusion MRI cancer characterisation and microstructural parameter estimation"**. medRxiv 2024: 2024.07.15.24310280, doi: 10.1101/2024.07.15.24310280. Link to preprint [here](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v1).
 
-# UNDER CONSTRUCTION
+**UNDER CONSTRUCTION -  Note that we are still polishing up the repository so parts are subject to change or could be missing**
 
-This code accompanies our [preprint](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v1), sharing the process of creating realistic cancer substrates, running Monte Carlo simulations in them and synthesizing the resulting MRI signal according to any user-specified PGSE protocol. The process can be broken down in the following stages:
+## General description
+
+This code accompanies our [preprint](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v1), sharing the process of creating realistic cancer substrates, running Monte Carlo simulations in them and synthesizing the resulting MRI signal according to any user-specified PGSE protocol. Those signals can the be used to inform microstructural parameter estimation.
+
+
+## License
+This repository is distributed under the **Attribution-NonCommercial-ShareAlike 4.0 International license** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)). Copyright (c) 2024, Fundació Privada Institut d’Investigació Oncològica de Vall d’Hebron (Vall d'Hebron Institute of Oncology (VHIO), Barcelona, Spain). All rights reserved. Link to license [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/license.txt). 
+
+## From histological image to MRI signal
+The process can be broken down in the following stages:
+
 - Select region of interest (ROI) from histology (e.g using [QuPath](https://qupath.github.io/)) and take a high resolution screenshot making sure the scale bar is in view.
 - Segment the features of interest using [Inkscape](https://inkscape.org/) and save the file as `svg`
 - Import the `svg` into [Blender](https://www.blender.org/) and obtain geometry files: 1 file for the whole substrate for extracellular simulations and n files corresponding to each individual cell.
@@ -27,12 +37,6 @@ This code accompanies our [preprint](https://www.medrxiv.org/content/10.1101/202
 
 The generated signals can then be used to perform inference and obtain parametric maps of scans. Note that in this repository as part of an example the segmented cells of a mouse histology sample are included in a zip file inside the `playgrounds` folder. All other files (such as trajectory files or signal files) are not included for practical reasons as the size would be too big to host here.
 
-
-
-## License
-This repository is distributed under the **Attribution-NonCommercial-ShareAlike 4.0 International license** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)). Copyright (c) 2024, Fundació Privada Institut d’Investigació Oncològica de Vall d’Hebron (Vall d'Hebron Institute of Oncology (VHIO), Barcelona, Spain). All rights reserved. Link to license [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/license.txt). 
-
-## From histological image to MRI signal
 ### Segmenting with Inkscape
 Inkscape is a very versatile software with its primary use being vector graphics. It is useful in our case because it can output `svg` files that store the information about their geometry in paths and can thus be converted to meshes. To perform the segmentation we used the pen tool as it allowed for the fast creation of arbitrary shapes.
 
