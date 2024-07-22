@@ -8,4 +8,4 @@ We have two parameter configurations corresponding to forward model 1 and forwar
 
 Forward model 1 parameter configuration: $`f_{in},`$ vCS, $`D_{0|in}, D_{0|ex}`$
 
-Forward model 2 parameter configuration: `$f_in$, mCS, varCS, skewCS, $D_{0|in}$, $D_{0|ex}$` 
+Forward model 2 parameter configuration: $`f_{in},`$ mCS, varCS, skewCS, $`D_{0|in}, D_{0|ex}`$
