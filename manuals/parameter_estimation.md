@@ -38,5 +38,6 @@ To reproduce Fig 5 from our paper i.e contour plots comparing the MC-informed pa
  - `run_all.py`: Convenience script that runs the MC-informed fitting for all cases (all protocols and all configurations/forward models)
 
 ### Plotting
-- `explore_niftii_LeaveOneOut.py`
-- `explore_niftii_LeaveOneOut_ANALYTICAL.py`
+- `explore_niftii_LeaveOneOut.py`: This script will generate figures based on the selected protocol, SNR and configuration. The figures are contour density plots that show the quality of the fitting compared to the ground truth.
+
+- `explore_niftii_LeaveOneOut_ANALYTICAL.py`: Similar to the one above but only takes SNR as an argument. Generates the plot of the analytical fitting compared to the ground truth
