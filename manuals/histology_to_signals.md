@@ -11,6 +11,11 @@ The process can be broken down in the following stages:
 The generated signals can then be used to perform inference and obtain parametric maps of scans. Note that in this repository as part of an example the segmented cells of a mouse histology sample are included inside the `playgrounds` folder. All other files (such as trajectory files or signal files) are not included for practical reasons as the size would be too big to host here.
 
 ### Segmenting with Inkscape
+<p float="left">
+  <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/ex.png" width="45%" />
+  <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/ex2.png" width="45%" />
+</p>
+
 Inkscape is a very versatile software with its primary use being vector graphics. It is useful in our case because it can output `svg` files that store the information about their geometry in paths and can thus be converted to meshes. To perform the segmentation we used the pen tool as it allowed for the fast creation of arbitrary shapes.
 
 Once all desired features are segmented, the image has to be cropped to contain the segmented area only. This can be done by a Clip operation, just draw a rectangle over the segmented area (making sure it is higher up in the layer hierarchy) and with both it and the background image selected go to Object-->Clip-->Set clip. To also resize the canvas of the image, select everything with the mouse and then press Ctrl+D to open the document properties menu and click "Resize to content". Save the cropped segmented image as a separate file.
