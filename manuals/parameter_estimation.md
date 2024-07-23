@@ -8,7 +8,9 @@ This tutorial provides an example of simulation-informed parameter estimation on
 ## Data
 We provide you already with the synthetic signals and corresponding tissue parameters generated from our 18 histology-derived substrates. These have been stored in NIFTI format, following the same steps described in the previous tutorial [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md). For each substrate, we use 10 unique values for both intra-cellular and extra-cellular intrisnic diffusivities $`D_{0|in}$ and $D_{0|ex}$, for a total of 1800 signals. The substrates are shown here:
 
-FIG
+<p align="center">
+  <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/all_subs_with_metrics.png" width="80%" />
+</p>
 
 We have partitioned them according to a leave-one-out procedure: we use 17 out of 18 substrates to learn a numerical forward model, which then we fit on the 18th substrate. The forward model is learnt via radial basis function regression of noise-free signals, while fitting (i.e., model inversion) is performed on signals corrupted with Rician noise (SNR = 50 and 20). Leave-one-out partitioned signals and tissue parameters are stored respectively in the `leave_one_out/signal_np_files` and `leave_one_out/param_np_files` folders.
 
