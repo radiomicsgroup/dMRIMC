@@ -8,7 +8,7 @@ The process can be broken down in the following stages:
 - Synthesize the total signal (extracellular + intracellular) according to any PGSE protocol
 
 
-The generated signals can then be used to perform inference and obtain parametric maps of scans. Note that in this repository as part of an example the segmented cells of a mouse histology sample are included in a zip file inside the `playgrounds` folder. All other files (such as trajectory files or signal files) are not included for practical reasons as the size would be too big to host here.
+The generated signals can then be used to perform inference and obtain parametric maps of scans. Note that in this repository as part of an example the segmented cells of a mouse histology sample are included inside the `playgrounds` folder. All other files (such as trajectory files or signal files) are not included for practical reasons as the size would be too big to host here.
 
 ### Segmenting with Inkscape
 Inkscape is a very versatile software with its primary use being vector graphics. It is useful in our case because it can output `svg` files that store the information about their geometry in paths and can thus be converted to meshes. To perform the segmentation we used the pen tool as it allowed for the fast creation of arbitrary shapes.
