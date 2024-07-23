@@ -55,20 +55,20 @@ Forward model 2 instead investigates the feasibility of data-driven cell size di
 ### Monte Carlo simulation-informed fitting
 We provide you with the code to perform model fitting on the simulated signals. 
 
-The script `run_all.py` performs the MC-informed fitting for all cases (all protocols, i.e., `PGSEin`, `PGSEex` and `TRSE`; and both forward models 1 and 2). This script relies on the `mri2micro_dictml.py` tool, a slightly older version of the tool released as part of [bodymritools](https://github.com/fragrussu/bodymritools) (script [mri2micro_dictml.py](https://github.com/fragrussu/bodymritools/blob/main/mrifittools/mri2micro_dictml.py)). Note that _mri2micro_dictml.py_ can be used to fit **any equation-free, numerical signal model, given examples of signals and corresponding tissue parameters for a given acquisition protocol**. 
+The script [`run_all.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/leave_one_out/run_all.py) performs the MC-informed fitting for all cases (all protocols, i.e., `PGSEin`, `PGSEex` and `TRSE`; and both forward models 1 and 2). This script relies on the [`mri2micro_dictml.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/leave_one_out/mri2micro_dictml.py) tool, a slightly older version of the tool released as part of [bodymritools](https://github.com/fragrussu/bodymritools) (script [mri2micro_dictml.py](https://github.com/fragrussu/bodymritools/blob/main/mrifittools/mri2micro_dictml.py)). Note that _mri2micro_dictml.py_ can be used to fit **any equation-free, numerical signal model, given examples of signals and corresponding tissue parameters for a given acquisition protocol**. 
 
 To run `run_all.py`, simply clone this repository, navigate to [`parameter_estimation/leave_one_out`](https://github.com/radiomicsgroup/dMRIMC/tree/main/parameter_estimation/leave_one_out) and run it:
 
 ```
-cd parameter_estimation/leave_one_out/
+cd parameter_estimation/leave_one_out
 python run_all.py
 ```
 
 
 ### Fitting an analytical signal model
-Conversely, you can use the `dri2mc_maxlikcyl.py` script for fitting forward model 1 on the `PGSEin` protocol. The script requires the noisy signals to fit in NIFTI format, a text file with the diffusion protocol and an optional noise map, also in NIFTI format (examples of which are provided in [`parameter_estimation/leave_one_out`](https://github.com/radiomicsgroup/dMRIMC/tree/main/parameter_estimation/leave_one_out)).
+Conversely, you can use the [`dri2mc_maxlikcyl.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/leave_one_out/dri2mc_maxlikcyl.py) script for fitting forward model 1 on the `PGSEin` protocol. The script requires the noisy signals to fit in NIFTI format, a text file with the diffusion protocol and an optional noise map, also in NIFTI format (examples of which are provided in [`parameter_estimation/leave_one_out`](https://github.com/radiomicsgroup/dMRIMC/tree/main/parameter_estimation/leave_one_out)).
 
-Clone this repository, navigate to [`parameter_estimation/leave_one_out`](https://github.com/radiomicsgroup/dMRIMC/tree/main/parameter_estimation/leave_one_out) , and run the fitting of the analytical signal model like this:
+Clone this repository, navigate to [`parameter_estimation/leave_one_out`](https://github.com/radiomicsgroup/dMRIMC/tree/main/parameter_estimation/leave_one_out), and run the fitting of the analytical signal model like this:
 
 ```
 cd parameter_estimation/leave_one_out
@@ -86,7 +86,7 @@ Fitting provides estimates of:
 ### Plotting fitting results
 We also provide you with scripts to generate scatter density plots that correlate estimated vs ground truth tissue parameters. We include two scripts:
 
-- `explore_niftii_MC_informed.py`: results from MC-informed fitting for a desired protocol, SNR and forward model. You can use it like this:
+- [`explore_niftii_MC_informed.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/explore_niftii_MC_informed.py): results from MC-informed fitting for a desired protocol, SNR and forward model. You can use it like this:
 ```
 cd parameter_estimation
 python explore_niftii_MC_informed.py PGSEin 50 9
@@ -95,7 +95,7 @@ python explore_niftii_MC_informed.py PGSEex 50 13
 
 ```
 
-- `explore_niftii_ANALYTICAL.py`: results from fitting the analytical signal model protocol `PGSEin`. It requires as input the SNR for which results should be shown, i.e., 
+- [`explore_niftii_ANALYTICAL.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/explore_niftii_ANALYTICAL.py): results from fitting the analytical signal model protocol `PGSEin`. It requires as input the SNR for which results should be shown, i.e., 
 ```
 cd parameter_estimation
 python explore_niftii_ANALYTICAL.py 50
