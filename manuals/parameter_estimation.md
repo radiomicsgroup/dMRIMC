@@ -55,7 +55,9 @@ Forward model 2 instead investigates the feasibility of data-driven cell size di
 ### Monte Carlo simulation-informed fitting
 We provide you with the code to perform model fitting on the simulated signals. 
 
-The script `run_all.py`: this script performs the MC-informed fitting for all cases (all protocols, i.e., `PGSEin`, `PGSEex` and `TRSE`; and both forward models 1 and 2). This script relies on the `mri2micro_dictml.py` routine (note that this is a slightly older version compared to [mri2micro_dictml.py](https://github.com/fragrussu/bodymritools/blob/main/mrifittools/mri2micro_dictml.py), released in the [bodymritools](https://github.com/fragrussu/bodymritools) python repository). To run it, simply navigate to `parameter_estimation/leave_one_out/` and run the script:
+The script `run_all.py` performs the MC-informed fitting for all cases (all protocols, i.e., `PGSEin`, `PGSEex` and `TRSE`; and both forward models 1 and 2). This script relies on the `mri2micro_dictml.py` tool, a slightly older version of the tool released as part of [bodymritools](https://github.com/fragrussu/bodymritools (script [mri2micro_dictml.py](https://github.com/fragrussu/bodymritools/blob/main/mrifittools/mri2micro_dictml.py)). Note that _mri2micro_dictml.py_ can be used to fit **any equation-free, numerical signal model, given examples of signals and corresponding tissue parameters for a given acquisition protocol**. 
+
+To run `run_all.py`, simply clone this repository, navigate to `parameter_estimation/leave_one_out/` and run it:
 
 ```
 cd parameter_estimation/leave_one_out/
