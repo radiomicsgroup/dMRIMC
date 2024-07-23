@@ -11,6 +11,5 @@ Since we want also to reproduce the figures of the paper we will be using real d
 We have two parameter configurations corresponding to forward model 1 and forward model 2 in our paper:
 
 Forward model 1 parameter configuration (config number 9): $`f_{in},`$ vCS, $`D_{0|in}, D_{0|ex}`$
-
 Forward model 2 parameter configuration (config number 13): $`f_{in},`$ mCS, varCS, skewCS, $`D_{0|in}, D_{0|ex}`$
 
