@@ -25,7 +25,7 @@ To create the `ply` files we use the scripts in the `geometry_scripts` folder. B
 ## Run simulations with MCDC
 For each substrate you need 2 folders, one for extracellular simulations and one for the intracellular. To run simulations first create a folder with 2 subfolders: e.g  for `substrate_name_CELLS` create `substrate_name_CELLS/random_walks` and `substrate_name_CELLS/conf_files`.  The first one will house the trajectories of the spins and the latter the simulation configuration files. For more information on MCDC check the repository (link). For the cells (and any other intracellular geometry) run `create_config_files_MISC.py` (see example). For the extracellular run `create_config_files_ALL_STRUCTURES.py`. Inside both scripts you can specify the parameters needed by MCDC (diffusivities, simulation duration etc).
 
-With the configuration files ready the simulations can be run using the `run_sims_in_parallel.py` script.  It requires the destination folder's name, the substrate type that we want (`intra` or `extra`) and the number of cores that can be used. The script will try to run one simulation per core using a queue if the simulations asked for are more than the number of cores. It will print out information while running. When the simulations are done you will see the number of errors (if any) and then you can run the script `manual_testing.py` to scan the resulting files for inconsistencies (check the file for info on the tests).
+With the configuration files ready the simulations can be run using the `run_sims_in_parallel.py` script.  It requires the location of the MCDC binary, the destination folder's name, the substrate type that we want (`intra` or `extra`) and the number of cores that can be used. The script will try to run one simulation per core using a queue if the simulations asked for are more than the number of cores. It will print out information while running. When the simulations are done you will see the number of errors (if any) and then you can run the script `manual_testing.py` to scan the resulting files for inconsistencies (check the file for info on the tests).
 
 We now have the trajectories of the spins in the `.traj` files inside the `random_walks` folders.
 
@@ -81,6 +81,7 @@ Now the in `SIGNAL_SYNTHESIS/aggregated_signals` we have two folders containing 
 
 ## Code
 ### Simulations
+(For such batch processing, it is recommended to recompile MCDC without the notification functionality)
 - `create_config_files_ALL_STRUCTURES.py`: Creates MCDC configuration files for the whole substrate (extracellular simulation)
 - `create_config_files_MISC.py`: Creates MCDC configuration files for each cell in the substrate, or for each element of a cellular feature such as lumen (intracellular simulation)
 - `manual_testing.py`: Runs some post-simulation tests on the trajectory files
