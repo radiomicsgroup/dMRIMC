@@ -66,16 +66,19 @@ python run_all.py
 
 
 ### Fitting an analytical signal model
-Conversely, you can use the `dri2mc_maxlikcyl.py` script for fitting forward model 1 on the PGSE protocols. The script requires the noisy signals to fit in NIFTI format, a text file with the diffusion protocol and an optional noise map, also in NIFTI format. For example, you can fit this analytical model on signals generated according to the `PGSEin` protocol like this:
+Conversely, you can use the `dri2mc_maxlikcyl.py` script for fitting forward model 1 on the `PGSEin` protocol. The script requires the noisy signals to fit in NIFTI format, a text file with the diffusion protocol and an optional noise map, also in NIFTI format (examples of which are provided in `parameter_estimation/leave_one_out`).
+
+Clone this repository, navigate to `parameter_estimation/leave_one_out`, and run the fitting of the analytical signal model like this:
 
 ```
-cd parameter_estimation/leave_one_out/
+cd parameter_estimation/leave_one_out
 python dri2mc_maxlikcyl.py --noise analytical/noise_maps/PGSEin_noise_analytical_SNR50_all_signals.nii --modstr DinDex --pmin 8.0,0.8,0.0,0.5 --pmax 20.0,3.0,0.9,3.0 --sldim 0 --nw 12 --ncpu 10 analytical/niftiis/PGSEin_all_signals_config_9_SNR_50.nii PGSEin_for_maxlik.bval res_maxlik/old_way_cylinders/config_9/SNR_50
 ```
 
-Fitting this analytical two-pool model provides estimates of:
+Fitting provides estimates of:
 * $f_{in}$: intra-cellular signal fraction
 * $vCS$: characteristic volume-weighted cell diameter
+* $D_{0|in}$: intrinsic intra-cellular diffusivity
 * $ADC_{ex}$: extra-cellular apparent diffusion coefficient.
    
 
