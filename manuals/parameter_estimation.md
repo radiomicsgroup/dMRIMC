@@ -39,10 +39,9 @@ To reproduce Fig 5 from our paper i.e contour plots comparing the MC-informed pa
 
 ### Plotting
 - `explore_niftii_LeaveOneOut.py`: This script will generate figures based on the selected protocol, SNR and configuration. The figures are contour density plots that show the quality of the fitting compared to the ground truth.
-<p align="center">
-  <span style="background-color: white; padding: 10px; display: inline-block;">
-      <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/figs/PGSEin_SNR_50_config_9_all_params.png" alt="mcinformed" width="auto" height="auto">
-  </span>
-</p>
+
+<div align="center">
+    <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/figs/PGSEin_SNR_50_config_9_all_params.jpg" alt="mcinformed" width="auto" height="auto">
+</div>
 
 - `explore_niftii_LeaveOneOut_ANALYTICAL.py`: Similar to the one above but only takes SNR as an argument. Generates the plot of the analytical fitting compared to the ground truth
