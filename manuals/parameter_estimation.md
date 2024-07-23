@@ -6,21 +6,30 @@ This tutorial provides an example of simulation-informed parameter estimation on
 **Under development! Everything will be here in the coming days -- apologies for the inconvenience!**
 
 ## Data
-We provide you already with the synthetic signals generated from our 18 histology-derived substrates. These have been stored in NIFTI format, following the same steps described in the previous tutorial [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md).  The substrates are shown here:
+We provide you already with the synthetic signals and corresponding tissue parameters generated from our 18 histology-derived substrates. These have been stored in NIFTI format, following the same steps described in the previous tutorial [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md). For each substrate, we use 10 unique values for both intra-cellular and extra-cellular intrisnic diffusivities $`D_{0|in}$ and $D_{0|ex}$, for a total of 1800 signals. The substrates are shown here:
 
 FIG
 
-We have partitioned them according to a leave-one-out procedure: we use 17 out of 18 substrates to learn a numerical forward model, which then we fit on the 18th substrate. The forward model is learnt via radial basis function regression of noise-free signals, while fitting (i.e., model inversion) is performed on signals corrupted with Rician noise (SNR = 50). Fitting accounts for Rician bias, and a noise estimate is obtained with `dwidenoise` from [MRtrix3](https://mrtrix.readthedocs.io/en/latest/reference/commands/dwidenoise.html). The resulting niftii files are in `leave_one_out/niftiis` (MC generated signals) and `leave_one_out/analytical` (signals from analytical expression) and the leave-one-out-partitioned signals are stored in `leave_one_out/signal_np_files`. The corresponding parameters for each configuration (see below) are in `leave_one_out/param_np_files`. Included in the data are signals generated for all three protocols mentioned in the paper, namely `PGSEin` (in silico/in vivo), `PGSEex` (ex vivo) and `TRSE` (in silico/in vivo). For practical purposes the data have been zipped in `data_for_LeaveOneOut.zip`.
+We have partitioned them according to a leave-one-out procedure: we use 17 out of 18 substrates to learn a numerical forward model, which then we fit on the 18th substrate. The forward model is learnt via radial basis function regression of noise-free signals, while fitting (i.e., model inversion) is performed on signals corrupted with Rician noise (SNR = 50 and 20). Leave-one-out partitioned signals and tissue parameters are stored respectively in the `leave_one_out/signal_np_files` and `leave_one_out/param_np_files` folders.
+
+Fitting accounts for Rician bias, and a noise estimate is obtained with `dwidenoise` from [MRtrix3](https://mrtrix.readthedocs.io/en/latest/reference/commands/dwidenoise.html). Fitted parameters are also stored in NIFTI format in `leave_one_out/niftiis` (MC-informed fitting signals) and `leave_one_out/analytical` (fitting of a standard analytical signal model analytical expression). 
+
+Here we consider three different acquisition protocols, which are the same we used in our preprint. These are: 
+* `PGSEin`: a pulsed-gradient spin echo (PGSE) protocol, which in the paper we used for _in vivo_ imaging (salient characteristics: XXX)
+* `PGSEex`: a second PGSE protocol, which in the paper we used for _ex vivo_ imaging;
+* `TRSE`: a diffusion-weighted (DW) twice-refocussed spin echo (TRSe) protocol, which  in the paper we also used for _in vivo_ imaging.
 
 
 ## Fitting configurations
-We have two parameter configurations corresponding to forward model 1 and forward model 2 in our paper:
+We fit two different simulation-informed signal models. Due to practical code implementation, we refer to these as two different _fitting configurations_. These correpsond to forward models 1 and forward 2 in our paper, namely:
 
-- Forward model 1 parameter configuration (config number 9): $`f_{in},`$ vCS, $`D_{0|in}, D_{0|ex}`$
+- in forward model 1 (fitting configuration number 9 in our code) we estimate $`f_{in},`$ vCS, $`D_{0|in}, D_{0|ex}`$;
 
-- Forward model 2 parameter configuration (config number 13): $`f_{in},`$ mCS, varCS, skewCS, $`D_{0|in}, D_{0|ex}`$
+- in forward model 2 (fitting configuration number 13 in our code) we estimate $`f_{in},`$ mCS, varCS, skewCS, $`D_{0|in}, D_{0|ex}`$.
 
-The parameters in forward model 1 were chosen so that we could compare the performance of numerically-obtained signals vs the analytical expression in the context of model fitting. The ones in forward model 2 were chosen to investigate the first three moments of the cell size distibution.
+The parameters in forward model 1 were chosen so that we could compare the performance of simulation-informed fitting vs a well-established two-compartment model, accounting for restricted diffusion within cylinders and hindered extra-cellular Gaussian diffusion. Remember that our substrates where obtained on 2D histology, and thus feature cylndrical symmetry (that is why we used cylinders, instead of spheres).
+
+Forward model 2 instead investigates the feasibility of data-driven cell size distribution characterisation, where its first three moments are estimated without imposing any parametric form (e.g., the Gamma distribution).
 
 ## Fitting procedures
 1. Fitting the analytical model (check script help for more information). This script performs the fitting of the analytical expression using all the signals at the same time.
