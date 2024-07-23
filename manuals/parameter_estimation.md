@@ -45,3 +45,7 @@ To reproduce Fig 5 from our paper i.e contour plots comparing the MC-informed pa
 </div>
 
 - `explore_niftii_LeaveOneOut_ANALYTICAL.py`: Similar to the one above but only takes SNR as an argument. Generates the plot of the analytical fitting compared to the ground truth
+
+<div align="center">
+    <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/figs/PGSEin_old_way_cylinders_SNR_50_config_9_all_params_ANALYTICAL.jpg" alt="mcinformed" width="auto" height="auto">
+</div>
