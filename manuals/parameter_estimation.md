@@ -42,21 +42,8 @@ The parameters in forward model 1 were chosen so that we could compare the perfo
 
 Forward model 2 instead investigates the feasibility of data-driven cell size distribution characterisation, where its first three moments are estimated without imposing any parametric form (e.g., the Gamma distribution).
 
-## Fitting procedures
-1. Fitting the analytical model (check script help for more information). This script performs the fitting of the analytical expression using all the signals at the same time.
-    - `python dri2mc_maxlikcyl.py --noise analytical/noise_maps/PGSEin_noise_analytical_SNR50_all_signals.nii --modstr DinDex --pmin 8.0,0.8,0.0,0.5 --pmax 20.0,3.0,0.9,3.0 --sldim 0 --nw 12 --ncpu 10 analytical/niftiis/PGSEin_all_signals_config_9_SNR_50.nii PGSEin_for_maxlik.bval res_maxlik/old_way_cylinders/config_9/SNR_50`
 
-2. Fitting using the MC-generated signals with the PGSEin protocol. The `run_all.py` script will run the fitting routine for all protocols and configurations.
-    - `python run_all.py`
-
-To reproduce Fig 5 from our paper i.e contour plots comparing the MC-informed parameter estimation with the analyical expression for a hindered-restricted diffusion model use `explore_niftii_MC_informed.py` and `explore_niftii_ANALYTICAL.py` after the fittings.
-
-1. `python explore_niftii_MC_informed.py PGSEin 50 9`: This will create Fig 5a (MC-informed fitting)
-2. `python explore_niftii_ANALYTICAL.py 50`: This will create Fig 5b (analytical fitting)
-
-
-## Code
-### Fitting
+### Monte Carlo simulation-informed fitting
 We provide you with the code to perform model fitting on the simulated signals. 
 
 The script `run_all.py`: this script performs the MC-informed fitting for all cases (all protocols, i.e., `PGSEin`, `PGSEex` and `TRSE`; and both forward models 1 and 2). This script relies on the `mri2micro_dictml.py` routine (note that this is a slightly older version compared to [mri2micro_dictml.py](https://github.com/fragrussu/bodymritools/blob/main/mrifittools/mri2micro_dictml.py), released in the [bodymritools](https://github.com/fragrussu/bodymritools) python repository). To run it, simply navigate to `parameter_estimation/leave_one_out/` and run the script:
@@ -66,6 +53,8 @@ cd parameter_estimation/leave_one_out/
 python run_all.py
 ```
 
+
+### Fitting an analytical signal model
 Conversely, you can use the `dri2mc_maxlikcyl.py` script for fitting forward model 1 on the PGSE protocols. The script requires the noisy signals to fit in NIFTI format, a text file with the diffusion protocol and an optional noise map, also in NIFTI format. For example, you can fit this analytical model on signals generated according to the `PGSEin` protocol like this:
 
 ```
@@ -78,23 +67,36 @@ Fitting this analytical two-pool model provides estimates of:
 * $vCS$: characteristic volume-weighted cell diameter
 * $ADC_{ex}$: extra-cellular apparent diffusion coefficient.
    
- - `mri2micro_dictml.py`: Script for the fitting using the MC-generated signals (an updated version can be found at [bodymritools](https://github.com/fragrussu/bodymritools)). Requires a noise map of the signal array, a signal array corrupted with Rician noise generated from a substrate and two numpy arrays, one with the signals that will be used for training and one containing the correspoding parameters of the substrate.
-   
- - `run_all.py`: Convenience script that runs the MC-informed fitting for all cases (all protocols and all configurations/forward models)
 
-### Plotting
-- `explore_niftii_MC_informed.py`: This script will generate figures based on the selected protocol, SNR and configuration. The figures are contour density plots that show the quality of the fitting compared to the ground truth.
 
-1. `python explore_niftii_MC_informed.py PGSEin 50 9`: This will create Fig 5a (MC-informed fitting)
-2. `python explore_niftii_ANALYTICAL.py 50`: This will create Fig 5b (analytical fitting)
+### Plotting fitting results
+We also provide you with scripts to generate scatter density plots that correlate estimated vs ground truth tissue parameters. We include two scripts:
 
+- `explore_niftii_MC_informed.py`: results from MC-informed fitting for a desired protocol, SNR and forward model. You can use it like this:
+```
+cd XXX
+python explore_niftii_MC_informed.py PGSEin 50 9
+python explore_niftii_MC_informed.py TRSE 20 13
+python explore_niftii_MC_informed.py PGSEex 50 13
+
+```
+
+- `explore_niftii_ANALYTICAL.py`: results from fitting the analytical signal model protocol `PGSEin`. It requires as input the SNR for which results should be shown, i.e., 
+```
+cd XXX
+python explore_niftii_ANALYTICAL.py 50
+python explore_niftii_ANALYTICAL.py 20
+```
+
+With these scripts, you can generate the plots related to the _in silico_ parameter estimation experiments of our paper. For example, results from fitting foward model 1 on the `PGSEin` protocol with MC-informed fitting ... 
 
 <div align="center">
     <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/figs/PGSEin_SNR_50_config_9_all_params.jpg" alt="mcinformed" width="auto" height="auto">
 </div>
 
-- `explore_niftii_ANALYTICAL.py`: Similar to the one above but only takes SNR as an argument. Generates the plot of the analytical fitting compared to the ground truth
+... or with a two-comparment analytical signal model: 
 
 <div align="center">
     <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/figs/PGSEin_old_way_cylinders_SNR_50_config_9_all_params_ANALYTICAL.jpg" alt="mcinformed" width="auto" height="auto">
 </div>
+
