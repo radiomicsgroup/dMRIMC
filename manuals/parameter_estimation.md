@@ -17,7 +17,7 @@ We have partitioned them according to a leave-one-out procedure: we use 17 out o
 Fitting accounts for Rician bias, and a noise estimate is obtained with `dwidenoise` from [MRtrix3](https://mrtrix.readthedocs.io/en/latest/reference/commands/dwidenoise.html). Fitted parameters are also stored in NIFTI format in `leave_one_out/niftiis` (MC-informed fitting signals) and `leave_one_out/analytical` (fitting of a standard analytical signal model analytical expression). 
 
 Here we consider three different acquisition protocols, which are the same we used in our preprint. These are: 
-* `PGSEin`: a pulsed-gradient spin echo (PGSE) protocol, which in the paper we used for _in vivo_ imaging (salient characteristics: XXX);
+* `PGSEin`: a pulsed-gradient spin echo (PGSE) protocol, which in the paper we used for _in vivo_ imaging (salient characteristics: 3 b = 0 and 18 DW measurements: b = {50, 100, 400, 900, 1200, 1500, 50, 100, 400, 900, 1200, 1500, 50, 100, 400, 900, 1200, 1500} s/mm2 , δ = {3.9, 5.2, 9.2, 15.0, 18.2, 21.0, 3.9, 5.2, 9.2, 13.0, 15.8, 18.5, 3.9, 5.2, 9.2, 13.0, 15.8, 18.5} ms, Δ = {27.8, 29.0, 33.0, 28.7, 31.8, 34.7, 7.8, 29.0, 33.0, 37.0, 39.6, 42.3, 7.8, 29.0, 33.0, 37.0, 39.6, 42.3} ms
 * `PGSEex`: a second PGSE protocol, which in the paper we used for _ex vivo_ imaging (salient characteristics: XXX);
 * `TRSE`: a diffusion-weighted (DW) twice-refocussed spin echo (TRSe) protocol, which  in the paper we also used for _in vivo_ imaging (salient characteristics: XXX).
 
@@ -74,7 +74,7 @@ We also provide you with scripts to generate scatter density plots that correlat
 
 - `explore_niftii_MC_informed.py`: results from MC-informed fitting for a desired protocol, SNR and forward model. You can use it like this:
 ```
-cd XXX
+cd parameter_estimation
 python explore_niftii_MC_informed.py PGSEin 50 9
 python explore_niftii_MC_informed.py TRSE 20 13
 python explore_niftii_MC_informed.py PGSEex 50 13
@@ -83,7 +83,7 @@ python explore_niftii_MC_informed.py PGSEex 50 13
 
 - `explore_niftii_ANALYTICAL.py`: results from fitting the analytical signal model protocol `PGSEin`. It requires as input the SNR for which results should be shown, i.e., 
 ```
-cd XXX
+cd parameter_estimation
 python explore_niftii_ANALYTICAL.py 50
 python explore_niftii_ANALYTICAL.py 20
 ```
