@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg1"
+   width="35.670704"
+   height="25.668932"
+   viewBox="0 0 35.670704 25.668932"
+   sodipodi:docname="cells_crop.svg"
+   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showguides="true"
+     inkscape:zoom="1"
+     inkscape:cx="246"
+     inkscape:cy="97"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g1">
+    <sodipodi:guide
+       position="-338.53719,718.75951"
+       orientation="1,0"
+       id="guide1"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="197.49984,836.45037"
+       orientation="0,-1"
+       id="guide2"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="85.376378,490.04571"
+       orientation="0,-1"
+       id="guide3"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="219.37638,915.04571"
+       orientation="1,0"
+       id="guide4"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Image"
+     id="g1"
+     transform="translate(-666.62363,-490.04571)">
+    <path
+       style="fill:#008000;stroke-width:3.09;stroke-linejoin:round"
+       d="m 677.46872,490.04571 c 2.22455,0 15.2936,1.44426 18.76457,3.7534 3.47097,2.30915 5.52496,2.81358 5.72452,6.75273 0.19957,3.93915 0.83969,7.7623 -0.44436,10.04693 -1.28404,2.28463 -5.61024,4.82648 -9.56872,5.03641 -3.95849,0.20992 -10.43812,0.0749 -15.5277,-1.28232 -5.08958,-1.35725 -6.60288,-1.0068 -7.88175,-3.74822 -1.27887,-2.74142 -2.98414,-2.70413 -1.01578,-6.65295 1.96837,-3.94882 2.45451,-4.81233 4.04101,-7.41392 1.5865,-2.60159 5.90821,-6.49206 5.90821,-6.49206 z"
+       id="path100" />
+  </g>
+</svg>
