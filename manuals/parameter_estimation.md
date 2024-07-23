@@ -30,4 +30,13 @@ To reproduce Fig 5 from our paper i.e contour plots comparing the MC-informed pa
 
 
 ## Code
-### 
+### Fitting
+ - `dri2mc_maxlikcyl.py`: Script for fitting the analytical model. Requires a noise map of the signal array, an array containing all signals corrupted with Rician noise and a text file with the bvalues of the protocol. All files but the bvalue specifications must be in niftii format. 
+   
+ - `mri2micro_dictml.py`: Script for the fitting using the MC-generated signals (an updated version can be found at [bodymritools](https://github.com/fragrussu/bodymritools)). Requires a noise map of the signal array, a signal array corrupted with Rician noise generated from a substrate and two numpy arrays, one with the signals that will be used for training and one containing the correspoding parameters of the substrate.
+   
+ - `run_all.py`: Convenience script that runs the MC-informed fitting for all cases (all protocols and all configurations/forward models)
+
+### Plotting
+- `explore_niftii_LeaveOneOut.py`
+- `explore_niftii_LeaveOneOut_ANALYTICAL.py`
