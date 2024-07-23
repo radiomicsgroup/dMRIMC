@@ -23,10 +23,10 @@ The parameters in forward model 1 were chosen so that we could compare the perfo
 2. Fitting using the MC-generated signals with the PGSEin protocol. The `run_all.py` script will run the fitting routine for all protocols and configurations.
     - `python run_all.py`
 
-To reproduce Fig 5 from our paper i.e contour plots comparing the MC-informed parameter estimation with the analyical expression for a hindered-restricted diffusion model use `explore_niftii_LeaveOneOut.py` and `explore_niftii_LeaveOneOut_ANALYTICAL.py` after the fittings.
+To reproduce Fig 5 from our paper i.e contour plots comparing the MC-informed parameter estimation with the analyical expression for a hindered-restricted diffusion model use `explore_niftii_MC_informed.py` and `explore_niftii_ANALYTICAL.py` after the fittings.
 
-1. `python explore_niftii_LeaveOneOut.py PGSEin 50 9`: This will create Fig 5a (MC-informed fitting)
-2. `python explore_niftii_LeaveOneOut_ANALYTICAL.py 50`: This will create Fig 5b (analytical fitting)
+1. `python explore_niftii_MC_informed.py PGSEin 50 9`: This will create Fig 5a (MC-informed fitting)
+2. `python explore_niftii_ANALYTICAL.py 50`: This will create Fig 5b (analytical fitting)
 
 
 ## Code
@@ -38,13 +38,13 @@ To reproduce Fig 5 from our paper i.e contour plots comparing the MC-informed pa
  - `run_all.py`: Convenience script that runs the MC-informed fitting for all cases (all protocols and all configurations/forward models)
 
 ### Plotting
-- `explore_niftii_LeaveOneOut.py`: This script will generate figures based on the selected protocol, SNR and configuration. The figures are contour density plots that show the quality of the fitting compared to the ground truth.
+- `explore_niftii_MC_informed.py`: This script will generate figures based on the selected protocol, SNR and configuration. The figures are contour density plots that show the quality of the fitting compared to the ground truth.
 
 <div align="center">
     <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/figs/PGSEin_SNR_50_config_9_all_params.jpg" alt="mcinformed" width="auto" height="auto">
 </div>
 
-- `explore_niftii_LeaveOneOut_ANALYTICAL.py`: Similar to the one above but only takes SNR as an argument. Generates the plot of the analytical fitting compared to the ground truth
+- `explore_niftii_ANALYTICAL.py`: Similar to the one above but only takes SNR as an argument. Generates the plot of the analytical fitting compared to the ground truth
 
 <div align="center">
     <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/figs/PGSEin_old_way_cylinders_SNR_50_config_9_all_params_ANALYTICAL.jpg" alt="mcinformed" width="auto" height="auto">
