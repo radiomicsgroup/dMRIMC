@@ -87,7 +87,7 @@ Aggregate all extracellular and intracellular signals
 
 `python aggregate_all_intra.py CUSTOM_PGSE CUSTOM_PGSE`
 
-Now the in `SIGNAL_SYNTHESIS/aggregated_signals` we have two folders containing the intra- and extracellular components of the signal for each diffusivity value. Combining them with appropriate area/volume-weighting gives us the total measured signal of the simulated voxel.
+Now in `SIGNAL_SYNTHESIS/aggregated_signals` we have two folders containing the intra- and extracellular components of the signal for each diffusivity value. Combining them with appropriate area/volume-weighting gives us the total measured signal of the simulated voxel.
 
 ## Code
 ### Simulations
