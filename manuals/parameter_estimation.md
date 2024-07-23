@@ -1,4 +1,4 @@
-## Simulation-informed microstructure parameter estimation
+# Simulation-informed microstructure parameter estimation
 Signals generated from histology-derived substrates can be used to inform microstructural parameter estimation, by developing numerical signal model that output diffusion MRI (dMRI) signals given tissue parameters, for any dMRI protocol of interest. These numerical signal models can be embedded into standard maximum likelihood fitting, improving the performances compared to fitting standard analytical signal expressions. This is due to the fact that the latter often reliy on naive modelling idealisations of the biology of the tissues being imaged (e.g., regular cylinders/spheres for cells). 
 
 This tutorial provides an example of simulation-informed parameter estimation on signals generated from the histologically realistic cancer substrates included in our [preprint](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v1). In doing so, we reproduce some of the figures reporing on the _in silico_ experiments of our paper.
