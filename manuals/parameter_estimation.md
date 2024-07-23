@@ -59,17 +59,17 @@ To reproduce Fig 5 from our paper i.e contour plots comparing the MC-informed pa
 ### Fitting
 We provide you with the code to perform model fitting on the simulated signals. 
 
-The script `run_all.py`: this script performs the MC-informed fitting for all cases (all protocols, i.e., `PGSEin`, `PGSEex` and `TRSE`; and both forward models 1 and 2). This script relies on the `mri2micro_dictml.py` routine (note that this is a slightly older version compared to [mri2micro_dictml.py](https://github.com/fragrussu/bodymritools/blob/main/mrifittools/mri2micro_dictml.py), released in the [bodymritools](https://github.com/fragrussu/bodymritools) python repository). To run it, simply navigate to XXXX and run the script:
+The script `run_all.py`: this script performs the MC-informed fitting for all cases (all protocols, i.e., `PGSEin`, `PGSEex` and `TRSE`; and both forward models 1 and 2). This script relies on the `mri2micro_dictml.py` routine (note that this is a slightly older version compared to [mri2micro_dictml.py](https://github.com/fragrussu/bodymritools/blob/main/mrifittools/mri2micro_dictml.py), released in the [bodymritools](https://github.com/fragrussu/bodymritools) python repository). To run it, simply navigate to `parameter_estimation/leave_one_out/` and run the script:
 
 ```
-cd XXX
+cd parameter_estimation/leave_one_out/
 python run_all.py
 ```
 
 Conversely, you can use the `dri2mc_maxlikcyl.py` script for fitting forward model 1 on the PGSE protocols. The script requires the noisy signals to fit in NIFTI format, a text file with the diffusion protocol and an optional noise map, also in NIFTI format. For example, you can fit this analytical model on signals generated according to the `PGSEin` protocol like this:
 
 ```
-cd XXX
+cd parameter_estimation/leave_one_out/
 python dri2mc_maxlikcyl.py --noise analytical/noise_maps/PGSEin_noise_analytical_SNR50_all_signals.nii --modstr DinDex --pmin 8.0,0.8,0.0,0.5 --pmax 20.0,3.0,0.9,3.0 --sldim 0 --nw 12 --ncpu 10 analytical/niftiis/PGSEin_all_signals_config_9_SNR_50.nii PGSEin_for_maxlik.bval res_maxlik/old_way_cylinders/config_9/SNR_50
 ```
 
