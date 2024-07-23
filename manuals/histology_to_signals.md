@@ -28,7 +28,10 @@ Finally, we need the areas of the cells and the entire substrate to weigh their 
 To create the `ply` files we use the scripts in the `geometry_scripts` folder. Before we run any scripts first we must establish the correct scaling factor for each substrate. When opening the files in Blender they will be slightly different from Inkscape so we need to apply a correction. To do that measure the same object in both Blender and Inkscape and using the scale bar from the histology image in Inkscape determine the correction factor to multiply the geometry with. With that in hand, open Blender and navigate to the scripting tab. There are two pairs of files, one for batch processing and one for single file processing (i.e for the entire substrate, the extracellular part). Both pairs need to be located in the same directory as the folder containing the substrate images and exported `svgs`. Inside each file the name of the folder containing the substrate needs to be specified, as well as the scale factor. First run the `svg_to_stl.py` scripts and then the `stl_to_ply.py` scripts. If all went well, we should have all we need for the simulations!
 
 ## Run simulations with MCDC
-![walkers](https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/mc_walkers.gif)
+<p align="center">
+  <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/mc_walkers.gif" width="60%" />
+</p>
+
 
 For each substrate you need 2 folders, one for extracellular simulations and one for the intracellular. To run simulations first create a folder with 2 subfolders: e.g  for `substrate_name_CELLS` create `substrate_name_CELLS/random_walks` and `substrate_name_CELLS/conf_files`.  The first one will house the trajectories of the spins and the latter the simulation configuration files. For more information on MCDC check the repository (link). For the cells (and any other intracellular geometry) run `create_config_files_MISC.py` (see example). For the extracellular run `create_config_files_ALL_STRUCTURES.py`. Inside both scripts you can specify the parameters needed by MCDC (diffusivities, simulation duration etc).
 
