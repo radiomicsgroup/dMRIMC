@@ -30,6 +30,11 @@ Here we consider three different acquisition protocols, which are the same we us
 1600} s/mm2 , repeated for 3 different diffusion times. The duration/separation of the gradient lobes for the 3 diffusion times were: δ1 = {8.9, 13.2, 18.9} ms, δ2 = {17.6, 19.3, 21.0} ms, δ3 = {20.4, 24.8, 30.5} ms, δ4 = {6.0, 7.7, 9.5} ms, Δ1,2 = {17.4, 21.7, 27.5} ms, Δ1,4 = {63.9, 74.2, 87.5} ms)
 
 
+<p align="center">
+  <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/screenshot_gradient.png" width="80%" />
+</p>
+
+
 ## Fitting configurations
 We fit two different simulation-informed signal models. Due to practical code implementation, we refer to these as two different _fitting configurations_. These correpsond to forward models 1 and forward 2 in our paper, namely:
 
