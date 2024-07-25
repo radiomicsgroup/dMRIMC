@@ -3,7 +3,6 @@ Signals generated from histology-derived substrates can be used to inform micros
 
 This tutorial provides an example of simulation-informed parameter estimation on signals generated from the histologically realistic cancer substrates included in our [preprint](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v1). In doing so, we reproduce some of the figures reporing on the _in silico_ experiments of our paper.
 
-**Under development! Everything will be here in the coming days -- apologies for the inconvenience!**
 
 ## Data
 We provide you already with the synthetic signals and corresponding tissue parameters generated from our 18 histology-derived substrates. These have been stored in NIFTI format, following the same steps described in the previous tutorial [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md). For each substrate, we use 10 unique values for both intra-cellular and extra-cellular intrisnic diffusivities $D_{0|in}$ and $D_{0|ex}$, for a total of 1800 signals. The substrates are shown here:
