@@ -24,11 +24,13 @@ Here we consider three different acquisition protocols, which are the same we us
 
 (salient characteristics: 2 b = 0 and 6 DW measurements: b = {0, 500, 2000, 4500} s/mm2 acquired for each of Δ = {16.5, 37.0} ms, with δ = 12 ms)
 
-* `TRSE`: a diffusion-weighted (DW) twice-refocussed spin echo (TRSe) protocol, which  in the paper we also used for _in vivo_ imaging 
+* `TRSE`: a diffusion-weighted (DW) twice-refocussed spin echo (TRSe) protocol, which  in the paper we also used for _in vivo_ imaging
 
 (salient characteristics: 3 b = 0 and 18 DW measurements: b = {0, 50, 100, 400, 900, 1200,
 1600} s/mm2 , repeated for 3 different diffusion times. The duration/separation of the gradient lobes for the 3 diffusion times were: δ1 = {8.9, 13.2, 18.9} ms, δ2 = {17.6, 19.3, 21.0} ms, δ3 = {20.4, 24.8, 30.5} ms, δ4 = {6.0, 7.7, 9.5} ms, Δ1,2 = {17.4, 21.7, 27.5} ms, Δ1,4 = {63.9, 74.2, 87.5} ms)
 
+
+This figure illustrates a PGSE (top) and TRSE (bottom) sequence:
 
 <p align="center">
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/screenshot_gradient.png" width="80%" />
