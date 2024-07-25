@@ -62,6 +62,11 @@ Run some sanity checks (optional)
 `python manual_testing.py mouse_example_EXTRA extra`
 
 ## Signal synthesis
+
+<div align="center">
+    <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/d15.jpg" alt="signals" width="auto" height="auto">
+</div>
+
 The scripts included can synthesize any PGSE signal provided the parameters. Create a folder `sequence parameters` and in there a subfolder for any PGSE protocol you want to simulate. The subfolder has to contain four text files: 
 - `custom.bval` - bvalues ($s/mm^2$)
 - `custom.gdur1` - gradient duration 1 ($ms$)
@@ -117,3 +122,14 @@ Now in `SIGNAL_SYNTHESIS/aggregated_signals` we have two folders containing the 
 - `stl_to_ply_SIGNLE_FILE.py`: Same as above but for a single file, used for the big extracellular space
 - `make_cell_vol_array.py`: Goes through the cell `ply` files and creates a dictionary with their areas to be used for signal weighting during aggregation (see above)
 - `make_extra_vol_array.py`: Same as above but for the extracellular space
+
+
+## Dependencies
+The code was developed with the following package versions:
+- **python** (3.9.17)
+- **numpy** (1.25.2)
+- **scipy** (1.10.1)
+- **pyntcloud** (0.3.1)
+- **tqdm** (4.65.0)
+- **Blender** `3.6.12`
+- **QuPath** `0.5`

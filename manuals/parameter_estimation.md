@@ -109,3 +109,12 @@ With these scripts, you can generate the plots related to the _in silico_ parame
     <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/figs/PGSEin_old_way_cylinders_SNR_50_config_9_all_params_ANALYTICAL.jpg" alt="mcinformed" width="auto" height="auto">
 </div>
 
+
+
+## Dependencies
+The code was developed with the following package versions:
+- **python** (3.10.13)
+- **numpy** (1.26)
+- **scipy** (1.11.3)
+- **seaborn** (0.12)
+- **nibabel** (5.1.0)

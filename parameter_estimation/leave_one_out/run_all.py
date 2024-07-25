@@ -1,6 +1,5 @@
 import os
 import subprocess
-from tqdm import tqdm
 
 
 substrates = ['substrate_1',
