@@ -64,7 +64,7 @@ Run some sanity checks (optional)
 ## Signal synthesis
 
 <div align="center">
-    <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/d15.jpg" alt="signals" width="auto" height="auto">
+    <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/d15.jpg" alt="signals" width="auto" height="auto">
 </div>
 
 The scripts included can synthesize any PGSE signal provided the parameters. Create a folder `sequence parameters` and in there a subfolder for any PGSE protocol you want to simulate. The subfolder has to contain four text files: 

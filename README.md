@@ -28,15 +28,3 @@ Here are detailed instructions on:
 
 ## License
 This repository is distributed under the **Attribution-NonCommercial-ShareAlike 4.0 International license** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)). Copyright (c) 2024, Fundació Privada Institut d’Investigació Oncològica de Vall d’Hebron (Vall d'Hebron Institute of Oncology (VHIO), Barcelona, Spain). All rights reserved. Link to license [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/license.txt). 
-
-
-## Dependencies
-The code was developed with the following package versions:
-- **python** (3.9.17)
-- **numpy** (1.25.2)
-- **scipy** (1.10.1)
-- **pyntcloud** (0.3.1)
-- **opencv** (4.7.0)
-
-Blender version `3.6.12` was used for the geometric operations
-
