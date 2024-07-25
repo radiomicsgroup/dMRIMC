@@ -129,3 +129,4 @@ The code was developed with the following package versions:
 - **scipy** (1.11.3)
 - **seaborn** (0.12)
 - **nibabel** (5.1.0)
+- **mrtrix3** (3.0.4)
