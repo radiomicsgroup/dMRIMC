@@ -23,8 +23,11 @@ This code accompanies our [preprint](https://www.medrxiv.org/content/10.1101/202
 
 Here are detailed instructions on:
 
-- [Generating signals from histology](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md)
-- [Using synthetic signals to inform microstructural parameter estimation](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/parameter_estimation.md)
+- generating signals from 2D histology ([tutorial here](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md));
+- using the synthetic signals to inform microstructural parameter estimation ([tutorial here](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/parameter_estimation.md)).
+
+Third-party dependencies are reported in each tutorial.  
+
 
 ## License
 This repository is distributed under the **Attribution-NonCommercial-ShareAlike 4.0 International license** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)). Copyright (c) 2024, Fundació Privada Institut d’Investigació Oncològica de Vall d’Hebron (Vall d'Hebron Institute of Oncology (VHIO), Barcelona, Spain). All rights reserved. Link to license [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/license.txt). 
