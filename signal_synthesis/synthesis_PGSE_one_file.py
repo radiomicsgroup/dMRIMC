@@ -10,9 +10,8 @@ Ntime = 3000
 Tdur = 0.140
 snr = 20
 
-substrate = "p47_tumour_with_lumen"
+substrate = "mouse_example"
 substrate_type = "cells"
-# substrate_type = "EXTRA"
 
 if substrate_type == "cells":
     Nspins = 1000
@@ -26,14 +25,14 @@ else:
 Nsteps = Ntime + 1  # number of simulation interations
 # Random walks directory
 if substrate_type == "cells":
-    trajdir = f"../SIMULATIONS/{substrate}_CELLS"
+    trajdir = f"../simulations/{substrate}_CELLS"
 elif substrate_type == "EXTRA":
-    trajdir = f"../SIMULATIONS/{substrate}_EXTRA"
+    trajdir = f"../simulations/{substrate}_EXTRA"
 # Get all trajectory files
-traj_files = sorted(gb.glob(f"{trajdir}/random_walks/*2.2667_0.traj"))
+traj_files = sorted(gb.glob(f"{trajdir}/random_walks/*.traj"))
 # Sequence parameters
-sequence = "ADCin_vs_CS_metrics"
-outstring = f"ADCin_vs_CS_metrics/{sequence}_{substrate}_{substrate_type}"
+sequence = "CUSTOM_PGSE"
+outstring = f"CUSTOM_PGSE/{sequence}_{substrate}_{substrate_type}"
 if not os.path.exists(outstring):
     os.makedirs(outstring)
 
