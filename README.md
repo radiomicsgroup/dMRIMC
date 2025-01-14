@@ -1,5 +1,5 @@
 
-## A Monte Carlo simulation framework for histology-informed diffusion MRI cancer characterisation and microstructural parameter estimation
+## Histology-informed microstructural diffusion simulations for MRI cancer characterisation — the Histo-μSim framework
 
 <div align="center">
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/diagram22.png" alt="qrcode" width="auto" height="auto">
@@ -13,13 +13,13 @@ This code was developed by Athanasios Grigoriou (<agrigoriou@vhio.net>) and Fran
 
 If you find dMRIMC useful, please cite our preprint:
 
-Athanasios Grigoriou, Carlos Macarro, Marco Palombo, Anna Voronova, Kinga Bernatowicz, Ignasi Barba, Alba Escriche, Emanuela Greco, María Abad, Sara Simonetti, Garazi Serna, Richard Mast, Xavier Merino, Núria Roson, Manuel Escobar, Maria Vieito, Paolo Nuciforo, Rodrigo Toledo, Elena Garralda, Roser Sala-Llonch, Els Fieremans, Dmitry S. Novikov, Raquel Perez-Lopez, and Francesco Grussu. **"A Monte Carlo simulation framework for histology-informed diffusion MRI cancer characterisation and microstructural parameter estimation"**. medRxiv 2024: 2024.07.15.24310280, doi: 10.1101/2024.07.15.24310280. Link to preprint [here](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v1).
+Athanasios Grigoriou, Carlos Macarro, Marco Palombo, Anna Voronova, Kinga Bernatowicz, Ignasi Barba, Alba Escriche, Emanuela Greco, María Abad, Sara Simonetti, Garazi Serna, Richard Mast, Xavier Merino, Núria Roson, Manuel Escobar, Maria Vieito, Paolo Nuciforo, Rodrigo Toledo, Elena Garralda, Roser Sala-Llonch, Els Fieremans, Dmitry S. Novikov, Raquel Perez-Lopez, and Francesco Grussu. **"A Monte Carlo simulation framework for histology-informed diffusion MRI cancer characterisation and microstructural parameter estimation"**. medRxiv 2024: 2024.07.15.24310280, doi: 10.1101/2024.07.15.24310280. Link to preprint [here](https://doi.org/10.1101/2024.07.15.24310280).
 
 **UNDER CONSTRUCTION -  Note that we are still polishing up the repository so parts are subject to change or could be missing**
 
 ## General description
 
-This code accompanies our [preprint](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v1), sharing the process of creating realistic cancer substrates, running Monte Carlo simulations in them and synthesizing the resulting MRI signal according to any user-specified PGSE protocol. Those signals can the be used to inform microstructural parameter estimation.
+This code accompanies our [preprint](https://doi.org/10.1101/2024.07.15.24310280), sharing the process of creating realistic cancer substrates, running Monte Carlo simulations in them and synthesizing the resulting MRI signal according to any user-specified PGSE protocol. Those signals can the be used to inform microstructural parameter estimation.
 
 Here are detailed instructions on:
 
