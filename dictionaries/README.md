@@ -1,10 +1,33 @@
 ## Dictionary files
 This folder contains the dictionary files that were used in our [preprint](https://doi.org/10.1101/2024.07.15.24310280).
 
-- `signal_dictionaries`: Contains .npy files with a shape of (1800, measurements) that hold the signals generated for all substrates and their permuations, for each protocol used in the paper (PGSEin, TRSE, PGSEex).
+- `signal_dictionaries`: Contains .npy files that hold the signals generated for all substrates, for each protocol used in the paper: PGSEin, TRSE, PGSEex. PGSEin and TRSE have a shape of (1800, 21) and PGSEex (1152, 8).
 - `parameter_dictionaries`: Contains .npy files with shapes of either (1800, 4) for forward model 1 or (1800, 6) for forward model 2. The parameters estimated are (in that order):
 	- `forward_model_1`: (fin, vCS_cyl, D0in, D0ex)
 	- `forward_model_2`: (fin, mCS, vCS, skewCS, D0in, D0ex)
+
+### Parameter
+- fin: Intracellular fraction
+	- Units: n/a
+	- Range: [0.023, 0.867]
+- vCS_cyl: Volume-weighted cell size for a cylindrical geometry system
+	- Units: μm
+	- Range: [8.2, 19.9]
+- mCS: Mean of the cell size distribution
+	- Units: μm
+	- Range: [6,1, 15.9]
+- varCS: Variance of the cell size distribution
+	- Units: μm2
+	- Range:[2.3, 19.7]
+- skewCS: Skewness of the cell size distribution
+	- Units: n/a
+	- Range:[-0.528, 0.861]
+- D0in
+	- Units: μm2/ms
+	- Range: [0.8, 3.0] (PGSEin, TRSE) | [0.8, 2.5] (PGSEex)
+- D0ex
+	- Units: μm2/ms
+	- Range: [0.8, 3.0] (PGSEin, TRSE) | [0.8, 2.5] (PGSEex)
 
 ## Protocol details
 - `PGSEin` - 21 measurements:
@@ -23,3 +46,6 @@ This folder contains the dictionary files that were used in our [preprint](https
 	- `bvalues (s/mm2)`: 7.94 4628.46 520.07 2063.00 7.58 4618.79 516.84 2056.56
 	- `δ (ms)`: 12.0 12.0 12.0 12.0 12.0 12.0 12.0 12.0
 	- `Δ (ms)`: 16.5 16.5 16.5 16.5 37.0 37.0 37.0 37.0
+
+--
+
