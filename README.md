@@ -13,7 +13,7 @@ This code was developed by Athanasios Grigoriou (<agrigoriou@vhio.net>) and Fran
 
 If you find dMRIMC useful, please cite our preprint:
 
-Athanasios Grigoriou, Carlos Macarro, Marco Palombo, Daniel Navarro-Garcia, Anna Voronova, Kinga Bernatowicz, Ignasi Barba, Alba Escriche, Emanuela Greco, María Abad, Sara Simonetti, Garazi Serna, Richard Mast, Xavier Merino, Núria Roson, Manuel Escobar, Maria Vieito, Paolo Nuciforo, Rodrigo Toledo, Elena Garralda, Roser Sala-Llonch, Els Fieremans, Dmitry S. Novikov, Raquel Perez-Lopez, Francesco Grussu. **"A Monte Carlo simulation framework for histology-informed diffusion MRI cancer characterisation and microstructural parameter estimation"**. medRxiv 2024: 2024.07.15.24310280, doi: 10.1101/2024.07.15.24310280. Link to preprint [here](https://doi.org/10.1101/2024.07.15.24310280).
+Athanasios Grigoriou, Carlos Macarro, Marco Palombo, Daniel Navarro-Garcia, Anna Voronova, Kinga Bernatowicz, Ignasi Barba, Alba Escriche, Emanuela Greco, María Abad, Sara Simonetti, Garazi Serna, Richard Mast, Xavier Merino, Núria Roson, Manuel Escobar, Maria Vieito, Paolo Nuciforo, Rodrigo Toledo, Elena Garralda, Roser Sala-Llonch, Els Fieremans, Dmitry S. Novikov, Raquel Perez-Lopez, Francesco Grussu. **"Histology-informed microstructural diffusion simulations for MRI cancer characterisation — the Histo-μSim framework"**. medRxiv 2024: 2024.07.15.24310280, doi: 10.1101/2024.07.15.24310280. Link to preprint [here](https://doi.org/10.1101/2024.07.15.24310280).
 
 **UNDER CONSTRUCTION -  Note that we are still polishing up the repository so parts are subject to change or could be missing**
 
