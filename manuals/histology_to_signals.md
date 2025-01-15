@@ -1,4 +1,4 @@
-## From histological image to MRI signal
+## From histological images to diffusion MRI signals
 The process can be broken down in the following stages:
 
 - Select region of interest (ROI) from histology (e.g using [QuPath](https://qupath.github.io/)) and take a high resolution screenshot making sure the scale bar is in view.
