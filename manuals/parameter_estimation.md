@@ -33,7 +33,7 @@ Here we consider three different acquisition protocols, which are the same we us
 This figure illustrates a PGSE (top) and TRSE (bottom) sequence:
 
 <p align="center">
-  <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/gradient.pdf" width="80%" />
+  <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/gradient.jpg" width="80%" />
 </p>
 
 
