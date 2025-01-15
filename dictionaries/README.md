@@ -30,11 +30,11 @@ This folder contains the dictionary files that were used in our [preprint](https
 	- `Range: [0.8, 3.0] (PGSEin, TRSE) | [0.8, 2.5] (PGSEex)`
 
 ## Protocol details
-- `PGSEin` - 21 measurements:
+- `PGSEin` - 21 measurements based on a standard pulsed-gradient spin echo (PGSE) acquisition:
 	- `bvalues (s/mm2)`: 0 50 100 400 900 1200 1500 0 50 100 400 900 1200 1500 0 50 100 400 900 1200 1500
 	- `δ (ms)`: 0.000 3.900 5.200 9.200 15.000 18.200 21.000 0.000 3.900 5.200 9.200 13.000 15.800 18.500 0.000 3.900 5.200 9.200 12.900 15.800 18.400
 	- `Δ (ms)`: 0.000 27.800 29.000 33.000 28.700 31.800 34.700 0.000 27.800 29.000 33.000 37.000 39.600 42.300 0.000 27.800 29.000 33.000 36.700 39.600 42.300
-- `TRSE` - 21 measurements:
+- `TRSE` - 21 measurements based on a diffusion-weighted twice-refocussed spin echo (DW-TRSE) acquisition:
 	- `bvalues (s/mm2)`: 0 50 100 400 900 1200 1600 0 50 100 400 900 1200 1600 0 50 100 400 900 1200 1600
 	- `δ1 (ms)`: 0 8.9 8.9 8.9 8.9 8.9 8.9 0.0 13.2 13.2 13.2 13.2 13.2 13.2 0.0 18.9 18.9 18.9 18.9 18.9 18.9
 	- `δ2 (ms)`: 0.0 17.6 17.6 17.6 17.6 17.6 17.6 0.0 19.3 19.3 19.3 19.3 19.3 19.3 0.0 21.0 21.0 21.0 21.0 21.0 21.0
@@ -42,10 +42,18 @@ This folder contains the dictionary files that were used in our [preprint](https
 	- `δ4 (ms)`: 0.0 6.0 6.0 6.0 6.0 6.0 6.0 0.0 7.7 7.7 7.7 7.7 7.7 7.7 0.0 9.5 9.5 9.5 9.5 9.5 9.5
 	- `Δ12 (ms)`: 16.5 16.5 16.5 16.5 37.0 37.0 37.0 37.0
 	- `Δ14 (ms)`: 16.5 16.5 16.5 16.5 37.0 37.0 37.0 37.0
-- `PGSEex` - 8 measurements:
+- `PGSEex` - 8 measurements based on a standard PGSE acquisition:
 	- `bvalues (s/mm2)`: 7.94 4628.46 520.07 2063.00 7.58 4618.79 516.84 2056.56
 	- `δ (ms)`: 12.0 12.0 12.0 12.0 12.0 12.0 12.0 12.0
 	- `Δ (ms)`: 16.5 16.5 16.5 16.5 37.0 37.0 37.0 37.0
+
+
+The PGSE and DW-TRSE sequence are illustrated below:
+
+<p align="center">
+  <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/gradient_img.jpg" width="80%" />
+</p>
+
 
 ---
 
