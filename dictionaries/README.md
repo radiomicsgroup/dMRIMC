@@ -48,7 +48,7 @@ This folder contains the dictionary files that were used in our [preprint](https
 	- `Δ (ms)`: 16.5 16.5 16.5 16.5 37.0 37.0 37.0 37.0
 
 
-The PGSE and DW-TRSE sequence are illustrated below:
+The PGSE and DW-TRSE sequence are illustrated below (PGSE: top, DW-TRSE: bottom):
 
 <p align="center">
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/gradient_img.jpg" width="80%" />
