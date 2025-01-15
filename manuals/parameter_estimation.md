@@ -40,9 +40,9 @@ This figure illustrates a PGSE (top) and TRSE (bottom) sequence:
 ## Fitting configurations
 We fit two different simulation-informed signal models. Due to practical code implementation, we refer to these as two different _fitting configurations_. These correpsond to forward models 1 and forward 2 in our paper, namely:
 
-- in forward model 1 (fitting configuration number 9 in our code) we estimate `f<sub>in</sub>, vCS, D<sub>0|in</sub>, D<sub>0|ex</sub>`;
+- in forward model 1 (fitting configuration number 9 in our code) we estimate `fin, vCS, D0in, D0ex`;
 
-- in forward model 2 (fitting configuration number 13 in our code) we estimate `f<sub>in</sub>, mCS, varCS, skewCS, D<sub>0|in</sub>, D<sub>0|ex</sub>`.
+- in forward model 2 (fitting configuration number 13 in our code) we estimate `fin, mCS, varCS, skewCS, D0in, D0ex`.
 
 Above, the parameters have the following meaning:
 * f<sub>in</sub>: intra-cellular signal fraction

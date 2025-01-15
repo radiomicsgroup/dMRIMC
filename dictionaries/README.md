@@ -7,10 +7,10 @@ This folder contains the dictionary files that were used in our [preprint](https
 	- `forward_model_2`: (f<sub>in</sub>, mCS, vCS, skewCS, D<sub>0|in</sub>, D<sub>0|ex</sub>)
 
 ### Parameter
-- `f<sub>in</sub>`: Intracellular fraction
+- `fin`: Intracellular fraction
 	- `Units: n/a`
 	- `Range: [0.023, 0.867]`
-- `vCS_cyl`: Volume-weighted cell size for a cylindrical geometry system
+- `vCScyl`: Volume-weighted cell size for a cylindrical geometry system
 	- `Units: μm`
 	- `Range: [8.2, 19.9]`
 - `mCS`: Mean of the cell size distribution
@@ -47,5 +47,7 @@ This folder contains the dictionary files that were used in our [preprint](https
 	- `δ (ms)`: 12.0 12.0 12.0 12.0 12.0 12.0 12.0 12.0
 	- `Δ (ms)`: 16.5 16.5 16.5 16.5 37.0 37.0 37.0 37.0
 
---
+---
+
+These files form the basis of our parameter estimation pipeline, an example of which you can read [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/parameter_estimation.md)
 
