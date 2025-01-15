@@ -5,7 +5,7 @@ This tutorial provides an example of simulation-informed parameter estimation on
 
 
 ## Data
-We provide you already with the synthetic signals and corresponding tissue parameters generated from our 18 histology-derived substrates. These have been stored in NIFTI format, following the same steps described in the previous tutorial [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md). For each substrate, we use 10 unique values for both intra-cellular and extra-cellular intrisnic diffusivities $D_{0|in}$ and $D_{0|ex}$, for a total of 1800 signals. The substrates are shown here:
+We provide you already with the synthetic signals and corresponding tissue parameters generated from our 18 histology-derived substrates. These have been stored in NIFTI format, following the same steps described in the previous tutorial [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md). For each substrate, we use 10 unique values for both intra-cellular and extra-cellular intrisnic diffusivities D<sub>0|in</sub> and D<sub>0|ex</sub>, for a total of 1800 signals. The substrates are shown here:
 
 <p align="center">
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/all_subs_with_metrics.jpg" width="80%" />
@@ -40,18 +40,18 @@ This figure illustrates a PGSE (top) and TRSE (bottom) sequence:
 ## Fitting configurations
 We fit two different simulation-informed signal models. Due to practical code implementation, we refer to these as two different _fitting configurations_. These correpsond to forward models 1 and forward 2 in our paper, namely:
 
-- in forward model 1 (fitting configuration number 9 in our code) we estimate $`f_{in},`$ vCS, $`D_{0|in}, D_{0|ex}`$;
+- in forward model 1 (fitting configuration number 9 in our code) we estimate `f<sub>in</sub>, vCS, D<sub>0|in</sub>, D<sub>0|ex</sub>`;
 
-- in forward model 2 (fitting configuration number 13 in our code) we estimate $`f_{in},`$ mCS, varCS, skewCS, $`D_{0|in}, D_{0|ex}`$.
+- in forward model 2 (fitting configuration number 13 in our code) we estimate `f<sub>in</sub>, mCS, varCS, skewCS, D<sub>0|in</sub>, D<sub>0|ex</sub>`.
 
 Above, the parameters have the following meaning:
-* $f_{in}$: intra-cellular signal fraction
-* $vCS$: characteristic volume-weighted cell diameter
-* $mCS$: mean cell diameter
-* $varCS$: cell diameter variance
-* $skewCS$: cell diameter skewness
-* $D_{0|in}$: intrinsic intra-cellular diffusivity
-* $D_{0|ex}$: intrinsic extra-cellular diffusivity.
+* f<sub>in</sub>: intra-cellular signal fraction
+* vCS: characteristic volume-weighted cell diameter
+* mCS: mean cell diameter
+* varCS: cell diameter variance
+* skewCS: cell diameter skewness
+* D<sub>0|in</sub>: intrinsic intra-cellular diffusivity
+* D<sub>0|ex</sub>: intrinsic extra-cellular diffusivity.
 
 The parameters in forward model 1 were chosen so that we could compare the performance of simulation-informed fitting vs a well-established two-compartment model, accounting for restricted diffusion within cylinders and hindered extra-cellular Gaussian diffusion. Remember that our substrates where obtained on 2D histology, and thus feature cylndrical symmetry (that is why we used cylinders, instead of spheres). Note that the analytical model can only be fitted on PGSE data, and not on TRSE.
 
@@ -82,10 +82,10 @@ python dri2mc_maxlikcyl.py --noise analytical/noise_maps/PGSEin_noise_analytical
 ```
 
 Fitting provides estimates of:
-* $f_{in}$: intra-cellular signal fraction
-* $vCS$: characteristic volume-weighted cell diameter
-* $D_{0|in}$: intrinsic intra-cellular diffusivity
-* $ADC_{ex}$: extra-cellular apparent diffusion coefficient.
+* f<sub>in</sub>: intra-cellular signal fraction
+* vCS: characteristic volume-weighted cell diameter
+* D<sub>0|in</sub>: intrinsic intra-cellular diffusivity
+* ADC<sub>ex</sub>: extra-cellular apparent diffusion coefficient.
    
 
 

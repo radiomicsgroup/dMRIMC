@@ -3,11 +3,11 @@ This folder contains the dictionary files that were used in our [preprint](https
 
 - `signal_dictionaries`: Contains .npy files that hold the signals generated for all substrates, for each protocol used in the paper: PGSEin, TRSE, PGSEex. PGSEin and TRSE have a shape of (1800, 21) and PGSEex (1152, 8).
 - `parameter_dictionaries`: Contains .npy files with shapes of either (1800, 4) for forward model 1 or (1800, 6) for forward model 2. The parameters estimated are (in that order):
-	- `forward_model_1`: (fin, vCS_cyl, D<sub>0|in</sub>, D<sub>0|ex</sub>)
-	- `forward_model_2`: (fin, mCS, vCS, skewCS, D0in, D0ex)
+	- `forward_model_1`: (f<sub>in</sub>, vCS<sub>cyl</sub>, D<sub>0|in</sub>, D<sub>0|ex</sub>)
+	- `forward_model_2`: (f<sub>in</sub>, mCS, vCS, skewCS, D<sub>0|in</sub>, D<sub>0|ex</sub>)
 
 ### Parameter
-- `fin`: Intracellular fraction
+- `f<sub>in</sub>`: Intracellular fraction
 	- `Units: n/a`
 	- `Range: [0.023, 0.867]`
 - `vCS_cyl`: Volume-weighted cell size for a cylindrical geometry system
