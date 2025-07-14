@@ -6,6 +6,7 @@ import os
 from tqdm import tqdm
 
 
+
 def load_trajectories_2D(Nspins, Nsteps, Tdur, file):
     # Create array of time
     T = np.linspace(0, Tdur, Nsteps)  # in seconds
@@ -41,6 +42,116 @@ def load_trajectories_2D(Nspins, Nsteps, Tdur, file):
 
     return deltaX, deltaY, T
 
+def load_trajectories_3D(Nspins, Nsteps, Tdur, file):
+    # Create array of time
+    T = np.linspace(0, Tdur, Nsteps)  # in seconds
+    # Load trajectories
+    # The bin files of the trajectories need to be imported as float32
+    # or you get garbage
+    data = np.array(np.fromfile(file, dtype="float32"))
+    # The simulator returns the numbers in mm so we make them m
+    data = 0.001 * data
+    # Trajectories will be stored in a matrix with dims:
+    # Nspins x Nsteps
+
+    # x-component
+    x = data[0:np.copy(data).size:3]
+    X = np.zeros((Nspins, Nsteps))
+    deltaX = np.zeros((Nspins, Nsteps))
+    # For every time step, create a row containing all the positions of
+    # spin j
+    for j in range(Nsteps):
+        X[:, j] = x[j:x.size:Nsteps]
+    # Do the same for the Δx for every spin
+    for k in range(Nspins):
+        deltaX[k, :] = X[k, :] - X[k, 0]
+
+    # y-component
+    y = data[1:np.copy(data).size:3]
+    Y = np.zeros((Nspins, Nsteps))
+    deltaY = np.zeros((Nspins, Nsteps))
+    for tt in range(0, Nsteps):
+        Y[:, tt] = y[tt:y.size:Nsteps]
+    for nn in range(0, Nspins):
+        deltaY[nn, :] = Y[nn, :] - Y[nn, 0]
+
+    # z-component
+    z = data[2:np.copy(data).size:3]
+    Z = np.zeros((Nspins, Nsteps))
+    deltaZ = np.zeros((Nspins, Nsteps))
+    for tt in range(0, Nsteps):
+        Z[:, tt] = Z[tt:y.size:Nsteps]
+    for nn in range(0, Nspins):
+        deltaZ[nn, :] = Z[nn, :] - Z[nn, 0]
+
+    return deltaX, deltaY, deltaZ, T
+
+
+def PGSE_signal_from_GWF(SNR, Nspins, Nsteps, Tdur, filename, GWF_file):
+    Tdur = Tdur * 1e-3 # make them seconds
+    # Load files
+    Xpos, Ypos, Zpos, T = load_trajectories_3D(Nspins, Nsteps, Tdur, filename)
+    Nmolecules = Xpos.shape[0]      # Total number of water molecules
+    dT = T[1] - T[0]                # duration of time step in sec
+
+    # Import Gradient Wave Form
+    GWF_mat = scipy.io.loadmat(GWF_file)
+    # GWF: (rows, dimension/direction, shot/measurement)
+    GWF = GWF_mat['GWF']
+    # check is the temporal resolution is same as in the sims
+    assert(np.allclose(GWF_mat['dt'][0, 0], dT))
+
+    # Add one shadow time step to the GWF to account for
+    # the initial positions step
+    GWF = np.concatenate((np.zeros((1, GWF.shape[1], GWF.shape[2])), GWF), axis=0)
+
+    Nmeas = GWF.shape[2]            # Number of measurements
+    # Construct the MR signal
+    mri_sig = np.zeros(Nmeas)
+    gammar = 267.522187e6           # Gyromagnetic ratio in 1/(sec T)
+    Ggs = []
+    for mm in tqdm(range(Nmeas),desc="Processing measurements"):
+        # No bval file here, all the magic needs to happen with
+        # the gradient waveform file
+        Gtime_x = GWF[:,0,mm]
+        Gtime_y = GWF[:,1,mm]
+        Gtime_z = GWF[:,2,mm]
+
+        Ggs.append((Gtime_x, Gtime_y, Gtime_z))
+        
+        # Allocate variables to store phase accruals for 2 orthogonal gradients
+        phix = np.zeros(Nmolecules)
+        phiy = np.zeros(Nmolecules)
+        phiz = np.zeros(Nmolecules)
+      
+        
+        # Calculate phase accruals and magnetic moments for gradient directions along x, y, z
+        for nn in range(0, Nmolecules):
+            # phase acrual for nn-th spin when gradient direction is [1 0 0]
+            phix[nn] = -1.0 * gammar * dT * \
+                np.sum(Gtime_x * Xpos[nn, :])
+            # phase acrual for nn-th spin when gradient direction is [0 1 0]
+            phiy[nn] = -1.0 * gammar * dT * \
+                np.sum(Gtime_y * Ypos[nn, :])
+            # phase acrual for nn-th spin when gradient direction is [0 0 1]
+            phiz[nn] = -1.0 * gammar * dT * \
+                np.sum(Gtime_z * Zpos[nn, :])
+        # Get complex magnetic moments for all spins
+        mom_xyz = np.exp(-1j * (phix + phiy + phiz))
+
+        # Average over spin ensemble
+        # There are a few cases of NaN values in the deltaX/Y/Z in some
+        # substrates so we go for nanmean
+        s_xyz = np.nanmean(mom_xyz)
+
+        # Store synthetic magnitude MRI signal
+        mri_sig[mm] = np.abs(s_xyz)
+        
+    # Add noise
+    mri_sig_noisy = np.sqrt((mri_sig + (1.0 / SNR) * np.random.randn(mri_sig.size))
+                            ** 2 + ((1.0 / SNR) * np.random.randn(mri_sig.size))**2)
+
+    return [mri_sig, mri_sig_noisy, Ggs]
 
 def construct_signal_PGSE(inlist):
     """
