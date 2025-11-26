@@ -18,7 +18,7 @@ Athanasios Grigoriou, Carlos Macarro, Marco Palombo, Daniel Navarro-Garcia, Anna
 
 ## General description
 
-This code accompanies our [preprint](https://doi.org/10.1101/2024.07.15.24310280), and provides all the tools needed to implement our proposed _Histo-μSim_ diffusion Magnetic Resonance Imaging (dMRI) technique for cancer imaging. It shows i) how to create realistic substrates from histology that can be used to perform Monte Carlo diffusion simulations; ii) how to synthesise dMRI signals for any protocol of interest given the diffusion simulations; and iii) how to use the synthetic signals to inform the estimation of tissue parameter of interest in any new input dMRI scan.
+This code accompanies our [paper](https://doi.org/10.1038/s42003-025-09096-3), and provides all the tools needed to implement our proposed _Histo-μSim_ diffusion Magnetic Resonance Imaging (dMRI) technique for cancer imaging. It shows i) how to create realistic substrates from histology that can be used to perform Monte Carlo diffusion simulations; ii) how to synthesise dMRI signals for any protocol of interest given the diffusion simulations; and iii) how to use the synthetic signals to inform the estimation of tissue parameter of interest in any new input dMRI scan.
 
 Here are detailed instructions on:
 
