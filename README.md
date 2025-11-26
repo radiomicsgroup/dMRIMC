@@ -27,7 +27,7 @@ Here are detailed instructions on:
 
 Third-party dependencies are reported in each tutorial.  
 
-Moreover, [here](https://github.com/radiomicsgroup/dMRIMC/tree/main/dictionaries) we share the synthetic dMRI signals and corresponding tissue parameters for the acquisition protocols considered in our [preprint](https://doi.org/10.1101/2024.07.15.24310280).
+Moreover, [here](https://github.com/radiomicsgroup/dMRIMC/tree/main/dictionaries) we share the synthetic dMRI signals and corresponding tissue parameters for the acquisition protocols considered in our [paper](https://doi.org/10.1038/s42003-025-09096-3).
 
 ## License
 This repository is distributed under the **Attribution-NonCommercial-ShareAlike 4.0 International license** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)). Copyright (c) 2024, 2025, Fundació Privada Institut d’Investigació Oncològica de Vall d’Hebron (Vall d'Hebron Institute of Oncology (VHIO), Barcelona, Spain). All rights reserved. Link to license [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/license.txt). 
