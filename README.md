@@ -20,7 +20,7 @@ Athanasios Grigoriou, et al. **"Histology-informed microstructural diffusion sim
 
 This repository accompanies our [paper](https://doi.org/10.1038/s42003-025-09096-3), and provides all the tools needed to implement our proposed _Histo-μSim_ diffusion Magnetic Resonance Imaging (dMRI) technique for cancer imaging. It shows i) how to create realistic substrates from histology that can be used to perform Monte Carlo diffusion simulations; ii) how to synthesise dMRI signals for any protocol of interest given the diffusion simulations; and iii) how to use the synthetic signals to inform the estimation of tissue parameter of interest in any new input dMRI scan.
 
-**Please note that we are polishing the repository. What you can see now is the code related to the pre-print, which did NOT include water exchange (see Grigoriou et al, medrxiv 2024, [https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v2](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v2)**
+**Please note that we are polishing the repository. What you can see now is the code related to the pre-print, which did NOT include water exchange (see Grigoriou et al, medrxiv 2024, [https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v2](https://www.medrxiv.org/content/10.1101/2024.07.15.24310280v2)).**
 
 **The final _Histo-μSim_ repository is going to be out before Xmas 2025! Apologies for the delay!**
 
