@@ -19,7 +19,11 @@ This repository accompanies our [paper](https://doi.org/10.1038/s42003-025-09096
 - [In silico experiment replication](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/parameter_estimation.md): Replication of the _in silico_ experiments from our paper.
 
 # Using Histo-μSim
-Our hope is that Histo-μSim will be useful for more people in the future. However, tracing cells, processing substrates and running simulations is a both time- and resource-consuming process. Furthermore, different people will have different protocols with various bvalues and different diffusion times. To assist in the use of our tool we are also releasing some scripts along with a large signal/parameter dictionary pair, generated using a protocol with many bvalues and even more diffusion times (δ, Δ). The scripts allow you to extract a subset of the signal and parameter dictionaries, one that most closely matches the protocol your samples were scanned with, giving access to signals generated from the substrates we showcase without the need for any new simulations or signal synthesis. As this large protocol is a `PGSE`, only such protocols are supported.
+Our hope is that Histo-μSim will be useful for more people in the future. However, we are aware that tracing cells, processing substrates and running simulations is a time- and resource-consuming process, and that it may result complicated for clinical labs focussing on applied imaging. 
+
+To assist in the use of our tool, we have prepared a *rich dictionary of synthetic signals that you can download and deploy immediately to fit Histo-μSim on your diffusion MRI scans*. 
+
+This signal dictionary correspond to a very rich protocol with multiple bvalues and even more diffusion times (δ, Δ), where you will be able to find your own measurements with a precision of as few as 50 s/mm$^2$ for $b$, and just a few milliseconds for δ and Δ. The dictionary comes with a set of scripts that allow you to extract the subset of the synthetic signals that most closely matches the protocol that you have acquired. This will give access to the potential of Histo-μSim without the need for any new simulations or signal synthesis. Note that as this large protocol is based on pulsed-gradient spin echo (`PGSE`) imaging, only such protocols are supported.
 
 ## Reference protocol information
 The protocol that was used to generate the signals had the following characteristics:
