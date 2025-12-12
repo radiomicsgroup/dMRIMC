@@ -36,7 +36,7 @@ We have generated synthetic signals for a very rich protocol where you will be a
 making sure of course that Δ $\geq$ δ. This leads to a total of `4761` combinations with unique ($b$,δ,Δ). All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). Importantly, note that the minimum bvalue is `300` s/mm<sup>2</sup>: this choice allows us to minimise the contribution of the vascular signal _in vivo_, since our simulations do not account for capillary perfusion. Also, our code will exclude from the fitting diffusion measurements that you might have acquired for b-values that are higher/lower than the maximum/minimum b-value that we have simulated. 
 
 
-Note that **only pulsed-gradient spin echo (PGSE) protocols are supported** (the rich synthetic protocol is based on PGSE).
+Note that **only pulsed-gradient spin echo (PGSE) protocols are supported**. The synthetic signals stored in the [reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol) folder are in the format of NumPy matrices where rows represents different microstructures, while columns different measurements in the dMRI protocol.
 
 
 ## Signal and parameter arrays
@@ -58,7 +58,7 @@ Once the subset of synthetic measurements is found and your dMRI scan has been n
 * `vCS_sph`: volume-weighted CS (vCS) index for a system with spherical geometry in μm
 * `vCS_cyl`: volume-weighted CS (vCS) index for a system with cylindrical geometry in μm
 
-Again, for ease of use regarding permeability, the parameter arrays are included combined and separated by the permeability value at [using_Histo_uSim/reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays). By default the `select_parameter_configuration.py` script transforms the combined array.
+Tissue parameters corresponding to synthetic signals are stored in the folder  [using_Histo_uSim/reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) as NumPy matrices where rows represent different microstructure realisations, while columns are the tissue parameters corresponding to each microstructure realisation.  
 
 ## Example: Mice data 
 As a concrete example, we show how to use Histo-μSim on the mouse data we have released on Zenodo at [https://doi.org/10.5281/zenodo.14559355](https://doi.org/10.5281/zenodo.14559355), specifically the breast cancer samples in `scans/breast`. For more information on parameter estimation check [parameter_estimation.md](https://github.com/radiomicsgroup/dMRIMC/tree/main/manuals/parameter_estimation.md) where we replicate some of the figures of our paper.
@@ -105,15 +105,16 @@ zenodo_mouse_data/
 ```
 
 
-### 2. Get closest scheme, signal subset and process DWI scan file
+### 2. Get closest scheme and signal subset, then pre-process your dMRI scan file
 
-First we need to combine the signal and parameter arrays
+First we need to combine the signal and parameter arrays. This step is necessary because we uploaded our signal/parameter dictionaries through multiple files to comply with GitHub restrictions of file size, and is done simply by running 
 
 ```
 python combine_arrays.py
 ```
 
-then we get the closest scheme from the available bvalues and diffusion times. We will call our target protocol `MOUSE_BREAST_EXVIVO`.
+
+Afterwards, we need to extract the closest scheme from the available bvalues and diffusion times. We will call our target protocol `MOUSE_BREAST_EXVIVO` (but you can use any name you like):
 
 
 ```
