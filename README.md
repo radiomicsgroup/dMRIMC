@@ -72,26 +72,19 @@ cd dMRIMC
 cd using_Histo_uSim
 ```
 
-For your convenience, the folder already contains a pre-processed dMRI scan, ready for you to use for this tutorial (so there is no need for you to download anything). Pre-processing included MP-PCA denoisin, Gibbs unringing and directional averaging. We will use the following files:
+For your convenience, the folder [zenodo_mouse_data](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/zenodo_mouse_data) within [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim) already contains a pre-processed dMRI scan, ready for you to use for this tutorial (so there is no need for you to download anything). Pre-processing included MP-PCA denoisin, Gibbs unringing and directional averaging. We will use the following files:
 
 * `dwi_denoise_unring_sphmean.nii`: The file containing a preprocessed and directionally averaged scan
 * `dwi_noise.nii`: The file containing the standard deviation of noise from MPPCA denoising
 * `dwi_mask_one_sample.nii`: A mask file we have prepared covering one of specimens, a file with all of them is also included
 
-In this our [Zenodo](https://doi.org/10.5281/zenodo.14559355) data, the samples were scanned acquiring diffusion images along three orthogonal directions. However, Histo-μSim is meant to be used on directionally-averaged signal - that is the reason why we will be studying the `dwi_denoise_unring_sphmean.nii` file. The b-values and gradient timinging corresponding to each volume contained in the 4D `dwi_denoise_unring_sphmean.nii` NIFTI files are indicated in: 
+The scan comes from our [Zenodo](https://doi.org/10.5281/zenodo.14559355) data set, which contains the mouse data used in our Histo-μSim paper. The data was acquired in tissue samples were scanned acquiring diffusion images along three orthogonal directions. However, note that **Histo-μSim is meant to be used on directionally-averaged signals** - that is the reason why we will be studying the 4D `dwi_denoise_unring_sphmean.nii` file. The b-values and gradient timinging corresponding to each volume of `dwi_denoise_unring_sphmean.nii` are indicated in the following additional files: 
 
 * `dwi_denoise_unring_sphmean.bval`(b-values in s/mm<sup>2</sup>)
 * `dwi_denoise_unring_sphmean.gdur` (gradient duration δ in ms)
 * `dwi_denoise_unring_sphmean.gsep` (gradient separation Δ in ms)
 
-For the purpose of keeping this tutorial self-contained, we are including all the necessary data in the [zenodo_mouse_data](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/zenodo_mouse_data) folder within the [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim) directory, where the following are already contained:
-
-* `get_closest_scheme.py`
-* `select_parameter_configuration.py`
-* `mri2micro_dictml.py`
-* `run_full_fitting_pipeline.py`
-
-The `zenodo_mouse_data` should look like this:
+In practice, the `zenodo_mouse_data` should look like this:
 
 ```
 zenodo_mouse_data/
@@ -104,6 +97,14 @@ zenodo_mouse_data/
 └── dwi_noise.nii
 
 ```
+
+The folder [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim) also contains all the necessary code: 
+
+* `get_closest_scheme.py`
+* `select_parameter_configuration.py`
+* `mri2micro_dictml.py`
+* `run_full_fitting_pipeline.py`
+
 
 
 ### 2. Get synthetic signal subset and pre-process your dMRI scan file
