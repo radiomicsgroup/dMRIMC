@@ -1,4 +1,4 @@
-
+<img width="871" height="170" alt="image" src="https://github.com/user-attachments/assets/2d53a0b3-430c-4e51-b62a-d06db824a7ff" />
 ## Histology-informed microstructural diffusion simulations for MRI cancer characterisation — the Histo-μSim framework
 
 <div align="center">
@@ -68,6 +68,7 @@ To begin clone the repo and navigate to the [using_Histo_uSim](https://github.co
 
 ```
 git clone https://github.com/radiomicsgroup/dMRIMC.git
+cd dMRIMC
 cd using_Histo_uSim
 ```
 
