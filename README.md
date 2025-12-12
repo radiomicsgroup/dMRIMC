@@ -105,7 +105,7 @@ zenodo_mouse_data/
 ```
 
 
-### 2. Get closest scheme and signal subset, then pre-process your dMRI scan file
+### 2. Get synthetic signal subset and pre-process your dMRI scan file
 
 First we need to combine the signal and parameter arrays. This step is necessary because we uploaded our signal/parameter dictionaries through multiple files to comply with GitHub restrictions of file size, and is done simply by running 
 
@@ -163,20 +163,22 @@ a folder `protocols` with the subfolder `MOUSE_BREAST_EXVIVO` should have been c
 * `closest.gsep`
 * `closest.scheme`
 
-and a file called `signal_arr_subset.npy` should have been created, containing the columns corresponding to the closest protocol.
+and a file called `signal_arr_subset.npy` should have been created, containing the columns corresponding to the closest protocol. Also, the script will have normalized the input dMRI scan `zenodo_mouse_data/dwi_denoise_unring_sphmean.nii` scan and the noise level `zenodo_mouse_data/dwi_noise.nii` by the mean b = 0 volume. Do not worry if you do not have a noise map, as it is an optional input parameter. For cases when there is a small bvalue instead of 0 they are treated as b = 0 with the threshold for this controlled with the `--bval-threshold` flag. The processed dMRI file should appear with the name `dwi_normalized.nii` and the noise as `dwi_noise_normalized.nii`. 
 
-Also, the script normalized the DWI scan and the noise by the b = 0 volume or the b = 0 mean if multiple b = 0 volumes exist. For cases when there is a small bvalue instead of 0 they are treated as b = 0 with the threshold for this controlled with the `--bval-threshold` flag. The processed DWI file should appear with the name `dwi_normalized.nii` and the noise as `dwi_noise_normalized.nii`. Finally with `--vasc-threshold 250` we set the limit for volumes with vascular signal. Here, all volumes with bvalue < 250 s/mm2 would be removed. This scan did not contain any, but in the case that it does a warning similar to the one about high bvalues will be printed and the relevant volumes will be removed.
+Note that in the example above we used the option `--vasc-threshold 250`. This sets a threshold to discard b-values lower than the threshold, and is meant to remove dMRI measurements with non-negligible vascular signal contributions. In this case, all volumes with bvalue < 250 s/mm2 would be removed. This scan did not contain any, but in the case that it does a warning similar to the one about high bvalues will be printed and the relevant volumes will be removed.
 
-As mentioned above you can select a subset of the available parameters, with `D0in`, `D0ex` and `kappa` always included unless a parameter array with fixed permeability is selected in which case only `D0in` and `D0ex` are included with a fixed value of `kappa`. This time we will select `fin`, `vCS_cyl`:
+### 3. Select tissue parameters to estimate
+
+As mentioned above, you can now select a subset of the available parameters to fit. Note that **`D0in`, `D0ex` and `kappa` are always included**. We will focus on the estimation of `fin` and `vCS_cyl`, exactly as we did in our paper:
 
 ```
 python select_parameter_configuration.py --params fin vCS_cyl
 ```
 
-We now should have `param_arr_subset.npy` in the folder, with **5** columns, `fin`, `vCS_cyl`, `D0in`, `D0ex` and `kappa`
+You will see that this will have created the tissue parameter file `param_arr_subset.npy` (**5** columns: `fin`, `vCS_cyl`, `D0in`, `D0ex` and `kappa`), with the corresponding synthetic signals `signal_arr_subset.npy`. 
 
-### 3. Running the fitting
-Create a folder called `fitting` with
+### 4. Running the fitting
+We are now ready to use the synthetic signals and the corresponding tissue parameter file for Histo-μSim fitting. Let's create a folder called `fitting` to store the fitting results:
 
 ```
 mkdir -v fitting
@@ -197,20 +199,20 @@ python mri2micro_dictml.py \
     --mask zenodo_mouse_data/dwi_mask_one_sample.nii \
     fitting/Histo_uSim
 ```
+
+A quick comment on the inputs taken by the script:
 * `dwi_normalized.nii`: the `.nii` file we created above, normalized and with invalid volumes removed
 * `signal_arr_subset.npy`: the signal array subset corresponding to the closest matching protocol
 * `param_arr_subset.npy`: the parameter array subset corresponding to the closest matching protocol
 * `--sldim 0`: parallelizing the fitting on the final dimension
 * `--savg 3`: as mentioned above the `.nii` we are using is the average of three directions (x, y, z)
 * `--ncpu 10`: using 10 threads
-* `--reg "2,0.0025"`: L-norm type for the regularization, weight of the regularizer ([0.0 - 1.0])
-* `--noise dwi_noise_normalized.nii`: the normalized noise file we created above
+* `--reg "2,0.0025"`: L-norm type for the regularization, weight of the regularizer ([0.0 - 1.0]) - we use L2 regularisation for the fitting with a regularisation weight of 0.0025
+* `--noise dwi_noise_normalized.nii`: the normalized noise file we created above, to model noise floor bias
 * `--mask zenodo_mouse_data/dwi_mask_one_sample.nii`: a mask file covering one of the samples
 * `fitting/Histo_uSim`: the location of the output with an output string for the result files `Histo_uSim` + `_par{N}`
 
-For more information on the script and each option check the docstring
-
-The script will output:
+For more information on all the options of `mri2micro_dictml.py`, simply type `python python mri2micro_dictml.py -h`. Running the script will output:
 
 ```
 ***********************************************************************
@@ -250,7 +252,7 @@ The script will output:
 
 ```
 
-The `fitting` folder should contain `Histo_uSim_par{N}` with N the number of parameters selected, in the order that was specified.
+The `fitting` folder should contain `Histo_uSim_par{N}` with N the number of parameters selected, in the order that was specified: parameter 1 is `fin`, parameter 2 is `vCS_cyl`, parameter 3 is `D0in`, parameter 4 is `D0ex`, parameter 5 is `kappa`.
 
 The resulting map for `fin` should look like this:
 
