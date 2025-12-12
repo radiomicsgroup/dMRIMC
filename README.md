@@ -58,6 +58,13 @@ Again, for ease of use regarding permeability, the parameter arrays are included
 As a concrete example, we show how to use Histo-μSim on the mouse data we have released on Zenodo at [https://doi.org/10.5281/zenodo.14559355](https://doi.org/10.5281/zenodo.14559355), specifically the breast cancer samples in `scans/breast`. For more information on parameter estimation check [parameter_estimation.md](https://github.com/radiomicsgroup/dMRIMC/tree/main/manuals/parameter_estimation.md) where we replicate some of the figures of our paper.
 
 ### 1. Data
+To begin clone the repo and navigate to the [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim) folder:
+
+```
+git clone https://github.com/radiomicsgroup/dMRIMC.git
+cd using_Histo_uSim
+```
+
 The DWI scan is already preprocessed (denoising and Gibbs unringing) so we can use it right away. We will use the following files:
 
 * `dwi_denoise_unring_sphmean.nii`: The file containing the preprocessed and direction averaged scan
@@ -70,11 +77,12 @@ In this case the samples were scanned in three orthogonal directions but since w
 * `dwi_denoise_unring_sphmean.gdur`
 * `dwi_denoise_unring_sphmean.gsep`
 
-For the purpose of keeping this tutorial self-contained, we are including all the necessary data in the [zenodo_mouse_data](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/zenodo_mouse_data) folder within the `using_Histo_uSim` directory, where the following are already contained:
+For the purpose of keeping this tutorial self-contained, we are including all the necessary data in the [zenodo_mouse_data](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/zenodo_mouse_data) folder within the [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim) directory, where the following are already contained:
 
 * `get_closest_scheme.py`
 * `select_parameter_configuration.py`
 * `mri2micro_dictml.py`
+* `run_full_fitting_pipeline.py`
 
 The `zenodo_mouse_data` should look like this:
 
