@@ -166,7 +166,7 @@ As mentioned above you can select a subset of the available parameters, with `D0
 python select_parameter_configuration.py --params fin vCS_cyl
 ```
 
-We now should have `param_arr_subset.npy` in the folder, with **5** columns, `fin`, `mCS`, `D0in`, `D0ex` and `kappa`
+We now should have `param_arr_subset.npy` in the folder, with **5** columns, `fin`, `vCS_cyl`, `D0in`, `D0ex` and `kappa`
 
 ### 3. Running the fitting
 Create a folder called `fitting` with
