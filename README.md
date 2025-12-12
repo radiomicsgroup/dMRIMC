@@ -23,7 +23,8 @@ Our hope is that Histo-μSim will be useful for more people in the future. Howev
 
 To assist in the use of our tool, we have prepared a **rich dictionary of synthetic signals that you can download and deploy immediately to fit Histo-μSim on your diffusion MRI scans**. 
 
-This signal dictionary correspond to a very rich protocol with multiple bvalues and even more diffusion times (δ, Δ), where you will be able to find your own measurements. The dictionary comes with a set of scripts that allow you to extract the subset of the synthetic signals that most closely matches the protocol that you have acquired. This will give access to the potential of Histo-μSim without the need for any new simulations or signal synthesis. Note that as this large protocol is based on pulsed-gradient spin echo (`PGSE`) imaging, only such protocols are supported.
+This signal dictionary correspond to a very rich protocol with multiple bvalues and even more diffusion times (δ, Δ), where you will be able to find your own measurements. The dictionary comes with a set of scripts that allow you to extract the subset of the synthetic signals that most closely matches the protocol that you have acquired. This will give access to the potential of Histo-μSim without the need for any new simulations or signal synthesis. 
+
 
 ## Rich protocol information
 We have generated synthetic signals for a very rich protocol where you will be able to find your own diffusion measurements with a precision of as few as 50 s/mm<sup>2</sup> for $b$, and just 2.5 ms for δ and Δ. The synthetic signals were obtained for all possible combinations of
@@ -34,27 +35,28 @@ We have generated synthetic signals for a very rich protocol where you will be a
 
 making sure of course that Δ $\geq$ δ. This leads to a total of `4761` combinations with unique ($b$,δ,Δ). All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). Importantly, note that the minimum bvalue is `300` s/mm<sup>2</sup>: this choice allows us to minimise the contribution of the vascular signal _in vivo_, since our simulations do not account for capillary perfusion. Also, our code will exclude from the fitting diffusion measurements that you might have acquired for b-values that are higher/lower than the maximum/minimum b-value that we have simulated. 
 
+
+Note that as this large protocol is based on pulsed-gradient spin echo (PGSE) imaging, so **only PGSE protocols are supported** at the moment.
+
+
 ## Signal and parameter arrays
-The signal arrays generated using this protocol are inside the [using_Histo_uSim/reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) folder. Similarly to what we have done for our paper, we generated the signals for 225 different cases for each substrate, 5 unique values for both intra-cellular and extra-cellular intrinsic diffusivities `D0in` and `D0ex`, and 9 for `kappa` for a total of 4050 signals. For ease of selection of cell membrane permeability, we release separate signal arrays for each permeability value, with each array having 450 different signals (5 values of `D0in`, 5 for `D0ex` times 18 substrates) as well as a numpy array with all of them combined.
+The signal arrays generated using this protocol are inside the [using_Histo_uSim/reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) folder. **We have generated signals for the 18 cancer substrates that we produced for our paper**. The substrates can be downloaded from Grigoriou et al, Zenodo 2024, [doi: 10.5281/zenodo.14559103](https://doi.org/10.5281/zenodo.14559103).
 
-Since the only variation between the signal arrays is the permeability value, all parameter arrays are the same with the exception of the value of `kappa` which is the same for all signals per array.
+We have generated signals for **225 unique realisations of each substrate**, obtained by varying the intrinsic intra-cellular diffusivity `D0in` (5 values), the intrinsic extra-cellular diffusivity `D0ex` (5 values), and the cell membrane permeability `kappa` (9 values). This leads to a **total of 4050 signals for each ($b$,δ,Δ) measurement**. Note that we release separate signal/parameter arrays for each `kappa` value, with each array having 450 different signals (5 values of `D0in`, 5 for `D0ex` times 18 substrates) due to file size constraints (please see the [reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) and the [reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) folders).
 
-For this tutorial and by default, the combined signal array (all permeability values) is used, this can be changed inside the script file.
+## Selecting array subsets and parameter configurations
+Below you will find a practical example that will illustrate how to use these synthetic signals to fit _Histo-μSim_ on your data. 
 
-Due to file size constraints, the combined signal array could not be uploaded, to create it run `combine_arrays.py` (also creates the combined parameter array)
+Briefly, script [get_closest_scheme.py](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/get_closest_scheme.py) will find subset of synthetic measurements that most closely match the acquisition scheme ($b$, δ, Δ) that you used to acquire your data. Additionally, it will also normalize the dMRI measurements you provided in the input NIFTI file so that the signal at $b$ = 0 is 1 (our synthetic signals are bound within 0 and 1).
 
-## Selecting array subsets
-Script [get_closest_scheme.py](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/get_closest_scheme.py) will find the scheme (bvalue, δ, Δ) that most closely matches the one you provide it with. In case of multiple, _consecutive_ b = 0 values created, only the first is kept and the rest are discarded with the corresponding timings also updated. The script will select the appropriate subset of the signal array you point it to wrt the protocol-describing files and save the new signal array plus a scheme file describing the protocol subset. It will also normalize the DWI niftii of your scan either via the b = 0 volume or the mean of the b = 0 volumes in case of many, and will remove the redundant b = 0 as described above.
+Once the subset of synthetic measurements is found and your dMRI scan has been normalised, you will have to choose which tissue parameters to fit using the [select_parameter_configuration.py](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/select_parameter_configuration.py). The available parameters are the following (for details regarding their calculation page 20 of our paper):
 
-## Selecting parameter configurations
-The data we have collected span a variety of parameters describing the substrates. Running the simulations also introduces parameters such as the intrinsic diffusivities and the cell permeability. In our paper we focus on specific parameter configurations both for comparison purposes as well as the inability to just estimate all the parameters at once. When using Histo-μSim you can select which _cell size_ parameters you want to estimate via [select_parameter_configuration.py](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/select_parameter_configuration.py). The available parameters are the following, for details regarding their calculation (when applicable) check the paper p.20:
-
-* `fin`: intracellular fraction
-* `mCS`: mean cell size
-* `varCS`: variance of cell size
-* `skewCS`: skewness of cell size
-* `vCS_sph`: volume-weighted CS (vCS) index for a system with spherical geometry
-* `vCS_cyl`: volume-weighted CS (vCS) index for a system with cylindrical geometry
+* `fin`: intracellular fraction (normalised, ranging from 0 to 1)
+* `mCS`: mean cell size in μm
+* `varCS`: variance of cell size in μm<sup>2</sup>
+* `skewCS`: skewness of cell size (dimensionless)
+* `vCS_sph`: volume-weighted CS (vCS) index for a system with spherical geometry in μm
+* `vCS_cyl`: volume-weighted CS (vCS) index for a system with cylindrical geometry in μm
 
 Again, for ease of use regarding permeability, the parameter arrays are included combined and separated by the permeability value at [using_Histo_uSim/reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays). By default the `select_parameter_configuration.py` script transforms the combined array.
 
