@@ -20,8 +20,8 @@ parser.add_argument('--gsep', required=True, help='Target gsep file')
 parser.add_argument('--ref-signal', required=True, default='all_signals_all_substrates.npy', help='Reference signal array')
 parser.add_argument('--vasc-threshold', required=False, default='250', help='Remove the bvalues below this number to get rid of vascular signals')
 parser.add_argument('--bval-threshold', required=False, default='20', help='bvalue threshold under which all volumes are considered b = 0')
-parser.add_argument('--noise-map', required=False, help='NIfTI with the standard deviation of the noise. If supplied it will be normalized like the DWI file ')
-parser.add_argument('--show-plot', action='store_true', help='Plot first row of final signal array, separated via diffusion time and/or gradient directions')
+parser.add_argument('--noise-map', required=False, help='OPTIONAL - NIfTI with the standard deviation of the noise. If supplied it will be normalized like the DWI file ')
+parser.add_argument('--show-plot', action='store_true', help='OPTIONAL - Plot first row of final signal array, separated via diffusion time and/or gradient directions')
 # action='store_true' makes including --show-plot --> args.show_plot = True, omitting it sets False
 args = parser.parse_args()
 
