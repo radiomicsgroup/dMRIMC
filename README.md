@@ -13,10 +13,10 @@ This repository was developed by Athanasios Grigoriou (<agrigoriou@vhio.net>) an
 
 ## General description
 
-This repository accompanies our [paper](https://doi.org/10.1038/s42003-025-09096-3), and provides all the tools needed to implement our proposed _Histo-μSim_ diffusion Magnetic Resonance Imaging (dMRI) technique for cancer imaging.
+This repository accompanies our [paper](https://doi.org/10.1038/s42003-025-09096-3), and provides all the tools needed to implement our proposed _Histo-μSim_ diffusion Magnetic Resonance Imaging (dMRI) technique for cancer imaging. Below we show you *how to start using Histo-μSim immediately on your own data*. Additionally, we have also written two more tutorials:
 
-- [Histology to signals manual](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md): Guide on preparing new substrates for Monte Carlo simulations from 2D histology and generating signals
-- [In silico experiment replication](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/parameter_estimation.md): Replication of the _in silico_ experiments from our paper.
+- [Histology to signals manual](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md): to guide you on preparing new substrates for Monte Carlo simulations from 2D histology, in case you want to run more simulations;
+- [In silico experiment replication](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/parameter_estimation.md): to show you how to replicate some of the _in silico_ experiments performed in our paper.
 
 # Using Histo-μSim
 Our hope is that Histo-μSim will be useful for more people in the future. However, we are aware that tracing cells, processing substrates and running simulations is a time- and resource-consuming process, and that it may result complicated for clinical labs focussing on applied imaging. 
