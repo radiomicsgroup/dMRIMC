@@ -114,7 +114,7 @@ python combine_arrays.py
 ```
 
 
-Afterwards, we need to extract the closest scheme from the available bvalues and diffusion times. We will call our target protocol `MOUSE_BREAST_EXVIVO` (but you can use any name you like):
+Afterwards, we need to extract the closest scheme from the available b-values and diffusion times using [`get_closest_scheme.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/get_closest_scheme.py). We will call our target protocol `MOUSE_BREAST_EXVIVO` (but you can use any name you like):
 
 
 ```
@@ -169,7 +169,7 @@ Note that in the example above we used the option `--vasc-threshold 250`. This s
 
 ### 3. Select tissue parameters to estimate
 
-As mentioned above, you can now select a subset of the available parameters to fit. Note that **`D0in`, `D0ex` and `kappa` are always included**. We will focus on the estimation of `fin` and `vCS_cyl`, exactly as we did in our paper:
+As mentioned above, you can now select a subset of the available parameters to fit using [`select_parameter_configuration.py](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/select_parameter_configuration.py). Note that **`D0in`, `D0ex` and `kappa` are always included**. We will focus on the estimation of `fin` and `vCS_cyl`, exactly as we did in our paper:
 
 ```
 python select_parameter_configuration.py --params fin vCS_cyl
@@ -184,7 +184,7 @@ We are now ready to use the synthetic signals and the corresponding tissue param
 mkdir -v fitting
 ```
 
-With all the aforementioned ingredients at hand we can now run the fitting script using the `mri2micro_dictml.py` script:
+With all the aforementioned ingredients at hand we can now run the fitting script using the [`mri2micro_dictml.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/mri2micro_dictml.py) script:
 
 ```
 python mri2micro_dictml.py \
@@ -263,7 +263,7 @@ The resulting map for `fin` should look like this:
 </div>
 
 ### 5. Running the whole thing
-We have packaged all the above in one command line script for your convenience, called `run_full_fitting_pipeline.sh`. You can run it by typing:
+We have packaged all the above in one command line script for your convenience, called [`run_full_fitting_pipeline.sh`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/run_full_fitting_pipeline.sh). You can run it by typing:
 
 ```
 bash run_full_fitting_pipeline.sh
