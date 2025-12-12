@@ -36,7 +36,7 @@ We have generated synthetic signals for a very rich protocol where you will be a
 making sure of course that Δ $\geq$ δ. This leads to a total of `4761` combinations with unique ($b$,δ,Δ). All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). Importantly, note that the minimum bvalue is `300` s/mm<sup>2</sup>: this choice allows us to minimise the contribution of the vascular signal _in vivo_, since our simulations do not account for capillary perfusion. Also, our code will exclude from the fitting diffusion measurements that you might have acquired for b-values that are higher/lower than the maximum/minimum b-value that we have simulated. 
 
 
-Note that as this large protocol is based on pulsed-gradient spin echo (PGSE) imaging, so **only PGSE protocols are supported** at the moment.
+Note that **only pulsed-gradient spin echo (PGSE) protocols are supported** (the rich synthetic protocol is based on PGSE).
 
 
 ## Signal and parameter arrays
