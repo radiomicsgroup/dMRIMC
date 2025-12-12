@@ -12,9 +12,11 @@ This repository was developed by Athanasios Grigoriou (<agrigoriou@vhio.net>) an
 
 ## General description
 
-This repository accompanies our [paper](https://doi.org/10.1038/s42003-025-09096-3), and provides all the tools needed to implement our proposed _Histo-μSim_ diffusion Magnetic Resonance Imaging (dMRI) technique for cancer imaging. Below we show you **how to start using Histo-μSim immediately on your own data**. Additionally, we have also written two more tutorials:
+This repository accompanies our [paper](https://doi.org/10.1038/s42003-025-09096-3), and provides all the tools needed to implement our proposed _Histo-μSim_ diffusion Magnetic Resonance Imaging (dMRI) technique for cancer imaging. 
 
-- [Histology to signals manual](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md): to guide you on preparing new substrates for Monte Carlo simulations from 2D histology, in case you want to run more simulations;
+Below we show you **how to start using Histo-μSim immediately on your own data**. Additionally, we have also written two more tutorials:
+
+- [Histology-to-signals manual](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md): to guide you on preparing new substrates for Monte Carlo simulations from 2D histology, in case you want to run more simulations;
 - [In silico experiment replication](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/parameter_estimation.md): to show you how to replicate some of the _in silico_ experiments performed in our paper.
 
 # Using Histo-μSim
@@ -22,7 +24,7 @@ Our hope is that Histo-μSim will be useful for more people in the future. Howev
 
 To assist in the use of our tool, we have prepared a **rich dictionary of synthetic signals that you can download and deploy immediately to fit Histo-μSim on your diffusion MRI scans**. 
 
-This signal dictionary correspond to a very rich protocol with multiple bvalues and even more diffusion times (δ, Δ), where you will be able to find your own measurements. The dictionary comes with a set of scripts that allow you to extract the subset of the synthetic signals that most closely matches the protocol that you have acquired. This will give access to the potential of Histo-μSim without the need for any new simulations or signal synthesis. 
+This signal dictionary corresponds to a very rich protocol with multiple b-values and even more diffusion times (δ, Δ), within which you will certainly find the protocol that you used to acquire your own data. The dictionary comes with a set of scripts that allow you to extract the subset of the synthetic signals that most closely matches the protocol that you have acquired. This will give access to the full potential of Histo-μSim, without the need for any new simulations or signal synthesis. 
 
 
 ## Rich protocol information
@@ -43,7 +45,7 @@ The signal arrays generated using this protocol are inside the [using_Histo_uSim
 
 We have generated signals for **225 unique realisations of each substrate**, obtained by varying the intrinsic intra-cellular diffusivity `D0in` (5 values), the intrinsic extra-cellular diffusivity `D0ex` (5 values), and the cell membrane permeability `kappa` (9 values). This leads to a **total of 4050 signals for each ($b$,δ,Δ) measurement**. Note that we release separate signal/parameter arrays for each `kappa` value, with each array having 450 different signals (5 values of `D0in`, 5 for `D0ex` times 18 substrates) due to file size constraints (please see the [reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) and the [reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) folders).
 
-## Selecting array subsets and parameter configurations
+## Selecting signal subsets and tissue parameter configurations
 Below you will find a practical example that will illustrate how to use these synthetic signals to fit _Histo-μSim_ on your data. 
 
 Briefly, script [get_closest_scheme.py](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/get_closest_scheme.py) will find subset of synthetic measurements that most closely match the acquisition scheme ($b$, δ, Δ) that you used to acquire your data. Additionally, it will also normalize the dMRI measurements you provided in the input NIFTI file so that the signal at $b$ = 0 is 1 (our synthetic signals are bound within 0 and 1).
@@ -106,7 +108,7 @@ The folder [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main
 
 
 
-### 2. Get synthetic signal subset and pre-process your dMRI scan file
+### 2. Get synthetic signal subsets and pre-process the input dMRI scan
 
 First we need to combine the signal and parameter arrays. This step is necessary because we uploaded our signal/parameter dictionaries through multiple files to comply with GitHub restrictions of file size, and is done simply by running 
 
@@ -168,7 +170,7 @@ and a file called `signal_arr_subset.npy` should have been created, containing t
 
 Note that in the example above we used the option `--vasc-threshold 250`. This sets a threshold to discard b-values lower than the threshold, and is meant to remove dMRI measurements with non-negligible vascular signal contributions. In this case, all volumes with bvalue < 250 s/mm2 would be removed. This scan did not contain any, but in the case that it does a warning similar to the one about high bvalues will be printed and the relevant volumes will be removed.
 
-### 3. Select tissue parameters to estimate
+### 3. Select which tissue parameters to estimate
 
 As mentioned above, you can now select a subset of the available parameters to fit using [`select_parameter_configuration.py](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/select_parameter_configuration.py). Note that **`D0in`, `D0ex` and `kappa` are always included**. We will focus on the estimation of `fin` and `vCS_cyl`, exactly as we did in our paper:
 
@@ -178,7 +180,7 @@ python select_parameter_configuration.py --params fin vCS_cyl
 
 You will see that this will have created the tissue parameter file `param_arr_subset.npy` (**5** columns: `fin`, `vCS_cyl`, `D0in`, `D0ex` and `kappa`), with the corresponding synthetic signals `signal_arr_subset.npy`. 
 
-### 4. Running the fitting
+### 4. Perform Histo-μSim model fitting
 We are now ready to use the synthetic signals and the corresponding tissue parameter file for Histo-μSim fitting. Let's create a folder called `fitting` to store the fitting results:
 
 ```
@@ -263,14 +265,14 @@ The resulting map for `fin` should look like this:
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/ex_fitting_result.png" alt="commbio" width="auto" height="auto">
 </div>
 
-### 5. Running the whole thing
+### 5. A script to run the whole thing at once
 We have packaged all the above in one command line script for your convenience, called [`run_full_fitting_pipeline.sh`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/run_full_fitting_pipeline.sh). You can run it by typing:
 
 ```
 bash run_full_fitting_pipeline.sh
 ```
 
-### 6. Tips
+### 6. Additional tips
 * If you need to fix `kappa` to a specific value you need to use the appropriate pair of signal/parameter arrays from the `reference_signal_arrays`/ `reference_param_arrays` folders. The parameter arrays have `kappa` as the last column, in the case of a fixed value that column can be removed before use. You will also need to modify the `select_parameter_configuration.py` file to not automatically include the `kappa` column
 * If you need to fix `D0in` or `D0ex` you can do so from the `mri2micro_dictml.py` script
 
