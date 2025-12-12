@@ -13,7 +13,7 @@ This repository was developed by Athanasios Grigoriou (<agrigoriou@vhio.net>) an
 
 ## General description
 
-This repository accompanies our [paper](https://doi.org/10.1038/s42003-025-09096-3), and provides all the tools needed to implement our proposed _Histo-μSim_ diffusion Magnetic Resonance Imaging (dMRI) technique for cancer imaging. Below we show you *how to start using Histo-μSim immediately on your own data*. Additionally, we have also written two more tutorials:
+This repository accompanies our [paper](https://doi.org/10.1038/s42003-025-09096-3), and provides all the tools needed to implement our proposed _Histo-μSim_ diffusion Magnetic Resonance Imaging (dMRI) technique for cancer imaging. Below we show you **how to start using Histo-μSim immediately on your own data**. Additionally, we have also written two more tutorials:
 
 - [Histology to signals manual](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md): to guide you on preparing new substrates for Monte Carlo simulations from 2D histology, in case you want to run more simulations;
 - [In silico experiment replication](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/parameter_estimation.md): to show you how to replicate some of the _in silico_ experiments performed in our paper.
@@ -21,18 +21,18 @@ This repository accompanies our [paper](https://doi.org/10.1038/s42003-025-09096
 # Using Histo-μSim
 Our hope is that Histo-μSim will be useful for more people in the future. However, we are aware that tracing cells, processing substrates and running simulations is a time- and resource-consuming process, and that it may result complicated for clinical labs focussing on applied imaging. 
 
-To assist in the use of our tool, we have prepared a *rich dictionary of synthetic signals that you can download and deploy immediately to fit Histo-μSim on your diffusion MRI scans*. 
+To assist in the use of our tool, we have prepared a **rich dictionary of synthetic signals that you can download and deploy immediately to fit Histo-μSim on your diffusion MRI scans**. 
 
-This signal dictionary correspond to a very rich protocol with multiple bvalues and even more diffusion times (δ, Δ), where you will be able to find your own measurements with a precision of as few as 50 s/mm$^2$ for $b$, and just a few milliseconds for δ and Δ. The dictionary comes with a set of scripts that allow you to extract the subset of the synthetic signals that most closely matches the protocol that you have acquired. This will give access to the potential of Histo-μSim without the need for any new simulations or signal synthesis. Note that as this large protocol is based on pulsed-gradient spin echo (`PGSE`) imaging, only such protocols are supported.
+This signal dictionary correspond to a very rich protocol with multiple bvalues and even more diffusion times (δ, Δ), where you will be able to find your own measurements. The dictionary comes with a set of scripts that allow you to extract the subset of the synthetic signals that most closely matches the protocol that you have acquired. This will give access to the potential of Histo-μSim without the need for any new simulations or signal synthesis. Note that as this large protocol is based on pulsed-gradient spin echo (`PGSE`) imaging, only such protocols are supported.
 
-## Reference protocol information
-The protocol that was used to generate the signals had the following characteristics:
+## Rich protocol information
+We have generated synthetic signals for a very rich protocol where you will be able to find your own diffusion measurements with a precision of as few as 50 s/mm$^2$ for $b$, and just 2.5 ms for δ and Δ. The synthetic signals were obtained for all possible combinations of
 
-* `bvalues`: [0, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000]
-* Gradient duration, `δ`: [5, 7.5, 10, 12.5, 15, 17.5, 20, 22.5, 25]
-* Gradient separation, `Δ`: [5, 7.5, 10, 12.5, 15, 17.5, 20, 22.5, 25, 30, 32.5, 35, 37.5, 40, 42.5, 45, 47.5, 50, 52.5, 55, 57.5, 60, 62.5, 65, 70, 72.5, 80]
+* $b$ = [0, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000] s/mm$^2$
+* Gradient duration δ [5, 7.5, 10, 12.5, 15, 17.5, 20, 22.5, 25] ms
+* Gradient separation Δ [5, 7.5, 10, 12.5, 15, 17.5, 20, 22.5, 25, 30, 32.5, 35, 37.5, 40, 42.5, 45, 47.5, 50, 52.5, 55, 57.5, 60, 62.5, 65, 70, 72.5, 80] ms
 
-Note that these are the _unique_ values for each parameter. The protocol was created by making all possible combinations of the above (with `Δ` >= `δ`) leading to a total of `4761` combinations. All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). Also, in an effort to escape the effects of vascular flow in the signals, which are not accounted for in our simulations, the minimum bvalue is `300` s/mm<sup>2</sup>. Both volumes that are too high and volumes that are too low are removed from the scheme and `.nii` file during processing with a tolerance of 50 s/mm2.
+making sure of course that Δ $\geq$ δ. This leads to a total of `4761` combinations with unique ($b$,δ,Δ ). All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). Importantly, note that the minimum bvalue is `300` s/mm<sup>2</sup>: this choice allows us to minimise the contribution of the vascular signal _in vivo_, since our simulations do not account for capillary perfusion. Also, our code will exclude from the fitting diffusion measurements that you might have acquired for b-values that are higher/lower than the maximum/minimum b-value that we have simulated. 
 
 ## Signal and parameter arrays
 The signal arrays generated using this protocol are inside the [using_Histo_uSim/reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) folder. Similarly to what we have done for our paper, we generated the signals for 225 different cases for each substrate, 5 unique values for both intra-cellular and extra-cellular intrinsic diffusivities `D0in` and `D0ex`, and 9 for `kappa` for a total of 4050 signals. For ease of selection of cell membrane permeability, we release separate signal arrays for each permeability value, with each array having 450 different signals (5 values of `D0in`, 5 for `D0ex` times 18 substrates) as well as a numpy array with all of them combined.
