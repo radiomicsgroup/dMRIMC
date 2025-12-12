@@ -260,14 +260,14 @@ The resulting map for `fin` should look like this:
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/ex_fitting_result.png" alt="commbio" width="auto" height="auto">
 </div>
 
-### 4. Running the whole thing
-We package all the above in `run_full_fitting_pipeline.sh`
+### 5. Running the whole thing
+We have packaged all the above in one command line script for your convenience, called `run_full_fitting_pipeline.sh`. You can run it by typing:
 
 ```
 bash run_full_fitting_pipeline.sh
 ```
 
-### 5. Tips
+### 6. Tips
 * If you need to fix `kappa` to a specific value you need to use the appropriate pair of signal/parameter arrays from the `reference_signal_arrays`/ `reference_param_arrays` folders. The parameter arrays have `kappa` as the last column, in the case of a fixed value that column can be removed before use. You will also need to modify the `select_parameter_configuration.py` file to not automatically include the `kappa` column
 * If you need to fix `D0in` or `D0ex` you can do so from the `mri2micro_dictml.py` script
 
