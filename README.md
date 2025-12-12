@@ -15,9 +15,9 @@ This repository was developed by Athanasios Grigoriou (<agrigoriou@vhio.net>) an
 
 This repository accompanies our [paper](https://doi.org/10.1038/s42003-025-09096-3), and provides all the tools needed to implement our proposed _Histo-μSim_ diffusion Magnetic Resonance Imaging (dMRI) technique for cancer imaging.
 
-- To start using Histo-μSim with a precomputed rich signal dictionary go [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/using_Histo_uSim.md)
+- **To start using Histo-μSim with a precomputed rich signal dictionary go [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/using_Histo_uSim.md)**
 - For a guide on preparing new substrates for Monte Carlo simulations from 2D histology and generating signals go [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md)
-- For a demonstration of using histology-informed parameter estimation, replicating the _in silico_ experiments from our paper go [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/parameter_estimation.md).
+- For a replication of the _in silico_ experiments from our paper go [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/parameter_estimation.md).
 
 Third-party dependencies are reported in each tutorial.
 

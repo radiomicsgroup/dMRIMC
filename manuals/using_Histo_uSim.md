@@ -8,12 +8,12 @@ The protocol that was used to generate the signals had the following characteris
 * Gradient duration, `δ`: [5, 7.5, 10, 12.5, 15, 17.5, 20, 22.5, 25]
 * Gradient separation, `Δ`: [5, 7.5, 10, 12.5, 15, 17.5, 20, 22.5, 25, 30, 32.5, 35, 37.5, 40, 42.5, 45, 47.5, 50, 52.5, 55, 57.5, 60, 62.5, 65, 70, 72.5, 80]
 
-Note that these are the _unique_ values for each parameter. The protocol was created by making all possible combinations of the above (with Δ >= δ) leading to a total of `4761` combinations. All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). Also, in an effort to escape the effects of vascular flow in the signals, which are not accounted for in our simulations, the minimum bvalue is `300` s/mm<sup>2</sup>. Both volumes that are too high and volumes that are too low are removed from the scheme and `.nii` file during processing with a tolerance of 50 s/mm2.
+Note that these are the _unique_ values for each parameter. The protocol was created by making all possible combinations of the above (with `Δ` >= `δ`) leading to a total of `4761` combinations. All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). Also, in an effort to escape the effects of vascular flow in the signals, which are not accounted for in our simulations, the minimum bvalue is `300` s/mm<sup>2</sup>. Both volumes that are too high and volumes that are too low are removed from the scheme and `.nii` file during processing with a tolerance of 50 s/mm2.
 
 ## Signal and parameter arrays
-The signal arrays generated using this protocol are inside the [using_Histo_uSim/reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) folder. Similarly to what we have done for our paper, we generated the signals for 225 different cases for each substrate, 5 unique values for both intra-cellular and extra-cellular intrinsic diffusivities D<sub>0|in</sub> and D<sub>0|ex</sub>, and 9 for $\kappa$ for a total of 4050 signals. For ease of selection of cell membrane permeability, we release separate signal arrays for each permeability value, with each array having 450 different signals (5 values of D<sub>0|in</sub>, 5 for D<sub>0|ex</sub> times 18 substrates) as well as a numpy array with all of them combined.
+The signal arrays generated using this protocol are inside the [using_Histo_uSim/reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) folder. Similarly to what we have done for our paper, we generated the signals for 225 different cases for each substrate, 5 unique values for both intra-cellular and extra-cellular intrinsic diffusivities `D0in` and `D0ex`, and 9 for `kappa` for a total of 4050 signals. For ease of selection of cell membrane permeability, we release separate signal arrays for each permeability value, with each array having 450 different signals (5 values of `D0in`, 5 for `D0ex` times 18 substrates) as well as a numpy array with all of them combined.
 
-Since the only variation between the signal arrays is the permeability value, all parameter arrays are the same with the exception of the value of $\kappa$ which is the same for all signals per array.
+Since the only variation between the signal arrays is the permeability value, all parameter arrays are the same with the exception of the value of `kappa` which is the same for all signals per array.
 
 For this tutorial and by default, the combined signal array (all permeability values) is used, this can be changed inside the script file.
 
@@ -32,11 +32,7 @@ The data we have collected span a variety of parameters describing the substrate
 * `vCS_sph`: volume-weighted CS (vCS) index for a system with spherical geometry
 * `vCS_cyl`: volume-weighted CS (vCS) index for a system with cylindrical geometry
 
-`python select_parameter_configuration.py --params fin mCS`
-
-This will return a `.npy` file with fin, mCS along with D<sub>0|in</sub>, D<sub>0|ex</sub> and $\kappa$.
-
-Again, for ease of use regarding permeability, the parameter arrays are included combined and separated by the permeability value at [using_Histo_uSim/reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays). By default the `select_parameter_configuration.py` script transforms the combined array. If you wish to use the arrays for one kappa value only make sure you remove that column from the parameter array.
+Again, for ease of use regarding permeability, the parameter arrays are included combined and separated by the permeability value at [using_Histo_uSim/reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays). By default the `select_parameter_configuration.py` script transforms the combined array.
 
 ## Example: Mice data 
 As a concrete example, we show how to use Histo-μSim on the mouse data we have released on Zenodo at [https://doi.org/10.5281/zenodo.14559355](https://doi.org/10.5281/zenodo.14559355), specifically the breast cancer samples in `scans/breast`. For more information on parameter estimation check [parameter_estimation.md](https://github.com/radiomicsgroup/dMRIMC/tree/main/manuals/parameter_estimation.md) where we replicate some of the figures of our paper.
@@ -76,9 +72,15 @@ zenodo_mouse_data/
 
 
 ### 2. Get closest scheme, signal subset and process DWI scan file
-First we need the closest scheme from the available bvalues and diffusion times. We will call our target protocol `MOUSE_BREAST_EXVIVO`.
 
-Run:
+First we need to combine the signal and parameter arrays
+
+```
+python combine_arrays.py
+```
+
+then we get the closest scheme from the available bvalues and diffusion times. We will call our target protocol `MOUSE_BREAST_EXVIVO`.
+
 
 ```
 python get_closest_scheme.py \
@@ -130,14 +132,15 @@ and a file called `signal_arr_subset.npy` should have been created, containing t
 
 Also, the script normalized the DWI scan and the noise by the b = 0 volume or the b = 0 mean if multiple b = 0 volumes exist. For cases when there is a small bvalue instead of 0 they are treated as b = 0 with the threshold for this controlled with the `--bval-threshold` flag. The processed DWI file should appear with the name `dwi_normalized.nii` and the noise as `dwi_noise_normalized.nii`. Finally with `--vasc-threshold 250` we set the limit for volumes with vascular signal. Here, all volumes with bvalue < 250 s/mm2 would be removed. This scan did not contain any, but in the case that it does a warning similar to the one about high bvalues will be printed and the relevant volumes will be removed.
 
-### 3. Select parameter subset
-As mentioned above you can select a subset of the available parameters, with D<sub>0|in</sub>, D<sub>0|ex</sub> and $\kappa$ always included unless a parameter array with fixed permeability is selected in which case only D<sub>0|in</sub> and D<sub>0|ex</sub> are included with a fixed value of $\kappa$. This time we will select `fin`, `mCS`:
+As mentioned above you can select a subset of the available parameters, with `D0in`, `D0ex` and `kappa` always included unless a parameter array with fixed permeability is selected in which case only `D0in` and `D0ex` are included with a fixed value of `kappa`. This time we will select `fin`, `vCS_cyl`:
 
-`python select_parameter_configuration.py --params fin mCS kappa`
+```
+python select_parameter_configuration.py --params fin vCS_cyl
+```
 
-We now should have `param_arr_subset.npy` in the folder, with **5** columns, `fin`, `mCS`, D<sub>0|in</sub>, D<sub>0|ex</sub> and $\kappa$
+We now should have `param_arr_subset.npy` in the folder, with **5** columns, `fin`, `mCS`, `D0in`, `D0ex` and `kappa`
 
-### 4. Running the fitting
+### 3. Running the fitting
 Create a folder called `fitting` with
 
 ```
@@ -219,6 +222,18 @@ The resulting map for `fin` should look like this:
 <div align="center">
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/ex_fitting_result.png" alt="commbio" width="auto" height="auto">
 </div>
+
+### 4. Running the whole thing
+We package all the above in `run_full_fitting_pipeline.sh`
+
+```
+bash run_full_fitting_pipeline.sh
+```
+
+### 5. Tips
+* If you need to fix `kappa` to a specific value you need to use the appropriate pair of signal/parameter arrays from the `reference_signal_arrays`/ `reference_param_arrays` folders. The parameter arrays have `kappa` as the last column, in the case of a fixed value that column can be removed before use. You will also need to modify the `select_parameter_configuration.py` file to not automatically include the `kappa` column
+* If you need to fix `D0in` or `D0ex` you can do so from the `mri2micro_dictml.py` script
+
 
 ## Dependencies
 The above tutorial has been ran and tested with:
