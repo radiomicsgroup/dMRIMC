@@ -184,7 +184,7 @@ We are now ready to use the synthetic signals and the corresponding tissue param
 mkdir -v fitting
 ```
 
-With all the aforementioned ingredients at hand we can now run the fitting script:
+With all the aforementioned ingredients at hand we can now run the fitting script using the `mri2micro_dictml.py` script:
 
 ```
 python mri2micro_dictml.py \
@@ -200,7 +200,9 @@ python mri2micro_dictml.py \
     fitting/Histo_uSim
 ```
 
-A quick comment on the inputs taken by the script:
+We are distributing a copy of `mri2micro_dictml.py` here, but note that it was originally released as part of the [BodyMRItools](https://github.com/fragrussu/bodymritools/) repository. We invite you to check it out, as it include many more scripts that can be of help to work with body diffusion imaging!
+
+A quick comment on the inputs taken by `mri2micro_dictml.py`:
 * `dwi_normalized.nii`: the `.nii` file we created above, normalized and with invalid volumes removed
 * `signal_arr_subset.npy`: the signal array subset corresponding to the closest matching protocol
 * `param_arr_subset.npy`: the parameter array subset corresponding to the closest matching protocol
