@@ -252,7 +252,7 @@ For more information on all the options of `mri2micro_dictml.py`, simply type `p
 
 ```
 
-The `fitting` folder should contain `Histo_uSim_par{N}` with N the number of parameters selected, in the order that was specified: parameter 1 is `fin`, parameter 2 is `vCS_cyl`, parameter 3 is `D0in`, parameter 4 is `D0ex`, parameter 5 is `kappa`.
+The `fitting` folder should contain `Histo_uSim_par{N}` with N the number of parameters selected, in the order that was specified: parameter 1 is `fin`, parameter 2 is `vCS_cyl` (in μm), parameter 3 is `D0in` (in μm<sup>2</sup>/ms), parameter 4 is `D0ex` (in μm<sup>2</sup>/ms), parameter 5 is `kappa` (in μm/s). 
 
 The resulting map for `fin` should look like this:
 
