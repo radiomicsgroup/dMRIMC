@@ -26,11 +26,11 @@ To assist in the use of our tool, we have prepared a **rich dictionary of synthe
 This signal dictionary correspond to a very rich protocol with multiple bvalues and even more diffusion times (δ, Δ), where you will be able to find your own measurements. The dictionary comes with a set of scripts that allow you to extract the subset of the synthetic signals that most closely matches the protocol that you have acquired. This will give access to the potential of Histo-μSim without the need for any new simulations or signal synthesis. Note that as this large protocol is based on pulsed-gradient spin echo (`PGSE`) imaging, only such protocols are supported.
 
 ## Rich protocol information
-We have generated synthetic signals for a very rich protocol where you will be able to find your own diffusion measurements with a precision of as few as 50 s/mm$^2$ for $b$, and just 2.5 ms for δ and Δ. The synthetic signals were obtained for all possible combinations of
+We have generated synthetic signals for a very rich protocol where you will be able to find your own diffusion measurements with a precision of as few as 50 s/mm<sup>2</sup> for $b$, and just 2.5 ms for δ and Δ. The synthetic signals were obtained for all possible combinations of
 
 * $b$ = [0, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000] s/mm$^2$
-* Gradient duration δ [5, 7.5, 10, 12.5, 15, 17.5, 20, 22.5, 25] ms
-* Gradient separation Δ [5, 7.5, 10, 12.5, 15, 17.5, 20, 22.5, 25, 30, 32.5, 35, 37.5, 40, 42.5, 45, 47.5, 50, 52.5, 55, 57.5, 60, 62.5, 65, 70, 72.5, 80] ms
+* Gradient duration δ = [5, 7.5, 10, 12.5, 15, 17.5, 20, 22.5, 25] ms
+* Gradient separation Δ = [5, 7.5, 10, 12.5, 15, 17.5, 20, 22.5, 25, 30, 32.5, 35, 37.5, 40, 42.5, 45, 47.5, 50, 52.5, 55, 57.5, 60, 62.5, 65, 70, 72.5, 80] ms
 
 making sure of course that Δ $\geq$ δ. This leads to a total of `4761` combinations with unique ($b$,δ,Δ ). All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). Importantly, note that the minimum bvalue is `300` s/mm<sup>2</sup>: this choice allows us to minimise the contribution of the vascular signal _in vivo_, since our simulations do not account for capillary perfusion. Also, our code will exclude from the fitting diffusion measurements that you might have acquired for b-values that are higher/lower than the maximum/minimum b-value that we have simulated. 
 
