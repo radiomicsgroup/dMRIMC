@@ -273,6 +273,13 @@ bash run_full_fitting_pipeline.sh
 ```
 
 ### 6. Additional tips
+All the .py python scripts described in this tutorial have their own help manual. To check it, simply type
+```
+python <SCRIPT>.py -h
+```
+(for example, `python mri2micro_dictml.py`).
+
+
 * If you need to fix `kappa` to a specific value you need to use the appropriate pair of signal/parameter arrays from the `reference_signal_arrays`/ `reference_param_arrays` folders. The parameter arrays have `kappa` as the last column, in the case of a fixed value that column can be removed before use. You will also need to modify the `select_parameter_configuration.py` file to not automatically include the `kappa` column
 * If you need to fix `D0in` or `D0ex` you can do so from the `mri2micro_dictml.py` script
 
