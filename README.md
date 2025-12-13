@@ -22,9 +22,9 @@ Below we show you **how to start using Histo-μSim immediately on your own data*
 # Using Histo-μSim
 Our hope is that Histo-μSim will be useful for more people in the future. However, we are aware that tracing cells, processing substrates and running simulations is a time- and resource-consuming process, and that it may result complicated for clinical labs focussing on applied imaging. 
 
-To assist in the use of our tool, we have prepared a **rich dictionary of synthetic signals that you can download and deploy immediately to fit Histo-μSim on your diffusion MRI scans**. 
+To assist in the use of our tool, we have prepared a **rich dictionary of synthetic signals that you can download and deploy immediately to fit Histo-μSim on your own diffusion MRI scans**. 
 
-This signal dictionary corresponds to a very rich protocol with multiple b-values and even more diffusion times (δ, Δ), within which you will certainly find the protocol that you used to acquire your own data. The dictionary comes with a set of scripts that allow you to extract the subset of the synthetic signals that most closely matches the protocol that you have acquired. This will give access to the full potential of Histo-μSim, without the need for any new simulations or signal synthesis. 
+This signal dictionary corresponds to a very rich protocol with multiple b-values and even more diffusion times (δ, Δ), within which you will certainly find the protocol that you used to acquire your own data. The dictionary comes with a set of scripts that allow you to extract the subset of the synthetic signals that most closely matches the protocol that you have acquired. This will give you access to the full potential of Histo-μSim, without the need for any new simulations or signal synthesis. 
 
 
 ## Rich protocol information
@@ -280,8 +280,11 @@ python <SCRIPT>.py -h
 (for example, `python mri2micro_dictml.py -h`).
 
 
-* If you need to fix `kappa` to a specific value you need to use the appropriate pair of signal/parameter arrays from the `reference_signal_arrays`/ `reference_param_arrays` folders. The parameter arrays have `kappa` as the last column, in the case of a fixed value that column can be removed before use. You will also need to modify the `select_parameter_configuration.py` file to not automatically include the `kappa` column
-* If you need to fix `D0in` or `D0ex` you can do so from the `mri2micro_dictml.py` script
+The default implementation of Histo-μSim attempts to resolve diffusion restriction lengths and cell permeability at once, and hence requires dMRI protocols featuring multiple diffusion times. **If your protocol contains b-values acquired using only a single diffusion time, mathematically you cannot resolve all this properties**. In this case, you might to fix some of the parameters - but be aware: *fixing tissue parameters will bias the estimation of the other, free parameters!** You would then need to be extremely careful when interpreting the output maps.
+
+
+The first thing you can do is to fix `kappa` to a specific value. Additionally, you would need to fix  `D0in` and, potentially, `D0ex`, depending on the number of b-values that you have acquired. In the coming days we will include a script to show you how to do this - apologies for the wait!
+
 
 
 ## Dependencies
