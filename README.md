@@ -280,7 +280,7 @@ python <SCRIPT>.py -h
 (for example, `python mri2micro_dictml.py -h`).
 
 
-The default implementation of Histo-μSim attempts to resolve diffusion restriction lengths and cell permeability at once, and hence requires dMRI protocols featuring multiple diffusion times. **If your protocol contains b-values acquired using only a single diffusion time, mathematically you cannot resolve all this properties**. In this case, you might to fix some of the parameters - but be aware: *fixing tissue parameters will bias the estimation of the other, free parameters!** You would then need to be extremely careful when interpreting the output maps.
+The default implementation of Histo-μSim attempts to resolve diffusion restriction lengths and cell permeability at once, and hence requires dMRI protocols featuring multiple diffusion times. **If your protocol contains b-values acquired using only a single diffusion time, mathematically you cannot resolve all this properties**. In this case, you might to fix some of the parameters - but be aware: **fixing tissue parameters will bias the estimation of the other, free parameters!** You would then need to be extremely careful when interpreting the output maps.
 
 
 The first thing you can do is to fix `kappa` to a specific value. Additionally, you would need to fix  `D0in` and, potentially, `D0ex`, depending on the number of b-values that you have acquired. In the coming days we will include a script to show you how to do this - apologies for the wait!
