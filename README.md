@@ -4,7 +4,7 @@
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/commbio25.png" alt="commbio" width="auto" height="auto">
 </div>
 
-If you find dMRIMC useful, please cite our article:
+If you use the code released in this repository in your research, please cite our article:
 
 Athanasios Grigoriou, et al. **"Histology-informed microstructural diffusion simulations for MRI cancer characterisation — the Histo-μSim framework"**. Communications Biology 2025, 8: 1695, doi: [10.1101/2024.07.15.24310280](https://doi.org/10.1038/s42003-025-09096-3).
 
@@ -277,7 +277,7 @@ All the .py python scripts described in this tutorial have their own help manual
 ```
 python <SCRIPT>.py -h
 ```
-(for example, `python mri2micro_dictml.py`).
+(for example, `python mri2micro_dictml.py -h`).
 
 
 * If you need to fix `kappa` to a specific value you need to use the appropriate pair of signal/parameter arrays from the `reference_signal_arrays`/ `reference_param_arrays` folders. The parameter arrays have `kappa` as the last column, in the case of a fixed value that column can be removed before use. You will also need to modify the `select_parameter_configuration.py` file to not automatically include the `kappa` column
