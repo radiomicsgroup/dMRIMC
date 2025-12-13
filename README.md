@@ -43,7 +43,7 @@ Note that **only pulsed-gradient spin echo (PGSE) protocols are supported**. The
 ## Signal and parameter arrays
 The signal arrays generated using this protocol are inside the [using_Histo_uSim/reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) folder. **We have generated signals for the 18 cancer substrates that we produced for our paper**. The substrates can be downloaded from Grigoriou et al, Zenodo 2024, [doi: 10.5281/zenodo.14559103](https://doi.org/10.5281/zenodo.14559103).
 
-We have generated signals for **225 unique realisations of each substrate**, obtained by varying the intrinsic intra-cellular diffusivity `D0in` (5 values), the intrinsic extra-cellular diffusivity `D0ex` (5 values), and the cell membrane permeability `kappa` (9 values). This leads to a **total of 4050 signals for each ($b$,δ,Δ) measurement**. Note that we release separate signal/parameter arrays for each `kappa` value, with each array having 450 different signals (5 values of `D0in`, 5 for `D0ex` times 18 substrates) due to file size constraints (please see the [reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) and the [reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) folders).
+We have generated signals for **225 unique realisations of each substrate**, obtained by varying the intrinsic intra-cellular diffusivity `D0in` (5 values), the intrinsic extra-cellular diffusivity `D0ex` (5 values), and the cell membrane permeability `kappa` (9 values). This leads to a **total of 4050 signals for each ($b$,δ,Δ) measurement**. Note that we release separate signal/parameter arrays for each `kappa` value, with each array having 450 different signals (5 values of `D0in`, 5 for `D0ex` times 18 substrates) due to file size constraints (see the [reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) and the [reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) folders).
 
 ## Selecting signal subsets and tissue parameter configurations
 Below you will find a practical example that will illustrate how to use these synthetic signals to fit _Histo-μSim_ on your data. 
@@ -73,13 +73,13 @@ cd dMRIMC
 cd using_Histo_uSim
 ```
 
-For your convenience, the folder [zenodo_mouse_data](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/zenodo_mouse_data) within [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim) already contains a pre-processed dMRI scan, ready for you to use for this tutorial (so there is no need for you to download anything). Pre-processing included MP-PCA denoisin, Gibbs unringing and directional averaging. We will use the following files:
+The folder [zenodo_mouse_data](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/zenodo_mouse_data) within [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim) already contains a pre-processed dMRI scan, ready to use for this tutorial (so there is no need for you to download anything). Pre-processing included MP-PCA denoising, Gibbs unringing and directional averaging. We will use the following files:
 
 * `dwi_denoise_unring_sphmean.nii`: The file containing a preprocessed and directionally averaged scan
 * `dwi_noise.nii`: The file containing the standard deviation of noise from MPPCA denoising
-* `dwi_mask_one_sample.nii`: A mask file we have prepared covering one of specimens, a file with all of them is also included
+* `dwi_mask_one_sample.nii`: A mask file we have prepared covering one of specimens (a file with all of them is also included)
 
-The scan comes from our [Zenodo](https://doi.org/10.5281/zenodo.14559355) data set, which contains the mouse data used in our Histo-μSim paper. The data was acquired in tissue samples were scanned acquiring diffusion images along three orthogonal directions. However, note that **Histo-μSim is meant to be used on directionally-averaged signals** - that is the reason why we will be studying the 4D `dwi_denoise_unring_sphmean.nii` file. The b-values and gradient timinging corresponding to each volume of `dwi_denoise_unring_sphmean.nii` are indicated in the following additional files: 
+The scan comes from our [Zenodo](https://doi.org/10.5281/zenodo.14559355) data set, which contains the mouse data used in our Histo-μSim paper. The data was acquired in tissue samples were scanned acquiring diffusion images along three orthogonal directions. However, note that **Histo-μSim is meant to be used on directionally-averaged signals** - that is the reason why we will be studying the 4D `dwi_denoise_unring_sphmean.nii` file. The b-values and gradient timing corresponding to each volume of `dwi_denoise_unring_sphmean.nii` are indicated in the following additional files: 
 
 * `dwi_denoise_unring_sphmean.bval`(b-values in s/mm<sup>2</sup>)
 * `dwi_denoise_unring_sphmean.gdur` (gradient duration δ in ms)
@@ -168,7 +168,7 @@ a folder `protocols` with the subfolder `MOUSE_BREAST_EXVIVO` should have been c
 
 and a file called `signal_arr_subset.npy` should have been created, containing the columns corresponding to the closest protocol. Also, the script will have normalized the input dMRI scan `zenodo_mouse_data/dwi_denoise_unring_sphmean.nii` scan and the noise level `zenodo_mouse_data/dwi_noise.nii` by the mean b = 0 volume. Do not worry if you do not have a noise map, as it is an optional input parameter. For cases when there is a small bvalue instead of 0 they are treated as b = 0 with the threshold for this controlled with the `--bval-threshold` flag. The processed dMRI file should appear with the name `dwi_normalized.nii` and the noise as `dwi_noise_normalized.nii`. 
 
-Note that in the example above we used the option `--vasc-threshold 250`. This sets a threshold to discard b-values lower than the threshold, and is meant to remove dMRI measurements with non-negligible vascular signal contributions. In this case, all volumes with bvalue < 250 s/mm2 would be removed. This scan did not contain any, but in the case that it does a warning similar to the one about high bvalues will be printed and the relevant volumes will be removed.
+Note that in the example above we used the option `--vasc-threshold 250`. This sets a threshold to discard b-values lower than the threshold, and is meant to remove dMRI measurements with non-negligible vascular signal contributions. In this case, all volumes with bvalue < 250 s/mm<sup>2</sup> (except for the b = 0 volume) would be removed. This scan did not contain any, but in the case that it does a warning similar to the one about high bvalues will be printed and the relevant volumes will be removed.
 
 ### 3. Select which tissue parameters to estimate
 
@@ -266,7 +266,7 @@ The resulting map for `fin` should look like this:
 </div>
 
 ### 5. A script to run the whole thing at once
-We have packaged all the above in one command line script for your convenience, called [`run_full_fitting_pipeline.sh`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/run_full_fitting_pipeline.sh). You can run it by typing:
+We have packaged all the above in one command line script, called [`run_full_fitting_pipeline.sh`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/run_full_fitting_pipeline.sh). You can run it by typing:
 
 ```
 bash run_full_fitting_pipeline.sh
