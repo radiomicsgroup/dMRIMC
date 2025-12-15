@@ -1,5 +1,4 @@
 import numpy as np
-from matplotlib.ticker import FixedLocator, FixedFormatter
 import argparse
 
 D0in_D0ex_values = np.round(np.linspace(0.8, 3, 5), decimals=4)
