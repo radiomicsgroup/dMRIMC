@@ -45,6 +45,11 @@ The signal arrays generated using this protocol are inside the [using_Histo_uSim
 
 We have generated signals for **225 unique realisations of each substrate**, obtained by varying the intrinsic intra-cellular diffusivity `D0in` (5 values), the intrinsic extra-cellular diffusivity `D0ex` (5 values), and the cell membrane permeability `kappa` (9 values). This leads to a **total of 4050 signals for each ($b$,δ,Δ) measurement**. Note that we release separate signal/parameter arrays for each `kappa` value, with each array having 450 different signals (5 values of `D0in`, 5 for `D0ex` times 18 substrates) due to file size constraints (see the [reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) and the [reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) folders).
 
+The range of variation for `D0in`, `D0ex` and `kappa` are:
+* `D0in`: from 0.8 μm<sup>2</sup> to 3.0 μm<sup>2</sup>
+* `D0ex`: from 0.8 μm<sup>2</sup> to 3.0 μm<sup>2</sup>
+* `kappa`: from 0 μm<sup>2</sup> to 40 μm<sup>2</sup>
+
 ## Selecting signal subsets and tissue parameter configurations
 Below you will find a practical example that will illustrate how to use these synthetic signals to fit _Histo-μSim_ on your data. 
 
@@ -54,8 +59,8 @@ Once the subset of synthetic measurements is found and your dMRI scan has been n
 
 * `fin`: intracellular fraction (normalised), ranging from X to X
 * `mCS`: mean cell size in μm, ranging from X μm to X μm
-* `varCS`: variance of cell size in μm<sup>2</sup>, ranging from X μm<sup>2</sup> from X μm<sup>2</sup>
-* `skewCS`: skewness of cell size (dimensionless), ranging from X and X
+* `varCS`: variance of cell size in μm<sup>2</sup>, ranging from X μm<sup>2</sup> to X μm<sup>2</sup>
+* `skewCS`: skewness of cell size (dimensionless), ranging from X to X
 * `vCS_sph`: volume-weighted CS (vCS) index for a system with spherical geometry in μm, ranging from X μm to X μm 
 * `vCS_cyl`: volume-weighted CS (vCS) index for a system with cylindrical geometry in μm, ranging from X μm to X μm
 
