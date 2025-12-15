@@ -36,9 +36,9 @@ echo "Grabbing the appropriate volumes from the normalized scan"
 
 fslroi dwi_normalized.nii dwi_normalized_first_diff_time.nii 0 3
 
-echo "0.00 500.00 2100.00" > protocols/MOUSE_BREAST_EXVIVO_ONE_DIFF_TIME/scheme_fixed_diffusion time.scheme
-echo "11.00 11.00 11.00" > protocols/MOUSE_BREAST_EXVIVO_ONE_DIFF_TIME/scheme_fixed_diffusion time.scheme
-echo "16.00 16.00 16.00" > protocols/MOUSE_BREAST_EXVIVO_ONE_DIFF_TIME/scheme_fixed_diffusion time.scheme
+echo "0.00 500.00 2100.00" >> protocols/MOUSE_BREAST_EXVIVO_ONE_DIFF_TIME/scheme_fixed_diffusion_time.scheme
+echo "11.00 11.00 11.00" >> protocols/MOUSE_BREAST_EXVIVO_ONE_DIFF_TIME/scheme_fixed_diffusion_time.scheme
+echo "16.00 16.00 16.00" >> protocols/MOUSE_BREAST_EXVIVO_ONE_DIFF_TIME/scheme_fixed_diffusion_time.scheme
 
 # Create dictionary with fixed kappa, for example kappa = 25 um/s and fixed D0in = 2.45
 python fix_parameters.py --kappa 25 --D0in 2.45
