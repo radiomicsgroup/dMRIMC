@@ -52,12 +52,12 @@ Briefly, script [get_closest_scheme.py](https://github.com/radiomicsgroup/dMRIMC
 
 Once the subset of synthetic measurements is found and your dMRI scan has been normalised, you will have to choose which tissue parameters to fit using the [select_parameter_configuration.py](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/select_parameter_configuration.py). The available parameters are the following (for details regarding their calculation page 20 of our paper):
 
-* `fin`: intracellular fraction (normalised, ranging from 0 to 1)
-* `mCS`: mean cell size in μm
-* `varCS`: variance of cell size in μm<sup>2</sup>
-* `skewCS`: skewness of cell size (dimensionless)
-* `vCS_sph`: volume-weighted CS (vCS) index for a system with spherical geometry in μm
-* `vCS_cyl`: volume-weighted CS (vCS) index for a system with cylindrical geometry in μm
+* `fin`: intracellular fraction (normalised), ranging from X to X
+* `mCS`: mean cell size in μm, ranging from X μm to X μm
+* `varCS`: variance of cell size in μm<sup>2</sup>, ranging from X μm<sup>2</sup> from X μm<sup>2</sup>
+* `skewCS`: skewness of cell size (dimensionless), ranging from X and X
+* `vCS_sph`: volume-weighted CS (vCS) index for a system with spherical geometry in μm, ranging from X μm to X μm 
+* `vCS_cyl`: volume-weighted CS (vCS) index for a system with cylindrical geometry in μm, ranging from X μm to X μm
 
 Tissue parameters corresponding to synthetic signals are stored in the folder  [using_Histo_uSim/reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) as NumPy matrices where rows represent different microstructure realisations, while columns are the tissue parameters corresponding to each microstructure realisation.  
 
