@@ -211,16 +211,16 @@ python mri2micro_dictml.py \
 We are distributing a copy of `mri2micro_dictml.py` here, but note that it was originally released as part of the [BodyMRItools](https://github.com/fragrussu/bodymritools/) repository. We invite you to check it out, as it include many more scripts that can be of help to work with body diffusion imaging!
 
 A quick comment on the inputs taken by `mri2micro_dictml.py`:
-* `dwi_normalized.nii`: the `.nii` file we created above, normalized and with invalid volumes removed
-* `signal_arr_subset.npy`: the signal array subset corresponding to the closest matching protocol
-* `param_arr_subset.npy`: the parameter array subset corresponding to the closest matching protocol
-* `--sldim 0`: parallelizing the fitting on the final dimension
-* `--savg 3`: as mentioned above the `.nii` we are using is the average of three directions (x, y, z)
-* `--ncpu 10`: using 10 threads
-* `--reg "2,0.0025"`: L-norm type for the regularization, weight of the regularizer ([0.0 - 1.0]) - we use L2 regularisation for the fitting with a regularisation weight of 0.0025
+* `dwi_normalized.nii`: the `.nii` file we created above, normalized and with measurements that fall outside the range of the simulated protocol removed
+* `signal_arr_subset.npy`: the signal dictionary corresponding to the closest matching protocol
+* `param_arr_subset.npy`: the tissue parameter dictionary corresponding to the closest matching protocol
+* `--sldim 0`: spatial dimension along which paralleling the fitting (0: image dimension i; 1: image dimension j; 2: image dimension k)
+* `--savg 3`: number of signal averages used to acquire the input `.nii` above. We are using 3 as the scan is the average of three directions (x, y, z)
+* `--ncpu 10`: number of threads to be used for parallel computing (10 threads in this example)
+* `--reg "2,0.0025"`: use regularisation for model witting. We use an L2 regularisation with regularisation weight of 0.0025 (choose a number betwee 0, for no regularisation, and 1) 
 * `--noise dwi_noise_normalized.nii`: the normalized noise file we created above, to model noise floor bias
 * `--mask zenodo_mouse_data/dwi_mask_one_sample.nii`: a mask file covering one of the samples
-* `fitting/Histo_uSim`: the location of the output with an output string for the result files `Histo_uSim` + `_par{N}`
+* `fitting/Histo_uSim`: the location of the output with an output string for the result files `Histo_uSim` + `_par{N}.nii`
 
 For more information on all the options of `mri2micro_dictml.py`, simply type `python python mri2micro_dictml.py -h`. Running the script will output:
 
