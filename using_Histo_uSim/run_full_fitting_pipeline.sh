@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Combining signal and parameter arrays"
 
 python combine_arrays.py
