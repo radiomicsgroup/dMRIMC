@@ -11,13 +11,13 @@ echo "Finding closest protocol, getting the subsets and processing .nii files"
 python get_closest_scheme.py \
     --protocol-name MOUSE_BREAST_EXVIVO \
     --ref-signal all_signals_all_substrates.npy \
-    --dwi zenodo_mouse_data/scans/breast/dwi_denoise_unring_sphmean.nii \
-    --bval zenodo_mouse_data/scans/breast/dwi_denoise_unring_sphmean.bval \
-    --gdur zenodo_mouse_data/scans/breast/dwi_denoise_unring_sphmean.gdur \
-    --gsep zenodo_mouse_data/scans/breast/dwi_denoise_unring_sphmean.gsep \
+    --dwi zenodo_mouse_data/dwi_denoise_unring_sphmean.nii \
+    --bval zenodo_mouse_data/dwi_denoise_unring_sphmean.bval \
+    --gdur zenodo_mouse_data/dwi_denoise_unring_sphmean.gdur \
+    --gsep zenodo_mouse_data/dwi_denoise_unring_sphmean.gsep \
     --bval-threshold 20 \
     --vasc-threshold 250 \
-    --noise zenodo_mouse_data/scans/breast/dwi_noise.nii \
+    --noise zenodo_mouse_data/dwi_noise.nii \
     --show-plot
 
 echo "Selecting parameter configuration: fin vCS_cyl D0in D0ex kappa"
@@ -26,6 +26,11 @@ python select_parameter_configuration.py --params fin vCS_cyl
 
 # As an example, we create a small sub-protocol of diffusion MRI measurements at fixed diffusion time
 echo "Selecting the first diffusion time from protocols/MOUSE_BREAST_EXVIVO/scheme as an example"
+
+# For the fitting to work we also need the signal measurements for that diffusion time. We have
+# removed the second diffusion time columns from the signal_arr_subset.npy file keeping only the
+# first diffusion time. The file with only the first diffusion time is called
+# signal_arr_subset_one_diff_time.npy
 echo "Using signal_arr_subset_one_diff_time.npy"
 echo "Grabbing the appropriate volumes from the normalized scan"
 
@@ -55,5 +60,5 @@ python mri2micro_dictml.py \
     --ncpu 10 \
     --reg "2,0.0025" \
     --noise dwi_noise_normalized.nii \
-    --mask zenodo_mouse_data/scans/breast/dwi_mask_one_sample.nii \
+    --mask zenodo_mouse_data/dwi_mask_one_sample.nii \
     fitting/Histo_uSim
