@@ -98,6 +98,10 @@ zenodo_mouse_data/
 ├── dwi_denoise_unring_sphmean.gdur
 ├── dwi_denoise_unring_sphmean.gsep
 ├── dwi_denoise_unring_sphmean.nii
+├── dwi_denoise_unring_sphmean_difftimefixed.bval
+├── dwi_denoise_unring_sphmean_difftimefixed.gdur
+├── dwi_denoise_unring_sphmean_difftimefixed.gsep
+├── dwi_denoise_unring_sphmean_difftimefixed.nii
 ├── dwi_mask.nii
 ├── dwi_mask_one_sample.nii
 └── dwi_noise.nii
