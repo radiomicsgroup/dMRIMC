@@ -177,7 +177,7 @@ Note that in the example above we used the option `--vasc-threshold 250`. This s
 
 ### 3. Select which tissue parameters to estimate
 
-As mentioned above, you can now select a subset of the available parameters to fit using [`select_parameter_configuration.py](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/select_parameter_configuration.py). Note that **`D0in`, `D0ex` and `kappa` are always included**. We will focus on the estimation of `fin` and `vCS_cyl`, exactly as we did in our paper:
+As mentioned above, you can now select a subset of the available parameters to fit using [`select_parameter_configuration.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/select_parameter_configuration.py). Note that **`D0in`, `D0ex` and `kappa` are always included**. We will focus on the estimation of `fin` and `vCS_cyl`, exactly as we did in our paper:
 
 ```
 python select_parameter_configuration.py --params fin vCS_cyl
