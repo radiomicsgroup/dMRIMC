@@ -286,7 +286,7 @@ The default implementation of Histo-μSim attempts to resolve diffusion restrict
 However, be aware: **fixing tissue parameters will bias the estimation of the other, free parameters!** You would then need to be extremely careful when interpreting the output maps.
 
 
-The first thing you can do is to fix `kappa` to a specific value. Additionally, you would need to fix  `D0in` and, potentially, `D0ex`, depending on the number of b-values that you have acquired. In the coming days we will include a script to show you how to do this - apologies for the wait!
+The first thing you can do is to fix `kappa` to a specific value. Additionally, you would need to fix  `D0in` and, potentially, `D0ex`, depending on the number of b-values that you have acquired. The script [`run_full_fitting_pipeline_fixpars.sh`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/run_full_fitting_pipeline_fixpars.sh) shows you how to do it in practice.
 
 
 
