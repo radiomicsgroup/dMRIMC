@@ -28,7 +28,7 @@ This signal dictionary corresponds to a very rich protocol with multiple b-value
 
 
 ## Rich protocol information
-We have generated synthetic signals for a very rich protocol where you will be able to find your own diffusion measurements with a precision of as few as 50 s/mm<sup>2</sup> for $b$, and just 2.5 ms for δ and Δ. The synthetic signals were obtained for all possible combinations of
+We have generated synthetic signals for a very rich protocol where you will be able to find your own diffusion measurements with a precision of as few as 50 s/mm<sup>2</sup> for $b$, and just 1.25 ms for δ and Δ. The synthetic signals were obtained for all possible combinations of
 
 * $b$ = [0, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000] s/mm<sup>2</sup>
 * Gradient duration δ = [5, 7.5, 10, 12.5, 15, 17.5, 20, 22.5, 25] ms
