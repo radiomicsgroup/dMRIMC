@@ -174,8 +174,11 @@ a folder `protocols` with the subfolder `MOUSE_BREAST_EXVIVO` should have been c
 * `closest.gdur`
 * `closest.gsep`
 * `closest.scheme`
+* `dwi_noise_normalized.nii`
+* `dwi_normalized.nii`
+* `signal_arr_subset.npy`
 
-and a file called `signal_arr_subset.npy` should have been created, containing the columns corresponding to the closest protocol. Also, the script will have normalized the input dMRI scan `zenodo_mouse_data/dwi_denoise_unring_sphmean.nii` scan and the noise level `zenodo_mouse_data/dwi_noise.nii` by the mean b = 0 volume. Do not worry if you do not have a noise map, as it is an optional input parameter. For cases when there is a small bvalue instead of 0 they are treated as b = 0 with the threshold for this controlled with the `--bval-threshold` flag. The processed dMRI file should appear with the name `dwi_normalized.nii` and the noise as `dwi_noise_normalized.nii`. 
+The `signal_arr_subset.npy` and  file should have been created, containing the columns corresponding to the closest protocol. Also, the script will have normalized the input dMRI scan `zenodo_mouse_data/dwi_denoise_unring_sphmean.nii` scan and the noise level `zenodo_mouse_data/dwi_noise.nii` by the mean b = 0 volume. Do not worry if you do not have a noise map, as it is an optional input parameter. For cases when there is a small bvalue instead of 0 they are treated as b = 0 with the threshold for this controlled with the `--bval-threshold` flag. The processed dMRI file should appear with the name `dwi_normalized.nii` and the noise as `dwi_noise_normalized.nii`. 
 
 Note that in the example above we used the option `--vasc-threshold 250`. This sets a threshold to discard b-values lower than the threshold, and is meant to remove dMRI measurements with non-negligible vascular signal contributions. In this case, all volumes with bvalue < 250 s/mm<sup>2</sup> (except for the b = 0 volume) would be removed. This scan did not contain any, but in the case that it does a warning similar to the one about high bvalues will be printed and the relevant volumes will be removed.
 
@@ -184,32 +187,32 @@ Note that in the example above we used the option `--vasc-threshold 250`. This s
 As mentioned above, you can now select a subset of the available parameters to fit using [`select_parameter_configuration.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/select_parameter_configuration.py). Note that **`D0in`, `D0ex` and `kappa` are always included**. We will focus on the estimation of `fin` and `vCS_cyl`, exactly as we did in our paper:
 
 ```
-python select_parameter_configuration.py --params fin vCS_cyl
+python select_parameter_configuration.py --params fin vCS_cyl --output-folder MOUSE_BREAST_EXVIVO
 ```
 
-You will see that this will have created the tissue parameter file `param_arr_subset.npy` (**5** columns: `fin`, `vCS_cyl`, `D0in`, `D0ex` and `kappa`), with the corresponding synthetic signals `signal_arr_subset.npy`. 
+You will see that this will have created the tissue parameter file `param_arr_subset.npy` (**5** columns: `fin`, `vCS_cyl`, `D0in`, `D0ex` and `kappa`), corresponding with the synthetic signals array `signal_arr_subset.npy`. 
 
 ### 4. Perform Histo-μSim model fitting
 We are now ready to use the synthetic signals and the corresponding tissue parameter file for Histo-μSim fitting. Let's create a folder called `fitting` to store the fitting results:
 
 ```
-mkdir -v fitting
+mkdir -v protocols/MOUSE_BREAST_EXVIVO/fitting
 ```
 
 With all the aforementioned ingredients at hand we can now run the fitting script using the [`mri2micro_dictml.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/mri2micro_dictml.py) script:
 
 ```
 python mri2micro_dictml.py \
-    dwi_normalized.nii \
-    signal_arr_subset.npy \
-    param_arr_subset.npy \
+    protocols/MOUSE_BREAST_EXVIVO/dwi_normalized.nii \
+    protocols/MOUSE_BREAST_EXVIVO/signal_arr_subset.npy \
+    protocols/MOUSE_BREAST_EXVIVO/param_arr_subset.npy \
     --sldim 0 \
     --savg 3 \
     --ncpu 10 \
     --reg "2,0.0025" \
-    --noise dwi_noise_normalized.nii \
+    --noise protocols/MOUSE_BREAST_EXVIVO/dwi_noise_normalized.nii \
     --mask zenodo_mouse_data/dwi_mask_one_sample.nii \
-    fitting/Histo_uSim
+    protocols/MOUSE_BREAST_EXVIVO/fitting/Histo_uSim
 ```
 
 We are distributing a copy of `mri2micro_dictml.py` here, but note that it was originally released as part of the [BodyMRItools](https://github.com/fragrussu/bodymritools/) repository. We invite you to check it out, as it include many more scripts that can be of help to work with body diffusion imaging!
