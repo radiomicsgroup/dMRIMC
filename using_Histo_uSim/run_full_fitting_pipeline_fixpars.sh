@@ -30,28 +30,28 @@ python get_closest_scheme.py \
 
 echo "Selecting parameter configuration: fin vCS_cyl D0in D0ex kappa"
 
-python select_parameter_configuration.py --params fin vCS_cyl
+python select_parameter_configuration.py --params fin vCS_cyl --output-folder MOUSE_BREAST_EXVIVO_FIXDIFFTIME
 
 # Create dictionary with fixed kappa, for example kappa = 25 um/s and fixed D0in = 2.45
-python fix_parameters.py --kappa 25 --D0in 2.45
+python fix_parameters.py --kappa 25 --D0in 2.45 --protocol-folder MOUSE_BREAST_EXVIVO_FIXDIFFTIME
 
 echo "Fixed parameter array, the columns with the fixed values were removed"
 
 echo "Making 'fitting' folder"
 
-mkdir -v fitting
+mkdir -v protocols/MOUSE_BREAST_EXVIVO_FIXDIFFTIME/fitting
 
 echo "Running fitting script with fixed kappa = 25 μm/s and D0in = 2.45 μm2/ms"
 
 python mri2micro_dictml.py \
-    dwi_normalized_first_diff_time.nii \
-    kappa_D0in_fixed_sig.npy \
-    kappa_D0in_fixed_params.npy \
+    protocols/MOUSE_BREAST_EXVIVO_FIXDIFFTIME/dwi_normalized.nii \
+    protocols/MOUSE_BREAST_EXVIVO_FIXDIFFTIME/kappa_D0in_fixed_sig.npy \
+    protocols/MOUSE_BREAST_EXVIVO_FIXDIFFTIME/kappa_D0in_fixed_params.npy \
     --sldim 0 \
     --savg 3 \
     --ncpu 10 \
     --reg "2,0.0025" \
-    --noise dwi_noise_normalized.nii \
+    --noise protocols/MOUSE_BREAST_EXVIVO_FIXDIFFTIME/dwi_noise_normalized.nii \
     --mask zenodo_mouse_data/dwi_mask_one_sample.nii \
-    fitting/Histo_uSim_difftimefixed
+    protocols/MOUSE_BREAST_EXVIVO_FIXDIFFTIME/fitting/Histo_uSim_difftimefixed
     

@@ -11,18 +11,18 @@ def fancier_print(msg):
     print(25 * "-")
     return
 
-parser = argparse.ArgumentParser(description='Get closest signal entries to target protocol, process and normalize DWI scans')
-parser.add_argument('--protocol-name', required=True, help='Output protocol name')
-parser.add_argument('--dwi', required=True, help='Input DWI NIfTI file')
-parser.add_argument('--bval', required=True, help='Target bval file')
-parser.add_argument('--gdur', required=True, help='Target gdur file')
-parser.add_argument('--gsep', required=True, help='Target gsep file')
-parser.add_argument('--ref-signal', required=True, default='all_signals_all_substrates.npy', help='Reference signal array')
-parser.add_argument('--vasc-threshold', required=False, default='250', help='Remove the bvalues below this number to get rid of vascular signals')
-parser.add_argument('--bval-threshold', required=False, default='20', help='bvalue threshold under which all volumes are considered b = 0')
-parser.add_argument('--noise-map', required=False, help='OPTIONAL - NIfTI with the standard deviation of the noise. If supplied it will be normalized like the DWI file ')
-parser.add_argument('--show-plot', action='store_true', help='OPTIONAL - Plot first row of final signal array, separated via diffusion time and/or gradient directions')
-# action='store_true' makes including --show-plot --> args.show_plot = True, omitting it sets False
+parser = argparse.ArgumentParser(description="Get closest signal entries to target protocol, process and normalize DWI scans")
+parser.add_argument("--protocol-name", required=True, help="Output protocol name")
+parser.add_argument("--dwi", required=True, help="Input DWI NIfTI file")
+parser.add_argument("--bval", required=True, help="Target bval file")
+parser.add_argument("--gdur", required=True, help="Target gdur file")
+parser.add_argument("--gsep", required=True, help="Target gsep file")
+parser.add_argument("--ref-signal", required=True, default="all_signals_all_substrates.npy", help="Reference signal array")
+parser.add_argument("--vasc-threshold", required=False, default="250", help="Remove the bvalues below this number to get rid of vascular signals")
+parser.add_argument("--bval-threshold", required=False, default="20", help="bvalue threshold under which all volumes are considered b = 0")
+parser.add_argument("--noise-map", required=False, help="OPTIONAL - NIfTI with the standard deviation of the noise. If supplied it will be normalized like the DWI file ")
+parser.add_argument("--show-plot", action="store_true", help="OPTIONAL - Plot first row of final signal array, separated via diffusion time and/or gradient directions")
+# action="store_true" makes including --show-plot --> args.show_plot = True, omitting it sets False
 args = parser.parse_args()
 
 # Load reference protocol
@@ -37,6 +37,7 @@ target_delta = np.loadtxt(args.gdur)
 target_DELTA = np.loadtxt(args.gsep)
 
 INPUT_PROTOCOL_NAME = args.protocol_name
+os.makedirs(os.path.dirname(f"protocols/{INPUT_PROTOCOL_NAME}"), exist_ok=True)
 #%%
 dwi = nib.load(args.dwi)
 data = dwi.get_fdata()
@@ -135,12 +136,12 @@ if not os.path.exists(f"protocols/{INPUT_PROTOCOL_NAME}"):
 res_bvals = res_bvals.reshape(1,-1)
 res_delta = res_delta.reshape(1,-1)
 res_DELTA = res_DELTA.reshape(1,-1)
-np.savetxt(f"protocols/{INPUT_PROTOCOL_NAME}/closest.bval", res_bvals, fmt='%.2f', delimiter=' ')
-np.savetxt(f"protocols/{INPUT_PROTOCOL_NAME}/closest.gdur", res_delta, fmt='%.2f', delimiter=' ')
-np.savetxt(f"protocols/{INPUT_PROTOCOL_NAME}/closest.gsep", res_DELTA, fmt='%.2f', delimiter=' ')
+np.savetxt(f"protocols/{INPUT_PROTOCOL_NAME}/closest.bval", res_bvals, fmt="%.2f", delimiter=" ")
+np.savetxt(f"protocols/{INPUT_PROTOCOL_NAME}/closest.gdur", res_delta, fmt="%.2f", delimiter=" ")
+np.savetxt(f"protocols/{INPUT_PROTOCOL_NAME}/closest.gsep", res_DELTA, fmt="%.2f", delimiter=" ")
 
 scheme = np.concatenate((res_bvals, res_delta, res_DELTA))
-np.savetxt(f"protocols/{INPUT_PROTOCOL_NAME}/closest.scheme", scheme, fmt='%.2f', delimiter=' ')
+np.savetxt(f"protocols/{INPUT_PROTOCOL_NAME}/closest.scheme", scheme, fmt="%.2f", delimiter=" ")
 
 print()
 print(f"Saved closest protocol at: protocols/{INPUT_PROTOCOL_NAME}")
@@ -167,10 +168,10 @@ else:
 
 # Save result
 output_img = nib.Nifti1Image(new_data, affine, header)
-nib.save(output_img, f"dwi_normalized.nii")
+nib.save(output_img, f"protocols/{INPUT_PROTOCOL_NAME}/dwi_normalized.nii")
 
 output_noise = nib.Nifti1Image(new_noise_data, noise_affine, noise_header)
-nib.save(output_noise, f"dwi_noise_normalized.nii")
+nib.save(output_noise, f"protocols/{INPUT_PROTOCOL_NAME}/dwi_noise_normalized.nii")
 
 if consecutive_zeros.size > 0:
     new_data = np.delete(new_data, indices_to_remove, axis=3)
@@ -178,7 +179,7 @@ if consecutive_zeros.size > 0:
 
     # Save result
     edited_img = nib.Nifti1Image(new_data, affine, header)
-    nib.save(edited_img, f"dwi_normalized.nii")
+    nib.save(edited_img, f"protocols/{INPUT_PROTOCOL_NAME}/dwi_normalized.nii")
 #%% Grab signal subset
 # Find indices that match ALL four parameters
 b_min_inds_arr = np.array(b_min_inds)
@@ -206,7 +207,7 @@ for i in range(res_bvals.size):
 
 # Extract signal subset
 signal_subset = signal_arr[:, final_inds]
-np.save("signal_arr_subset.npy", signal_subset)
+np.save(f"protocols/{INPUT_PROTOCOL_NAME}/signal_arr_subset.npy", signal_subset)
 #%%
 def split_by_zeros(arr1, arr2):
     """Split arr2 into rows based on positions of zeros in arr1."""

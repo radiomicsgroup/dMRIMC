@@ -20,22 +20,22 @@ python get_closest_scheme.py \
 
 echo "Selecting parameter configuration: fin vCS_cyl D0in D0ex kappa"
 
-python select_parameter_configuration.py --params fin vCS_cyl
+python select_parameter_configuration.py --params fin vCS_cyl --output-folder MOUSE_BREAST_EXVIVO
 
 echo "Making 'fitting' folder"
 
-mkdir -v fitting
+mkdir -v protocols/MOUSE_BREAST_EXVIVO/fitting
 
 echo "Running fitting script"
 
 python mri2micro_dictml.py \
-    dwi_normalized.nii \
-    signal_arr_subset.npy \
-    param_arr_subset.npy \
+    protocols/MOUSE_BREAST_EXVIVO/dwi_normalized.nii \
+    protocols/MOUSE_BREAST_EXVIVO/signal_arr_subset.npy \
+    protocols/MOUSE_BREAST_EXVIVO/param_arr_subset.npy \
     --sldim 0 \
     --savg 3 \
     --ncpu 10 \
     --reg "2,0.0025" \
-    --noise dwi_noise_normalized.nii \
+    --noise protocols/MOUSE_BREAST_EXVIVO/dwi_noise_normalized.nii \
     --mask zenodo_mouse_data/dwi_mask_one_sample.nii \
-    fitting/Histo_uSim
+    protocols/MOUSE_BREAST_EXVIVO/fitting/Histo_uSim
