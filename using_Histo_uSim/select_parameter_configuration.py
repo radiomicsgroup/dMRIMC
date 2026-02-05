@@ -31,9 +31,10 @@ args = parser.parse_args()
 out_folder = args.output_folder
 
 p_columns = args.params
-p_columns.append("Din")
-p_columns.append("Dex")
-p_columns.append("kappa")
+# Add Din, Dex, kappa only if not already present
+for p in ["Din", "Dex", "kappa"]:
+    if p not in p_columns:
+        p_columns.append(p)
 cols_to_keep = [param_index[p] for p in p_columns]
 
 param_arr_filtered = param_arr[:, cols_to_keep]
