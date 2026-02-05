@@ -28,7 +28,7 @@ This signal dictionary corresponds to a very rich protocol with multiple b-value
 
 
 ## Rich protocol information
-We have generated synthetic signals for a very rich protocol where you will be able to find your own diffusion measurements with a precision of as few as 50 s/mm<sup>2</sup> for $b$, and just 2.5 ms for δ and Δ. The synthetic signals were obtained for all possible combinations of
+We have generated synthetic signals for a very rich protocol where you will be able to find your own diffusion measurements with a precision of as few as 50 s/mm<sup>2</sup> for $b$, and just 1.25 ms for δ and Δ. The synthetic signals were obtained for all possible combinations of
 
 * $b$ = [0, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000] s/mm<sup>2</sup>
 * Gradient duration δ = [5, 7.5, 10, 12.5, 15, 17.5, 20, 22.5, 25] ms
@@ -292,10 +292,10 @@ python <SCRIPT>.py -h
 (for example, `python mri2micro_dictml.py -h`).
 
 
-The default implementation of Histo-μSim attempts to resolve diffusion restriction lengths and cell permeability at once, and hence requires dMRI protocols featuring multiple diffusion times. **If your protocol contains b-values acquired using only a single diffusion time, mathematically you cannot resolve all this properties, and you would have to fix some of the parameters to specific, and hoc values**. 
+The default implementation of Histo-μSim attempts to resolve diffusion restriction lengths and cell permeability at once, and hence requires dMRI protocols featuring multiple diffusion times. **If your protocol contains b-values acquired using only a single diffusion time, mathematically you cannot resolve all these properties together, and you might need to fix some of the parameters to specific _and hoc_ values**. 
 
 
-However, be aware: **fixing tissue parameters will bias the estimation of the other, free parameters!** You would then need to be extremely careful when interpreting the output maps.
+However, be aware: **fixing tissue parameters will bias the estimation of the other free parameters!** You would then need to be extremely careful when interpreting the output maps.
 
 
 The first thing you can do is to fix `kappa` to a specific value. Additionally, you would need to fix  `D0in` and, potentially, `D0ex`, depending on the number of b-values that you have acquired. The script [`run_full_fitting_pipeline_fixpars.sh`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/run_full_fitting_pipeline_fixpars.sh) shows you how to do it in practice.
