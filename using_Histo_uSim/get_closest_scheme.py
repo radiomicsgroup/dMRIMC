@@ -1,14 +1,12 @@
 import numpy as np
 import os
 import nibabel as nib
-import matplotlib.pyplot as plt
-from matplotlib.ticker import FixedLocator, FixedFormatter
 import argparse
 
 def fancier_print(msg):
-    print(25 * "-")
+    print(75 * "-")
     print(msg)
-    print(25 * "-")
+    print(75 * "-")
     return
 
 parser = argparse.ArgumentParser(description="Get closest signal entries to target protocol, process and normalize DWI scans")
@@ -62,8 +60,8 @@ if np.any((target_bvals < vasc_bval_limit) & (target_bvals > int(args.bval_thres
     print("Warning!")
     print(f"bvalue under {vasc_bval_limit} s/mm2 in the target scheme")
     print(f"Min bvalue is 300 s/mm2 so that all effects of vascular flow are removed")
-    print(f"Volumes with bvalues lower than that (expect for b = 0) are removed")
-    too_low_locs = np.where((target_bvals <= vasc_bval_limit) & (target_bvals > 20))[0]
+    print(f"Volumes with bvalues lower than that and higher than the bval threshold of {args.bval_threshold} are removed")
+    too_low_locs = np.where((target_bvals < vasc_bval_limit) & (target_bvals > int(args.bval_threshold)))[0]
     data = np.delete(data, too_low_locs, axis=3)
     target_bvals = np.delete(target_bvals, too_low_locs)
     target_delta = np.delete(target_delta, too_low_locs)
@@ -79,20 +77,7 @@ for b in target_bvals:
     diff1 = np.abs(ref_bvals - b).argmin()
     b_min_inds.append(diff1)
 res_bvals = ref_bvals[b_min_inds]
-# if there are more than one b=0 in succession, keep only the first and save
-# the indices of the ones we removed so we can remove those volumes from the
-# scans as well
-zero_indices = np.where(res_bvals == 0)[0]
-consecutive_zeros = np.where(np.diff(zero_indices) == 1)[0] + 1
-if consecutive_zeros.size > 0:
-    indices_to_remove = zero_indices[consecutive_zeros]
-    print("Some consecutive b = 0 volumes were created due to bvalues under 300")
-    print(f"Removed extra b = 0 indices at {indices_to_remove}") 
-    
-    # update bmin indices
-    b_min_inds = [i for j, i in enumerate(b_min_inds) if j not in indices_to_remove]
-    # update res_bvals
-    res_bvals = np.delete(res_bvals, indices_to_remove)
+
 #%%
 # Level 2
 delta1_min_inds = []
@@ -101,10 +86,6 @@ for d1 in target_delta:
     delta1_min_inds.append(diff2)
 res_delta = ref_delta[delta1_min_inds]
 
-# remove the volumes we removed from the bvals
-if consecutive_zeros.size > 0:
-    res_delta = np.delete(res_delta, indices_to_remove)
-    delta1_min_inds = [i for j, i in enumerate(delta1_min_inds) if j not in indices_to_remove]
 #%%
 # Level 3
 DELTA_min_inds = []
@@ -113,10 +94,6 @@ for D in target_DELTA:
     DELTA_min_inds.append(diff4)
 res_DELTA = ref_DELTA[DELTA_min_inds]
 
-# remove the volumes we removed from the bvals
-if consecutive_zeros.size > 0:
-    res_DELTA = np.delete(res_DELTA, indices_to_remove)
-    DELTA_min_inds = [i for j, i in enumerate(DELTA_min_inds) if j not in indices_to_remove]
 #%%
 print()
 fancier_print("Resulting scheme")
@@ -173,13 +150,6 @@ nib.save(output_img, f"protocols/{INPUT_PROTOCOL_NAME}/dwi_normalized.nii")
 output_noise = nib.Nifti1Image(new_noise_data, noise_affine, noise_header)
 nib.save(output_noise, f"protocols/{INPUT_PROTOCOL_NAME}/dwi_noise_normalized.nii")
 
-if consecutive_zeros.size > 0:
-    new_data = np.delete(new_data, indices_to_remove, axis=3)
-    print("Removing the consecutive b = 0 volumes from the scan as well")
-
-    # Save result
-    edited_img = nib.Nifti1Image(new_data, affine, header)
-    nib.save(edited_img, f"protocols/{INPUT_PROTOCOL_NAME}/dwi_normalized.nii")
 #%% Grab signal subset
 # Find indices that match ALL four parameters
 b_min_inds_arr = np.array(b_min_inds)
@@ -208,41 +178,3 @@ for i in range(res_bvals.size):
 # Extract signal subset
 signal_subset = signal_arr[:, final_inds]
 np.save(f"protocols/{INPUT_PROTOCOL_NAME}/signal_arr_subset.npy", signal_subset)
-#%%
-def split_by_zeros(arr1, arr2):
-    """Split arr2 into rows based on positions of zeros in arr1."""
-    zero_indices = np.where(arr1 == 0)[0]
-
-    # Add endpoint to capture last segment
-    split_points = np.append(zero_indices, len(arr1))
-
-    rows = []
-    for i in range(len(split_points) - 1):
-        start = split_points[i]
-        end = split_points[i + 1]
-        rows.append(arr2[start:end])
-
-    return np.array(rows)
-
-if args.show_plot:
-    sigs = split_by_zeros(res_bvals[0,:], signal_subset[0])
-    bs = split_by_zeros(res_bvals[0,:], res_bvals[0,:])
-    unsorted_found = False
-    for i, s in enumerate(sigs):
-        if np.any(bs[i] != np.sort(bs[i])):
-            if not unsorted_found:
-                plt.xticks(range(len(bs[i])), bs[i].astype(int))
-                plt.xlabel("bvalue (s/mm$^2$)")
-                unsorted_found = True
-            plt.plot(s, label=f"Diffusion time {i+1}")
-        else:
-            plt.plot(bs[i], s, label=f"Diffusion time {i+1}")
-            ticks = bs[i]
-            ax = plt.gca()
-            ax.xaxis.set_major_locator(FixedLocator(ticks))
-            plt.xlabel("b-values (s/mm$^2$)")
-
-    plt.ylabel("Signal intensity")
-    plt.title("Signal at 0 index")
-    plt.legend()
-    plt.show()

@@ -28,13 +28,20 @@ This signal dictionary corresponds to a very rich protocol with multiple b-value
 
 
 ## Rich protocol information
-We have generated synthetic signals for a very rich protocol where you will be able to find your own diffusion measurements with a precision of as few as 50 s/mm<sup>2</sup> for $b$, and just 1.25 ms for δ and Δ. The synthetic signals were obtained for all possible combinations of
+We have generated synthetic signals for a very rich protocol where you will be able to find your own diffusion measurements with a precision of as few as 50 s/mm<sup>2</sup> for b, and just 1.25 ms for δ and Δ. The synthetic signals were obtained for all possible combinations of
 
-* $b$ = [0, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000] s/mm<sup>2</sup>
-* Gradient duration δ = [5, 7.5, 10, 12.5, 15, 17.5, 20, 22.5, 25] ms
-* Gradient separation Δ = [5, 7.5, 10, 12.5, 15, 17.5, 20, 22.5, 25, 30, 32.5, 35, 37.5, 40, 42.5, 45, 47.5, 50, 52.5, 55, 57.5, 60, 62.5, 65, 70, 72.5, 80] ms
+* b = [0, 300,  400,  500,  600,  700,  800,  900, 1000, 1100,
+       1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000,
+       2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900,
+       3000, 3100, 3200, 3300, 3400, 3500, 3600, 3700, 3800,
+       3900, 4000, 4100, 4200, 4300, 4400, 4500, 4600, 4700,
+       4800, 4900, 5000] s/mm<sup>2</sup>
+* Gradient duration δ = [4,  6,  8, 11, 13, 15, 18, 20, 22, 25] ms
+* Gradient separation Δ = [4,  6,  8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36,
+       38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70,
+       72, 74, 76, 78, 80] ms
 
-making sure of course that Δ $\geq$ δ. This leads to a total of `4761` combinations with unique ($b$,δ,Δ). All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). Importantly, note that the minimum bvalue is `300` s/mm<sup>2</sup>: this choice allows us to minimise the contribution of the vascular signal _in vivo_, since our simulations do not account for capillary perfusion. Also, our code will exclude from the fitting diffusion measurements that you might have acquired for b-values that are higher/lower than the maximum/minimum b-value that we have simulated. 
+making sure of course that Δ $\geq$ δ. This leads to a total of `4761` combinations with unique (b,δ,Δ). All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). Importantly, note that the minimum bvalue is `300` s/mm<sup>2</sup>: this choice allows us to minimise the contribution of the vascular signal _in vivo_, since our simulations do not account for capillary perfusion. Also, our code will exclude from the fitting diffusion measurements that you might have acquired for b-values that are higher/lower than the maximum/minimum b-value that we have simulated. 
 
 
 Note that **only pulsed-gradient spin echo (PGSE) protocols are supported**. The synthetic signals stored in the [reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol) folder are in the format of NumPy matrices where rows represents different microstructures, while columns different measurements in the dMRI protocol.
@@ -43,7 +50,7 @@ Note that **only pulsed-gradient spin echo (PGSE) protocols are supported**. The
 ## Signal and parameter arrays
 The signal arrays generated using this protocol are inside the [using_Histo_uSim/reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) folder. **We have generated signals for the 18 cancer substrates that we produced for our paper**. The substrates can be downloaded from Grigoriou et al, Zenodo 2024, [doi: 10.5281/zenodo.14559103](https://doi.org/10.5281/zenodo.14559103).
 
-We have generated signals for **225 unique realisations of each substrate**, obtained by varying the intrinsic intra-cellular diffusivity `D0in` (5 values), the intrinsic extra-cellular diffusivity `D0ex` (5 values), and the cell membrane permeability `kappa` (9 values). This leads to a **total of 4050 signals for each ($b$,δ,Δ) measurement**. Note that we release separate signal/parameter arrays for each `kappa` value, with each array having 450 different signals (5 values of `D0in`, 5 for `D0ex` times 18 substrates) due to file size constraints (see the [reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) and the [reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) folders).
+We have generated signals for **225 unique realisations of each substrate**, obtained by varying the intrinsic intra-cellular diffusivity `D0in` (5 values), the intrinsic extra-cellular diffusivity `D0ex` (5 values), and the cell membrane permeability `kappa` (9 values). This leads to a **total of 4050 signals for each (b,δ,Δ) measurement**. Note that we release separate signal/parameter arrays for each `kappa` value, with each array having 450 different signals (5 values of `D0in`, 5 for `D0ex` times 18 substrates) due to file size constraints (see the [reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) and the [reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) folders).
 
 The range of variation for `D0in`, `D0ex` and `kappa` are:
 * `D0in`: from 0.8 μm<sup>2</sup>/ms to 3.0 μm<sup>2</sup>/ms
@@ -53,7 +60,7 @@ The range of variation for `D0in`, `D0ex` and `kappa` are:
 ## Selecting signal subsets and tissue parameter configurations
 Below you will find a practical example that will illustrate how to use these synthetic signals to fit _Histo-μSim_ on your data. 
 
-Briefly, script [get_closest_scheme.py](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/get_closest_scheme.py) will find subset of synthetic measurements that most closely match the acquisition scheme ($b$, δ, Δ) that you used to acquire your data. Additionally, it will also normalize the dMRI measurements you provided in the input NIFTI file so that the signal at $b$ = 0 is 1 (our synthetic signals are bound within 0 and 1).
+Briefly, script [get_closest_scheme.py](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/get_closest_scheme.py) will find subset of synthetic measurements that most closely match the acquisition scheme (b, δ, Δ) that you used to acquire your data. Additionally, it will also normalize the dMRI measurements you provided in the input NIFTI file so that the signal at b = 0 is 1 (our synthetic signals are bound within 0 and 1).
 
 Once the subset of synthetic measurements is found and your dMRI scan has been normalised, you will have to choose which tissue parameters to fit using the [select_parameter_configuration.py](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/select_parameter_configuration.py). The available parameters are the following (for details regarding their calculation page 20 of our paper):
 
@@ -138,7 +145,7 @@ python get_closest_scheme.py \
     --gdur zenodo_mouse_data/dwi_denoise_unring_sphmean.gdur \
     --gsep zenodo_mouse_data/dwi_denoise_unring_sphmean.gsep \
     --bval-threshold 20 \
-    --vasc-threshold 250 \
+    --vasc-threshold 300 \
     --noise zenodo_mouse_data/dwi_noise.nii \
     --show-plot
 ```
@@ -149,23 +156,24 @@ Max bvalue in the target scheme is 4628.46 s/mm2
 Max bvalue synthesized signals are at 3000.0 s/mm2 
 Volumes with bvalues higher than that are removed
 
--------------------------
+---------------------------------------------------------------------------
 Resulting scheme
--------------------------
-[   0.  500. 2100.    0.  500. 2100.]
-[11. 11. 11. 11. 11. 11.]
-[16. 16. 16. 36. 36. 36.]
+---------------------------------------------------------------------------
+[   0. 4600.  500. 2100.    0. 4600.  500. 2100.]
+[11. 11. 11. 11. 11. 11. 11. 11.]
+[16. 16. 16. 16. 36. 36. 36. 36.]
 
--------------------------
+---------------------------------------------------------------------------
 Target scheme
--------------------------
-[   7.94  520.1  2063.      7.58  516.84 2056.56]
-[12. 12. 12. 12. 12. 12.]
-[16.5 16.5 16.5 37.  37.  37. ]
+---------------------------------------------------------------------------
+[   7.94 4628.46  520.07 2063.      7.58 4618.79  516.84 2056.56]
+[12. 12. 12. 12. 12. 12. 12. 12.]
+[16.5 16.5 16.5 16.5 37.  37.  37.  37. ]
 
 Saved closest protocol at: protocols/MOUSE_BREAST_EXVIVO
 
 Normalizing the scan and noise, assuming that any volumes with b < 20 s/mm2 are b = 0
+
 
 ```
 a folder `protocols` with the subfolder `MOUSE_BREAST_EXVIVO` should have been created with the files:
@@ -180,7 +188,7 @@ a folder `protocols` with the subfolder `MOUSE_BREAST_EXVIVO` should have been c
 
 The `signal_arr_subset.npy` and  file should have been created, containing the columns corresponding to the closest protocol. Also, the script will have normalized the input dMRI scan `zenodo_mouse_data/dwi_denoise_unring_sphmean.nii` scan and the noise level `zenodo_mouse_data/dwi_noise.nii` by the mean b = 0 volume. Do not worry if you do not have a noise map, as it is an optional input parameter. For cases when there is a small bvalue instead of 0 they are treated as b = 0 with the threshold for this controlled with the `--bval-threshold` flag. The processed dMRI file should appear with the name `dwi_normalized.nii` and the noise as `dwi_noise_normalized.nii`. 
 
-Note that in the example above we used the option `--vasc-threshold 250`. This sets a threshold to discard b-values lower than the threshold, and is meant to remove dMRI measurements with non-negligible vascular signal contributions. In this case, all volumes with bvalue < 250 s/mm<sup>2</sup> (except for the b = 0 volume) would be removed. This scan did not contain any, but in the case that it does a warning similar to the one about high bvalues will be printed and the relevant volumes will be removed.
+Note that in the example above we used the option `--vasc-threshold 300`. This sets a threshold to discard b-values lower than the threshold, and is meant to remove dMRI measurements with non-negligible vascular signal contributions. In this case, all volumes with bvalue < 300 s/mm<sup>2</sup> and above the `--bval-threshold` (default 20 s/mm<sup>2</sup>) would be removed. This scan did not contain any, but in the case that it does a warning similar to the one about high bvalues will be printed and the relevant volumes will be removed.
 
 ### 3. Select which tissue parameters to estimate
 

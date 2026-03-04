@@ -14,9 +14,8 @@ python get_closest_scheme.py \
     --gdur zenodo_mouse_data/dwi_denoise_unring_sphmean.gdur \
     --gsep zenodo_mouse_data/dwi_denoise_unring_sphmean.gsep \
     --bval-threshold 20 \
-    --vasc-threshold 250 \
+    --vasc-threshold 300 \
     --noise zenodo_mouse_data/dwi_noise.nii \
-    --show-plot
 
 echo "Selecting parameter configuration: fin vCS_cyl D0in D0ex kappa"
 
