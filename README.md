@@ -70,6 +70,7 @@ Once the subset of synthetic measurements is found and your dMRI scan has been n
 * `skewCS`: skewness of cell size (dimensionless), ranging from -0.52 to 0.86
 * `vCS_sph`: volume-weighted CS (vCS) index for a system with spherical geometry in μm, ranging from 8.2 μm to 19.9 μm 
 * `vCS_cyl`: volume-weighted CS (vCS) index for a system with cylindrical geometry in μm, ranging from 7.9 μm to 19.1 μm
+* `cellularity`: cells per mm<sup>2</sup>, ranging from 676 to 13743. Note that cellularity is stored in cells/mm<sup>2</sup> in [using_Histo_uSim/reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) but it is fitted in log10 space for better performance.
 
 Tissue parameters corresponding to synthetic signals are stored in the folder  [using_Histo_uSim/reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) as NumPy matrices where rows represent different microstructure realisations, while columns are the tissue parameters corresponding to each microstructure realisation.  
 
