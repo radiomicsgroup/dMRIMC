@@ -26,7 +26,6 @@ python get_closest_scheme.py \
     --bval-threshold 20 \
     --vasc-threshold 250 \
     --noise zenodo_mouse_data/dwi_noise.nii \
-    --show-plot
 
 echo "Selecting parameter configuration: fin vCS_cyl D0in D0ex kappa"
 

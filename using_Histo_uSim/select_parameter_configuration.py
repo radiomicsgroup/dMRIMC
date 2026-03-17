@@ -2,10 +2,20 @@ import numpy as np
 import argparse
 
 # Load combined parameter array
-param_arr = np.load("all_parameters_all_substrates.npy")
+existing_array = np.load("all_parameters_all_substrates.npy")
+
+# Load cellularity column from CommBio table 1
+cellularity_column = np.load('reference_param_arrays/cellularity_column_from_CommBio.npy')
+
+# Transform cellularity to log space
+cellularity_column = np.log10(cellularity_column)
+
+# Add the cellularity column
+param_arr = np.hstack([existing_array, cellularity_column])
+
 
 # Parameters are stored in this order:
-# fin, mCS, varCS, skewCS, vCS_sph, vCS_cyl, Din, Dex, kappa
+# fin, mCS, varCS, skewCS, vCS_sph, vCS_cyl, Din, Dex, kappa, cellularity
 param_index = {
     "fin":0,
     "mCS":1,
@@ -16,13 +26,14 @@ param_index = {
     "Din":6,
     "Dex":7,
     "kappa":8,
+    "cellularity":9,
     }
 
 # Argparse setup
 parser = argparse.ArgumentParser(description="Select a parameter configuration for fitting")
 parser.add_argument("--params", type=str, required=True, 
                     choices=["fin", "mCS", "varCS", "skewCS", "vCS_sph", 
-                             "vCS_cyl", "Din", "Dex", "kappa"],
+                             "vCS_cyl", "Din", "Dex", "kappa", "cellularity"],
                     nargs="+",
                     help="Parameter names to keep")
 parser.add_argument("--output-folder", type=str, help="Output folder to store the processed arrays")
