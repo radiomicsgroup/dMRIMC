@@ -199,7 +199,12 @@ As mentioned above, you can now select a subset of the available parameters to f
 python select_parameter_configuration.py --params fin vCS_cyl --output-folder MOUSE_BREAST_EXVIVO
 ```
 
-You will see that this will have created the tissue parameter file `param_arr_subset.npy` (**5** columns: `fin`, `vCS_cyl`, `D0in`, `D0ex` and `kappa`), corresponding with the synthetic signals array `signal_arr_subset.npy`. 
+You will see that this will have created the tissue parameter file `param_arr_subset.npy` (**5** columns: `fin`, `vCS_cyl`, `D0in`, `D0ex` and `kappa`), corresponding with the synthetic signals array `signal_arr_subset.npy`. If instead, for example, you were interested in estimating `fin`, `mCS`, `varCS` and `cellularity`, you should instead have written:
+
+```
+python select_parameter_configuration.py --params fin mCS varCS cellularity --output-folder MOUSE_BREAST_EXVIVO
+```
+This would have instead created a tissue parameter file `param_arr_subset.npy` with **7** columns: `fin`, `mCS`, `varCS`, `cellularity`, `D0in`, `D0ex` and `kappa`. Note that cellularity values will be outputted as $log_{10}(cellularity in cells/mm^2^)$, as this leads to more robust estimation.
 
 ### 4. Perform Histo-μSim model fitting
 We are now ready to use the synthetic signals and the corresponding tissue parameter file for Histo-μSim fitting. Let's create a folder called `fitting` to store the fitting results:
@@ -236,7 +241,7 @@ A quick comment on the inputs taken by `mri2micro_dictml.py`:
 * `--reg "2,0.0025"`: use regularisation for model witting. We use an L2 regularisation with regularisation weight of 0.0025 (choose a number betwee 0, for no regularisation, and 1) 
 * `--noise dwi_noise_normalized.nii`: the normalized noise file we created above, to model noise floor bias
 * `--mask zenodo_mouse_data/dwi_mask_one_sample.nii`: a mask file covering one of the samples
-* `fitting/Histo_uSim`: the location of the output with an output string for the result files `Histo_uSim` + `_par{N}.nii`
+* `fitting/Histo_uSim`: the location of the output with an output string for the result files `Histo_uSim` + `_par{N}.nii`. The parameters are in the same order as those in `param_arr_subset.npy`. Note that if you had included cellularity, you'd be obtaining estimates in $log_{10}(cellularity in cells/mm^2^)$.
 
 For more information on all the options of `mri2micro_dictml.py`, simply type `python python mri2micro_dictml.py -h`. Running the script will output:
 
