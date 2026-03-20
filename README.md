@@ -241,7 +241,7 @@ A quick comment on the inputs taken by `mri2micro_dictml.py`:
 * `--reg "2,0.0025"`: use regularisation for model witting. We use an L2 regularisation with regularisation weight of 0.0025 (choose a number betwee 0, for no regularisation, and 1) 
 * `--noise dwi_noise_normalized.nii`: the normalized noise file we created above, to model noise floor bias
 * `--mask zenodo_mouse_data/dwi_mask_one_sample.nii`: a mask file covering one of the samples
-* `fitting/Histo_uSim`: the location of the output with an output string for the result files `Histo_uSim` + `_par{N}.nii`. The parameters are in the same order as those in `param_arr_subset.npy`. Note that if you had included cellularity, you'd be obtaining estimates in log<sub>10</sub>(cellularity in cells/mm<sup>2</sup>)$.
+* `fitting/Histo_uSim`: the location of the output with an output string for the result files `Histo_uSim` + `_par{N}.nii`. The parameters are in the same order as those in `param_arr_subset.npy`. Note that if you had included cellularity, you'd be obtaining estimates in log<sub>10</sub>(cellularity in cells/mm<sup>2</sup>).
 
 For more information on all the options of `mri2micro_dictml.py`, simply type `python python mri2micro_dictml.py -h`. Running the script will output:
 
