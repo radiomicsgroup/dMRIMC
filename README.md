@@ -149,10 +149,16 @@ python get_closest_scheme.py \
     --vasc-threshold 300 \
     --noise zenodo_mouse_data/dwi_noise.nii \
 ```
-The script extracts the subset of diffusion MRI measurement from our ultra-rich synthetic protocol that more closely matches the input protocol by the user, with which the diffusion MRI data to analyse was acquired. The extracted sub-protocol is stored inside the `MOUSE_BREAST_EXVIVO` folder, which is created within `dMRIMC/using_Histo_uSim`. We recommend that you use a different folder name for different subjects/scans, if you need to deploy Histo-μSim on several imaging sessions (e.g., `protocol_sub01`, `protocol_sub02`, ...) . The protocol provided by the user is specificied through the `--bval`, `--gdur` and `--gsep` parameters, through which space-separated files are provided. These must include one entry for each volume of the 4D NIFTI file storing the diffusion MRI scan to process, with the following units:
-* s/mm$^2$ for b-values (`--bval`)
+The script extracts the subset of diffusion MRI measurement from our ultra-rich synthetic protocol that more closely matches the input protocol by the user, with which the diffusion MRI data to analyse was acquired. It also takes care of preparing the diffusion MRI scan for Histo-μSim fitting. 
+
+The extracted sub-protocol is stored inside the `MOUSE_BREAST_EXVIVO` folder, which is created within `dMRIMC/using_Histo_uSim`. We recommend that you use a different folder name for different subjects/scans, if you need to deploy Histo-μSim on several imaging sessions (e.g., `protocol_sub01`, `protocol_sub02`, ...). The protocol provided by the user is specificied through the `--bval`, `--gdur` and `--gsep` parameters, through which space-separated files are provided. These must include one entry for each volume of the 4D NIFTI file storing the diffusion MRI scan to process (`--dwi`), with the following units:
+* s/mm<sup>2</sup> for b-values (`--bval`)
 * ms for the gradient duration δ (`--gdur`)
 * ms for the gradient separation Δ (`--gsep`).
+
+For cases when there is no true b = 0 (e.g., in preclinical imaging), you have the option of treating them as b = 0 using a threshold controlled by the `--bval-threshold` flag. This sets the maxinimum b-value below which all the volumes will be effectively considered as b = 0 for signal normalisation.   
+
+Note that in the example above we used the option `--vasc-threshold 300`. This sets a threshold to discard b-values with non-negligible vascular signal contributions. In this case, all volumes with bvalue < 300 s/mm<sup>2</sup> and above the `--bval-threshold` (default 20 s/mm<sup>2</sup>) would be removed. This scan did not contain any, but in the case that it does a warning similar to the one about high bvalues will be printed and the relevant volumes will be removed.
 
 Going back to our example, if all went well, you should see:
 ```
@@ -174,7 +180,6 @@ Saved closest protocol at: protocols/MOUSE_BREAST_EXVIVO
 
 Normalizing the scan and noise, assuming that any volumes with b < 20 s/mm2 are b = 0
 
-
 ```
 a folder `protocols` with the subfolder `MOUSE_BREAST_EXVIVO` should have been created with the files:
 
@@ -186,9 +191,7 @@ a folder `protocols` with the subfolder `MOUSE_BREAST_EXVIVO` should have been c
 * `dwi_normalized.nii`
 * `signal_arr_subset.npy`
 
-The `signal_arr_subset.npy` and  file should have been created, containing the columns corresponding to the closest protocol. Also, the script will have normalized the input dMRI scan `zenodo_mouse_data/dwi_denoise_unring_sphmean.nii` scan and the noise level `zenodo_mouse_data/dwi_noise.nii` by the mean b = 0 volume. Do not worry if you do not have a noise map, as it is an optional input parameter. For cases when there is a small bvalue instead of 0 they are treated as b = 0 with the threshold for this controlled with the `--bval-threshold` flag. The processed dMRI file should appear with the name `dwi_normalized.nii` and the noise as `dwi_noise_normalized.nii`. 
-
-Note that in the example above we used the option `--vasc-threshold 300`. This sets a threshold to discard b-values lower than the threshold, and is meant to remove dMRI measurements with non-negligible vascular signal contributions. In this case, all volumes with bvalue < 300 s/mm<sup>2</sup> and above the `--bval-threshold` (default 20 s/mm<sup>2</sup>) would be removed. This scan did not contain any, but in the case that it does a warning similar to the one about high bvalues will be printed and the relevant volumes will be removed.
+The `signal_arr_subset.npy` and  file should have been created, containing the columns corresponding to the closest protocol. Also, the script will have normalized the input dMRI scan `zenodo_mouse_data/dwi_denoise_unring_sphmean.nii` scan and the noise level `zenodo_mouse_data/dwi_noise.nii` by the mean b = 0 volume. Do not worry if you do not have a noise map, as it is an optional input parameter. The processed dMRI file should appear with the name `dwi_normalized.nii` and the noise as `dwi_noise_normalized.nii`: these are, resepctively, the scan corresponding to the protocol that has been extracted, normalised to the b = 0 signal intensity level, and the noise map, also normalised to the b = 0 signal.  
 
 ### 3. Select which tissue parameters to estimate
 
