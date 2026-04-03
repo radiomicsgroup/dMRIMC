@@ -152,11 +152,6 @@ python get_closest_scheme.py \
 ```
 If all went well you should see:
 ```
-Warning!
-Max bvalue in the target scheme is 4628.46 s/mm2
-Max bvalue synthesized signals are at 3000.0 s/mm2 
-Volumes with bvalues higher than that are removed
-
 ---------------------------------------------------------------------------
 Resulting scheme
 ---------------------------------------------------------------------------
