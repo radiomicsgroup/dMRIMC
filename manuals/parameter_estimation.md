@@ -23,7 +23,7 @@ In the paper we consider three different acquisition protocols, here we describe
 This figure illustrates a PGSE sequence:
 
 <p align="center">
-  <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/gradient_img.png" width="80%" />
+  <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/gradient_img.jpg" width="80%" />
 </p>
 
 
