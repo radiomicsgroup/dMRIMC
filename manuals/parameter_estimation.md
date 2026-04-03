@@ -69,7 +69,7 @@ python density_plots_and_correlations.py
 With this, you can generate Fig.4, panels (a)-(e) related to the _in silico_ parameter estimation experiments of our paper.
 
 <div align="center">
-    <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/figs/PGSEin_SNR50_config14_all_params.jpg" alt="mcinformed" width="auto" height="auto">
+    <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/parameter_estimation/figs/PGSEin_SNR50_config14_all_params.png" alt="mcinformed" width="auto" height="auto">
 </div>
 
 
