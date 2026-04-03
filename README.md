@@ -134,7 +134,7 @@ python combine_arrays.py
 ```
 
 
-Afterwards, we need to extract the closest scheme from the available b-values and diffusion times using [`get_closest_scheme.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/get_closest_scheme.py). We will call our target protocol `MOUSE_BREAST_EXVIVO` (but you can use any name you like):
+Afterwards, we need to extract the closest scheme from the available b-values and diffusion times using [`get_closest_scheme.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/get_closest_scheme.py) as shown below (note that all the input parameters are cumpolsory).
 
 
 ```
@@ -148,9 +148,13 @@ python get_closest_scheme.py \
     --bval-threshold 20 \
     --vasc-threshold 300 \
     --noise zenodo_mouse_data/dwi_noise.nii \
-    --show-plot
 ```
-If all went well you should see:
+The script extracts the subset of diffusion MRI measurement from our ultra-rich synthetic protocol that more closely matches the input protocol by the user, with which the diffusion MRI data to analyse was acquired. The extracted sub-protocol is stored inside the `MOUSE_BREAST_EXVIVO` folder, which is created within `dMRIMC/using_Histo_uSim`. We recommend that you use a different folder name for different subjects/scans, if you need to deploy Histo-μSim on several imaging sessions (e.g., `protocol_sub01`, `protocol_sub02`, ...) . The protocol provided by the user is specificied through the `--bval`, `--gdur` and `--gsep` parameters, through which space-separated files are provided. These must include one entry for each volume of the 4D NIFTI file storing the diffusion MRI scan to process, with the following units:
+* s/mm$^2$ for b-values (`--bval`)
+* ms for the gradient duration δ (`--gdur`)
+* ms for the gradient separation Δ (`--gsep`).
+
+Going back to our example, if all went well, you should see:
 ```
 ---------------------------------------------------------------------------
 Resulting scheme
