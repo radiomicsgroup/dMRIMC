@@ -94,7 +94,7 @@ cd using_Histo_uSim
 python combine_arrays.py
 ```
 
-Note that running [combine_arrays.py](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/combine_arrays.py) is required to combine signal and parameter arrays into a signel dictionary, which could not be uploaded to comply with GitHub restrictions of file size.
+Note that running [combine_arrays.py](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/combine_arrays.py) is required to combine signal and parameter arrays into a signel dictionary, as this had to split into multiple sub-files for upload to comply with GitHub file size restrictions.
 
 
 ### 2. The data and the code of this example
