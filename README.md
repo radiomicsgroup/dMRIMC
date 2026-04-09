@@ -14,7 +14,7 @@ This repository was developed by Athanasios Grigoriou (<agrigoriou@vhio.net>) an
 
 This repository accompanies our [paper](https://doi.org/10.1038/s42003-025-09096-3), and provides all the tools needed to implement our proposed _Histo-μSim_ diffusion Magnetic Resonance Imaging (dMRI) technique for cancer imaging. 
 
-Below we show you **how to start using Histo-μSim immediately on your own data**. Additionally, we have also written two more tutorials:
+Below we show you **how to start perform Histo-μSim dictionary fitting immediately on your own diffusion MRI data**. Additionally, we have also written two more tutorials:
 
 - [Histology-to-signals manual](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md): to guide you on preparing new substrates for Monte Carlo simulations from 2D histology, in case you want to run more simulations;
 - [In silico experiment replication](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/parameter_estimation.md): to show you how to replicate some of the _in silico_ experiments performed in our paper.
@@ -24,7 +24,7 @@ Our hope is that Histo-μSim will be useful for more people in the future. Howev
 
 To assist in the use of our tool, we have prepared a **rich dictionary of synthetic signals that you can download and deploy immediately to fit Histo-μSim on your own diffusion MRI scans**. 
 
-This signal dictionary corresponds to a very rich protocol with multiple b-values and even more diffusion times (δ, Δ), within which you will certainly find the protocol that you used to acquire your own data. The dictionary comes with a set of scripts that allow you to extract the subset of the synthetic signals that most closely matches the protocol that you have acquired. This will give you access to the full potential of Histo-μSim, without the need for any new simulations or signal synthesis. 
+This signal dictionary corresponds to a very rich protocol with multiple b-values and even more diffusion times (δ, Δ), within which you will certainly (almost) find the protocol that you used to acquire your own data. The dictionary comes with a set of scripts that allow you to extract the subset of the synthetic signals that most closely matches the protocol that you have acquired. This will give you access to the full potential of Histo-μSim, without the need for any new simulations or signal synthesis. 
 
 
 ## Rich protocol information
@@ -41,10 +41,14 @@ We have generated synthetic signals for a very rich protocol where you will be a
        38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70,
        72, 74, 76, 78, 80] ms
 
-making sure of course that Δ $\geq$ δ. This leads to a total of `16177` combinations with unique (b,δ,Δ). All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). Importantly, note that the minimum bvalue is `300` s/mm<sup>2</sup>: this choice allows us to minimise the contribution of the vascular signal _in vivo_, since our simulations do not account for capillary perfusion. Also, our code will exclude from the fitting diffusion measurements that you might have acquired for b-values that are higher/lower than the maximum/minimum b-value that we have simulated. 
+making sure of course that Δ $\geq$ δ. This leads to a total of `16177` combinations with unique (b,δ,Δ). All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). Some important notes: 
+* the minimum non-zero bvalue is `300` s/mm<sup>2</sup>: this choice allows us to minimise the contribution of the vascular signal _in vivo_, since our simulations do not account for capillary perfusion;
+* the maximum b-value is `5000` s/mm<sup>2</sup>;
+* **our code will exclude from the fitting diffusion measurements that you might have acquired for b-values that are higher/lower than the maximum/minimum b-value that we have simulated**;
+* **gradient timings Δ or δ that are lower/higher than the minimum/maximum simulated Δ or δ will be kept, but will instead be kept, but will be compared to signals syntesised with the minimum/maximum Δ or δ**, unless you remove such measurements from the input NIFTI beforehand;  
+* **only pulsed-gradient spin echo (PGSE) protocols are supported**.
 
-
-Note that **only pulsed-gradient spin echo (PGSE) protocols are supported**. The synthetic signals stored in the [reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol) folder are in the format of NumPy matrices where rows represents different microstructures, while columns different measurements in the dMRI protocol.
+The synthetic signals stored in the [reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol) folder are in the format of NumPy matrices where rows represents different microstructures, while columns different measurements in the dMRI protocol.
 
 
 ## Signal and parameter arrays
@@ -77,14 +81,20 @@ Tissue parameters corresponding to synthetic signals are stored in the folder  [
 ## Example: mouse data 
 As a concrete example, we show how to use Histo-μSim on the mouse data we have released on Zenodo at [https://doi.org/10.5281/zenodo.14559355](https://doi.org/10.5281/zenodo.14559355), specifically the breast cancer samples in `scans/breast`. For more information on parameter estimation check [parameter_estimation.md](https://github.com/radiomicsgroup/dMRIMC/tree/main/manuals/parameter_estimation.md) where we replicate some of the figures of our paper.
 
-### 1. Data
-To begin, clone the Histo-μSim repo and navigate to the [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim) folder:
+### 1. Cloning the repository and setting things up
+To begin, clone the Histo-μSim repo, navigate to the [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim) folder and run a quick set-up:
 
 ```
 git clone https://github.com/radiomicsgroup/dMRIMC.git
 cd dMRIMC
 cd using_Histo_uSim
+python combine_arrays.py
 ```
+
+Note that running [combine_arrays.py](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/combine_arrays.py) is required to combine signal and parameter arrays into a signel dictionary, which could not be uploaded to comply with GitHub restrictions of file size.
+
+
+### 2. The data and the code of this example
 
 The folder [zenodo_mouse_data](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/zenodo_mouse_data) within [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim) already contains a pre-processed dMRI scan, ready to use for this tutorial (so there is no need for you to download anything). Pre-processing included MP-PCA denoising, Gibbs unringing and directional averaging. We will use the following files:
 
@@ -127,14 +137,7 @@ The folder [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main
 
 ### 2. Get synthetic signal subsets and pre-process the input dMRI scan
 
-First we need to combine the signal and parameter arrays. This step is necessary because we uploaded our signal/parameter dictionaries through multiple files to comply with GitHub restrictions of file size, and is done simply by running 
-
-```
-python combine_arrays.py
-```
-
-
-Afterwards, we need to extract the closest scheme from the available b-values and diffusion times using [`get_closest_scheme.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/get_closest_scheme.py) as shown below (note that all the input parameters are cumpolsory).
+Now we need to extract the scheme file (b-values and gradien duration/separation) matching as closely as possible the protocol used to acquire the diffusion MRI data that the user wants to fit. This is done using [`get_closest_scheme.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/get_closest_scheme.py) as shown below (note that all the input parameters are compulsory).
 
 
 ```
