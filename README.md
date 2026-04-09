@@ -41,7 +41,9 @@ We have generated synthetic signals for a very rich protocol where you will be a
        38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70,
        72, 74, 76, 78, 80] ms
 
-making sure of course that Δ $\geq$ δ. This leads to a total of `16177` combinations with unique (b,δ,Δ). All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). Some important notes: 
+making sure of course that Δ $\geq$ δ. This leads to a total of `16177` combinations with unique (b,δ,Δ). All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). 
+
+Some important notes: 
 * the minimum non-zero bvalue is `300` s/mm<sup>2</sup>: this choice allows us to minimise the contribution of the vascular signal _in vivo_, since our simulations do not account for capillary perfusion;
 * the maximum b-value is `5000` s/mm<sup>2</sup>;
 * **our Histo-μSim code will exclude from the fitting diffusion measurements that you might have acquired for b-values that are higher/lower than the maximum/minimum b-value that we have simulated**;
