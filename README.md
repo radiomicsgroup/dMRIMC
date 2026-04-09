@@ -44,9 +44,10 @@ We have generated synthetic signals for a very rich protocol where you will be a
 making sure of course that Δ $\geq$ δ. This leads to a total of `16177` combinations with unique (b,δ,Δ). All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). Some important notes: 
 * the minimum non-zero bvalue is `300` s/mm<sup>2</sup>: this choice allows us to minimise the contribution of the vascular signal _in vivo_, since our simulations do not account for capillary perfusion;
 * the maximum b-value is `5000` s/mm<sup>2</sup>;
-* **our code will exclude from the fitting diffusion measurements that you might have acquired for b-values that are higher/lower than the maximum/minimum b-value that we have simulated**;
-* **gradient timings Δ or δ that are lower/higher than the minimum/maximum simulated Δ or δ will be kept, but will instead be kept, but will be compared to signals syntesised with the minimum/maximum Δ or δ**, unless you remove such measurements from the input NIFTI beforehand;  
-* **only pulsed-gradient spin echo (PGSE) protocols are supported**.
+* **our Histo-μSim code will exclude from the fitting diffusion measurements that you might have acquired for b-values that are higher/lower than the maximum/minimum b-value that we have simulated**;
+* **however, gradient timings Δ or δ that are lower/higher than the minimum/maximum simulated Δ or δ will be kept, but the value of Δ or δ will be changed to the minimum/maximum simultaed Δ or δ**, unless you remove such measurements from the input NIFTI beforehand;  
+* **only pulsed-gradient spin echo (PGSE) protocols are supported**;
+* **our Histo-μSim code expected input diffusion MRI scans that have already been directionally averaged**. You can get directionally-average your scan using the [`getSphericalMean.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/getSphericalMean.py) python script that we make available in this repository (you can check the help manual by navigating to the [`using_Histo_uSim`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim) directory and then typing `python getSphericalMean.py -h` on the command line).
 
 The synthetic signals stored in the [reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol) folder are in the format of NumPy matrices where rows represents different microstructures, while columns different measurements in the dMRI protocol.
 
