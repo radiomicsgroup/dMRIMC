@@ -24,10 +24,20 @@ Our hope is that Histo-μSim will be useful for more people in the future. Howev
 
 To assist in the use of our tool, we have prepared a **rich dictionary of synthetic signals that you can download and deploy immediately to fit Histo-μSim on your own diffusion MRI scans**. 
 
-This signal dictionary corresponds to a very rich protocol with multiple b-values and even more diffusion times (δ, Δ), within which you will certainly (almost) find the protocol that you used to acquire your own data. The dictionary comes with a set of scripts that allow you to extract the subset of the synthetic signals that most closely matches the protocol that you have acquired. This will give you access to the full potential of Histo-μSim, without the need for any new simulations or signal synthesis. 
+This signal dictionary corresponds to a very rich protocol with multiple b-values and even more diffusion times (δ, Δ), within which you will certainly (almost) find the protocol that you used to acquire your own data. The dictionary comes with a set of scripts that allow you to extract the subset of the synthetic signals that most closely matches the protocol that you have acquired. This will give you access to the full potential of Histo-μSim, without the need for any new simulations or signal synthesis.
+
+Some important notes on using Histo-μSim: 
+* the minimum non-zero bvalue is `300` s/mm<sup>2</sup>: this choice allows us to minimise the contribution of the vascular signal _in vivo_, since our simulations do not account for capillary perfusion;
+* the maximum b-value is `5000` s/mm<sup>2</sup>;
+* **our Histo-μSim code will exclude from the fitting diffusion measurements that you might have acquired for b-values that are higher/lower than the maximum/minimum b-value that we have simulated**;
+* **however, gradient timings Δ or δ that are lower/higher than the minimum/maximum simulated Δ or δ will be kept, but the value of Δ or δ will be changed to the minimum/maximum simultaed Δ or δ**, unless you remove such measurements from the input NIFTI beforehand;  
+* **only pulsed-gradient spin echo (PGSE) protocols are supported**;
+* **our Histo-μSim code expected input diffusion MRI scans that have already been directionally averaged**. You can get directionally-average your scan using the [`getSphericalMean.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/getSphericalMean.py) python script that we make available in this repository (you can check the help manual by navigating to the [`using_Histo_uSim`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim) directory and then typing `python getSphericalMean.py -h` on the command line).
+
+The synthetic signals stored in the [reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol) folder are in the format of NumPy matrices where rows represents different microstructures, while columns different measurements in the dMRI protocol.
 
 
-## Rich protocol information
+# Rich protocol information
 We have generated synthetic signals for a very rich protocol where you will be able to find your own diffusion measurements with a precision of as few as 50 s/mm<sup>2</sup> for b, and just 1.25 ms for δ and Δ. The synthetic signals were obtained for all possible combinations of
 
 * b = [0, 300,  400,  500,  600,  700,  800,  900, 1000, 1100,
@@ -43,19 +53,10 @@ We have generated synthetic signals for a very rich protocol where you will be a
 
 making sure of course that Δ $\geq$ δ. This leads to a total of `16177` combinations with unique (b,δ,Δ). All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). 
 
-Some important notes: 
-* the minimum non-zero bvalue is `300` s/mm<sup>2</sup>: this choice allows us to minimise the contribution of the vascular signal _in vivo_, since our simulations do not account for capillary perfusion;
-* the maximum b-value is `5000` s/mm<sup>2</sup>;
-* **our Histo-μSim code will exclude from the fitting diffusion measurements that you might have acquired for b-values that are higher/lower than the maximum/minimum b-value that we have simulated**;
-* **however, gradient timings Δ or δ that are lower/higher than the minimum/maximum simulated Δ or δ will be kept, but the value of Δ or δ will be changed to the minimum/maximum simultaed Δ or δ**, unless you remove such measurements from the input NIFTI beforehand;  
-* **only pulsed-gradient spin echo (PGSE) protocols are supported**;
-* **our Histo-μSim code expected input diffusion MRI scans that have already been directionally averaged**. You can get directionally-average your scan using the [`getSphericalMean.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/getSphericalMean.py) python script that we make available in this repository (you can check the help manual by navigating to the [`using_Histo_uSim`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim) directory and then typing `python getSphericalMean.py -h` on the command line).
-
-The synthetic signals stored in the [reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol) folder are in the format of NumPy matrices where rows represents different microstructures, while columns different measurements in the dMRI protocol.
 
 
-## Signal and parameter arrays
-The signal arrays generated using this protocol are inside the [using_Histo_uSim/reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) folder. **We have generated signals for the 18 cancer substrates that we produced for our paper**. The substrates can be downloaded from Grigoriou et al, Zenodo 2024, [doi: 10.5281/zenodo.14559103](https://doi.org/10.5281/zenodo.14559103).
+# Signal and parameter dictionaries
+The signal dictionaries and corresponding tissue parameters generated using this protocol are inside the [using_Histo_uSim/reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) folder. **We have generated signals for the 18 cancer substrates that we produced for our paper**. The substrates can be downloaded from Grigoriou et al, Zenodo 2024, [doi: 10.5281/zenodo.14559103](https://doi.org/10.5281/zenodo.14559103).
 
 We have generated signals for **225 unique realisations of each substrate**, obtained by varying the intrinsic intra-cellular diffusivity `D0in` (5 values), the intrinsic extra-cellular diffusivity `D0ex` (5 values), and the cell membrane permeability `kappa` (9 values). This leads to a **total of 4050 signals for each (b,δ,Δ) measurement**. Note that we release separate signal/parameter arrays for each `kappa` value, with each array having 450 different signals (5 values of `D0in`, 5 for `D0ex` times 18 substrates) due to file size constraints (see the [reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) and the [reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) folders).
 
@@ -64,10 +65,10 @@ The range of variation for `D0in`, `D0ex` and `kappa` are:
 * `D0ex`: from 0.8 μm<sup>2</sup>/ms to 3.0 μm<sup>2</sup>/ms
 * `kappa`: from 0 μm/s to 40 μm/s
 
-## Selecting signal subsets and tissue parameter configurations
+# Selecting signal subsets and tissue parameter configurations
 Below you will find a practical example that will illustrate how to use these synthetic signals to fit _Histo-μSim_ on your data. 
 
-Briefly, script [get_closest_scheme.py](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/get_closest_scheme.py) will find subset of synthetic measurements that most closely match the acquisition scheme (b, δ, Δ) that you used to acquire your data. Additionally, it will also normalize the dMRI measurements you provided in the input NIFTI file so that the signal at b = 0 is 1 (our synthetic signals are bound within 0 and 1).
+To summarise, script [get_closest_scheme.py](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/get_closest_scheme.py) will find subset of synthetic measurements that most closely match the acquisition scheme (b, δ, Δ) that you used to acquire your data. Additionally, it will also normalize the dMRI measurements you provided in the input NIFTI file so that the signal at b = 0 is 1 (our synthetic signals are bound within 0 and 1).
 
 Once the subset of synthetic measurements is found and your dMRI scan has been normalised, you will have to choose which tissue parameters to fit using the [select_parameter_configuration.py](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/select_parameter_configuration.py). The available parameters are the following (for details regarding their calculation page 20 of our paper):
 
@@ -81,7 +82,7 @@ Once the subset of synthetic measurements is found and your dMRI scan has been n
 
 Tissue parameters corresponding to synthetic signals are stored in the folder  [using_Histo_uSim/reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) as NumPy matrices where rows represent different microstructure realisations, while columns are the tissue parameters corresponding to each microstructure realisation.  
 
-## Example: mouse data 
+## Example: let's try Histo-μSim on the mouse data from our paper 
 As a concrete example, we show how to use Histo-μSim on the mouse data we have released on Zenodo at [https://doi.org/10.5281/zenodo.14559355](https://doi.org/10.5281/zenodo.14559355), specifically the breast cancer samples in `scans/breast`. For more information on parameter estimation check [parameter_estimation.md](https://github.com/radiomicsgroup/dMRIMC/tree/main/manuals/parameter_estimation.md) where we replicate some of the figures of our paper.
 
 ### 1. Cloning the repository and setting things up
