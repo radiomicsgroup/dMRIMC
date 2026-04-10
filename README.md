@@ -81,10 +81,10 @@ Once the subset of synthetic measurements is found and your dMRI scan has been n
 
 Tissue parameters corresponding to synthetic signals are stored in the folder  [using_Histo_uSim/reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) as NumPy matrices where rows represent different microstructure realisations, while columns are the tissue parameters corresponding to each microstructure realisation.  
 
-### Example: let's try Histo-μSim on some data 
+## Example: let's try Histo-μSim on some data 
 As a concrete example, we show how to use Histo-μSim on the mouse data we have released on Zenodo at [https://doi.org/10.5281/zenodo.14559355](https://doi.org/10.5281/zenodo.14559355), specifically the breast cancer samples in `scans/breast`. For more information on parameter estimation check [parameter_estimation.md](https://github.com/radiomicsgroup/dMRIMC/tree/main/manuals/parameter_estimation.md) where we replicate some of the figures of our paper.
 
-## 1. Cloning the repository and setting things up
+### 1. Cloning the repository and setting things up
 To begin, clone the Histo-μSim repo, navigate to the [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim) folder and run a quick set-up:
 
 ```
@@ -97,7 +97,7 @@ python combine_arrays.py
 Note that running [combine_arrays.py](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/combine_arrays.py) is required to combine signal and parameter arrays into a signel dictionary, as this had to split into multiple sub-files for upload to comply with GitHub file size restrictions.
 
 
-## 2. The data and the code of this example
+### 2. The data and the code of this example
 
 The folder [zenodo_mouse_data](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/zenodo_mouse_data) within [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim) already contains a pre-processed dMRI scan, ready to use for this tutorial (so there is no need for you to download anything). Pre-processing included MP-PCA denoising, Gibbs unringing and directional averaging. We will use the following files:
 
@@ -137,7 +137,7 @@ The folder [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main
 * `run_full_fitting_pipeline.py`
 
 
-## 3. Get synthetic signal subsets and pre-process the input dMRI scan
+### 3. Get synthetic signal subsets and pre-process the input dMRI scan
 
 Now we need to extract the scheme file (b-values and gradien duration/separation) matching as closely as possible the protocol used to acquire the diffusion MRI data that the user wants to fit. This is done using [`get_closest_scheme.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/get_closest_scheme.py) as shown below (note that all the input parameters are compulsory).
 
@@ -202,7 +202,7 @@ a folder `protocols` with the subfolder `MOUSE_BREAST_EXVIVO` should have been c
 
 The `signal_arr_subset.npy` and  file should have been created, containing the columns corresponding to the closest protocol. Also, the script will have normalized the input dMRI scan `zenodo_mouse_data/dwi_denoise_unring_sphmean.nii` scan and the noise level `zenodo_mouse_data/dwi_noise.nii` by the mean b = 0 volume. Do not worry if you do not have a noise map, as it is an optional input parameter. The processed dMRI file should appear with the name `dwi_normalized.nii` and the noise as `dwi_noise_normalized.nii`: these are, resepctively, the scan corresponding to the protocol that has been extracted, normalised to the b = 0 signal intensity level, and the noise map, also normalised to the b = 0 signal.  
 
-## 4. Select which tissue parameters to estimate
+### 4. Select which tissue parameters to estimate
 
 As mentioned above, you can now select a subset of the available parameters to fit using [`select_parameter_configuration.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/select_parameter_configuration.py). Note that **`D0in`, `D0ex` and `kappa` are always included**. We will focus on the estimation of `fin` and `vCS_cyl`, exactly as we did in our paper:
 
@@ -217,7 +217,7 @@ python select_parameter_configuration.py --params fin mCS varCS cellularity --ou
 ```
 This would have instead created a tissue parameter file `param_arr_subset.npy` with **7** columns: `fin`, `mCS`, `varCS`, `cellularity`, `D0in`, `D0ex` and `kappa`. Note that cellularity values will be outputted as log<sub>10</sub>(cellularity in cells/mm<sup>2</sup>), as this leads to more robust estimation.
 
-## 5. Perform Histo-μSim model fitting
+### 5. Perform Histo-μSim model fitting
 We are now ready to use the synthetic signals and the corresponding tissue parameter file for Histo-μSim fitting. Let's create a folder called `fitting` to store the fitting results:
 
 ```
@@ -302,14 +302,14 @@ The resulting map for `fin` should look like this:
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/ex_fitting_result.png" alt="commbio" width="auto" height="auto">
 </div>
 
-## 6. A script to run the whole thing at once
+### 6. A script to run the whole thing at once
 We have packaged all the above in one command line script, called [`run_full_fitting_pipeline.sh`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/run_full_fitting_pipeline.sh). You can run it by typing:
 
 ```
 bash run_full_fitting_pipeline.sh
 ```
 
-## 7. Additional tips: fixing tissue parameters
+### 7. Additional tips: fixing tissue parameters
 All the .py python scripts described in this tutorial have their own help manual. To check it, simply type
 ```
 python <SCRIPT>.py -h
@@ -326,7 +326,7 @@ However, be aware: **fixing tissue parameters will bias the estimation of the ot
 The first thing you can do is to fix `kappa` to a specific value. Additionally, you would need to fix  `D0in` and, potentially, `D0ex`, depending on the number of b-values that you have acquired. The script [`run_full_fitting_pipeline_fixpars.sh`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/run_full_fitting_pipeline_fixpars.sh) shows you how to do it in practice.
 
 
-# Dependencies
+## Dependencies
 The above tutorial has been ran and tested with:
 - **python** (3.9.23)
 - **numpy** (1.26.3)
@@ -335,6 +335,6 @@ The above tutorial has been ran and tested with:
 - **matplotlib** (3.9.2)
 
 
-# License
+## License
 This repository is distributed under the **Attribution-NonCommercial-ShareAlike 4.0 International license** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)). Copyright (c) 2024, 2025, Fundació Privada Institut d’Investigació Oncològica de Vall d’Hebron (Vall d'Hebron Institute of Oncology (VHIO), Barcelona, Spain). All rights reserved. Link to license [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/license.txt). 
 
