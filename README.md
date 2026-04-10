@@ -309,7 +309,7 @@ We have packaged all the above in one command line script, called [`run_full_fit
 bash run_full_fitting_pipeline.sh
 ```
 
-### 7. Additional tips: fixing tissue parameters
+### 7. Additional tips: help manuals and fixing tissue parameters
 All the .py python scripts described in this tutorial have their own help manual. To check it, simply type
 ```
 python <SCRIPT>.py -h
