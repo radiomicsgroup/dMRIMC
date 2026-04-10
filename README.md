@@ -297,13 +297,14 @@ For more information on all the options of `mri2micro_dictml.py`, simply type `p
 
 The `fitting` folder should contain `Histo_uSim_par{N}` with N the number of parameters selected, in the order that was specified: parameter 1 is `fin`, parameter 2 is `vCS_cyl` (in μm), parameter 3 is `D0in` (in μm<sup>2</sup>/ms), parameter 4 is `D0ex` (in μm<sup>2</sup>/ms), parameter 5 is `kappa` (in μm/s). 
 
+If you had included the estimation of cellularity, remember that you'll have obtained log<sub>10</sub>(cellularity in cells/mm<sup>2</sup>).
+
 The resulting map for `fin` should look like this:
 
 <div align="center">
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/ex_fitting_result.png" alt="commbio" width="auto" height="auto">
 </div>
 
-If you had included the estimation of cellularity, remember that you'll have obtained log<sub>10</sub>(cellularity in cells/mm<sup>2</sup>).
 
 ### 6. A script to run the whole thing at once
 We have packaged all the above in one command line script, called [`run_full_fitting_pipeline.sh`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/run_full_fitting_pipeline.sh). You can run it by typing:
