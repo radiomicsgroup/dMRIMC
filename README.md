@@ -210,7 +210,9 @@ As mentioned above, you can now select a subset of the available parameters to f
 python select_parameter_configuration.py --params fin vCS_cyl --output-folder MOUSE_BREAST_EXVIVO
 ```
 
-You will see that this will have created the tissue parameter file `param_arr_subset.npy` (**5** columns: `fin`, `vCS_cyl`, `D0in`, `D0ex` and `kappa`), corresponding with the synthetic signals array `signal_arr_subset.npy`. If instead, for example, you were interested in estimating `fin`, `mCS`, `varCS` and `cellularity`, you should instead have written:
+You will see that this will have created the tissue parameter file `param_arr_subset.npy` storing a numpy matrix with **4050** rows (one per substrate realisation) and with **5** columns, storing the values of `fin`, `vCS_cyl`, `D0in`, `D0ex` and `kappa`. The tissue parameter matrix matches the synthetic signals array `signal_arr_subset.npy`: each row of `param_arr_subset.npy` contains the tissue parameters corresponding to the matching row in `signal_arr_subset.npy` (coupled tissue parameters/signal examples for dictionary fitting).
+
+If instead, for example, you were interested in estimating `fin`, `mCS`, `varCS` and `cellularity`, you should instead have written:
 
 ```
 python select_parameter_configuration.py --params fin mCS varCS cellularity --output-folder MOUSE_BREAST_EXVIVO
