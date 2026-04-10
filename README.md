@@ -215,7 +215,7 @@ You will see that this will have created the tissue parameter file `param_arr_su
 ```
 python select_parameter_configuration.py --params fin mCS varCS cellularity --output-folder MOUSE_BREAST_EXVIVO
 ```
-This would have instead created a tissue parameter file `param_arr_subset.npy` with **7** columns: `fin`, `mCS`, `varCS`, `cellularity`, `D0in`, `D0ex` and `kappa`. Note that cellularity values will be outputted as log<sub>10</sub>(cellularity in cells/mm<sup>2</sup>), as this leads to more robust estimation.
+This would have instead created a tissue parameter file `param_arr_subset.npy` storing a numpy matrix with **4050** rows (one per substrate realisation) and with **7** columns: `fin`, `mCS`, `varCS`, `cellularity`, `D0in`, `D0ex` and `kappa`. Note that cellularity values will be stored as log<sub>10</sub>(cellularity in cells/mm<sup>2</sup>), as this leads to more robust estimation in step 5 below.
 
 ### 5. Perform Histo-μSim model fitting
 We are now ready to use the synthetic signals and the corresponding tissue parameter file for Histo-μSim fitting. Let's create a folder called `fitting` to store the fitting results:
@@ -231,13 +231,13 @@ python mri2micro_dictml.py \
     protocols/MOUSE_BREAST_EXVIVO/dwi_normalized.nii \
     protocols/MOUSE_BREAST_EXVIVO/signal_arr_subset.npy \
     protocols/MOUSE_BREAST_EXVIVO/param_arr_subset.npy \
+    protocols/MOUSE_BREAST_EXVIVO/fitting/Histo_uSim \
     --sldim 0 \
     --savg 3 \
     --ncpu 10 \
     --reg "2,0.0025" \
     --noise protocols/MOUSE_BREAST_EXVIVO/dwi_noise_normalized.nii \
     --mask zenodo_mouse_data/dwi_mask_one_sample.nii \
-    protocols/MOUSE_BREAST_EXVIVO/fitting/Histo_uSim
 ```
 
 We are distributing a copy of `mri2micro_dictml.py` here, but note that it was originally released as part of the [BodyMRItools](https://github.com/fragrussu/bodymritools/) repository. We invite you to check it out, as it include many more scripts that can be of help to work with body diffusion imaging!
@@ -290,6 +290,7 @@ For more information on all the options of `mri2micro_dictml.py`, simply type `p
     ... processing -- please wait
 
     ... saving output files
+
     ... done - it took 1315.9249622821808 sec
 
 ```
@@ -301,6 +302,8 @@ The resulting map for `fin` should look like this:
 <div align="center">
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/ex_fitting_result.png" alt="commbio" width="auto" height="auto">
 </div>
+
+If you had included the estimation of cellularity, remember that you'll have obtained log<sub>10</sub>(cellularity in cells/mm<sup>2</sup>).
 
 ### 6. A script to run the whole thing at once
 We have packaged all the above in one command line script, called [`run_full_fitting_pipeline.sh`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/run_full_fitting_pipeline.sh). You can run it by typing:
