@@ -1,4 +1,4 @@
-## Histology-informed microstructural diffusion simulations for MRI cancer characterisation — the Histo-μSim framework
+# Histology-informed microstructural diffusion simulations for MRI cancer characterisation — the Histo-μSim framework
 
 <div align="center">
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/commbio25.png" alt="commbio" width="auto" height="auto">
@@ -19,7 +19,7 @@ Below we show you **how to start perform Histo-μSim dictionary fitting immediat
 - [Histology-to-signals manual](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/histology_to_signals.md): to guide you on preparing new substrates for Monte Carlo simulations from 2D histology, in case you want to run more simulations;
 - [In silico experiment replication](https://github.com/radiomicsgroup/dMRIMC/blob/main/manuals/parameter_estimation.md): to show you how to replicate some of the _in silico_ experiments performed in our paper.
 
-# Using Histo-μSim
+### Using Histo-μSim
 Our hope is that Histo-μSim will be useful for more people in the future. However, we are aware that tracing cells, processing substrates and running simulations is a time- and resource-consuming process, and that it may result complicated for clinical labs focussing on applied imaging. 
 
 To assist in the use of our tool, we have prepared a **rich dictionary of synthetic signals that you can download and deploy immediately to fit Histo-μSim on your own diffusion MRI scans**. 
@@ -37,7 +37,7 @@ Some important notes on using Histo-μSim:
 The synthetic signals stored in the [reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol) folder are in the format of NumPy matrices where rows represents different microstructures, while columns different measurements in the dMRI protocol.
 
 
-# Rich protocol information
+### Rich protocol information
 We have generated synthetic signals for a very rich protocol where you will be able to find your own diffusion measurements with a precision of as few as 50 s/mm<sup>2</sup> for b, and just 1.25 ms for δ and Δ. The synthetic signals were obtained for all possible combinations of
 
 * b = [0, 300,  400,  500,  600,  700,  800,  900, 1000, 1100,
@@ -54,8 +54,7 @@ We have generated synthetic signals for a very rich protocol where you will be a
 making sure of course that Δ $\geq$ δ. This leads to a total of `16177` combinations with unique (b,δ,Δ). All files describing the protocol can be found at [using_Histo_uSim/protocols/reference_protocol](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/protocols/reference_protocol). 
 
 
-
-# Signal and parameter dictionaries
+### Signal and parameter dictionaries
 The signal dictionaries and corresponding tissue parameters generated using this protocol are inside the [using_Histo_uSim/reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) folder. **We have generated signals for the 18 cancer substrates that we produced for our paper**. The substrates can be downloaded from Grigoriou et al, Zenodo 2024, [doi: 10.5281/zenodo.14559103](https://doi.org/10.5281/zenodo.14559103).
 
 We have generated signals for **225 unique realisations of each substrate**, obtained by varying the intrinsic intra-cellular diffusivity `D0in` (5 values), the intrinsic extra-cellular diffusivity `D0ex` (5 values), and the cell membrane permeability `kappa` (9 values). This leads to a **total of 4050 signals for each (b,δ,Δ) measurement**. Note that we release separate signal/parameter arrays for each `kappa` value, with each array having 450 different signals (5 values of `D0in`, 5 for `D0ex` times 18 substrates) due to file size constraints (see the [reference_signal_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_signal_arrays) and the [reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) folders).
@@ -65,7 +64,7 @@ The range of variation for `D0in`, `D0ex` and `kappa` are:
 * `D0ex`: from 0.8 μm<sup>2</sup>/ms to 3.0 μm<sup>2</sup>/ms
 * `kappa`: from 0 μm/s to 40 μm/s
 
-# Selecting signal subsets and tissue parameter configurations
+### Selecting signal subsets and tissue parameter configurations
 Below you will find a practical example that will illustrate how to use these synthetic signals to fit _Histo-μSim_ on your data. 
 
 To summarise, script [get_closest_scheme.py](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/get_closest_scheme.py) will find subset of synthetic measurements that most closely match the acquisition scheme (b, δ, Δ) that you used to acquire your data. Additionally, it will also normalize the dMRI measurements you provided in the input NIFTI file so that the signal at b = 0 is 1 (our synthetic signals are bound within 0 and 1).
@@ -82,10 +81,10 @@ Once the subset of synthetic measurements is found and your dMRI scan has been n
 
 Tissue parameters corresponding to synthetic signals are stored in the folder  [using_Histo_uSim/reference_param_arrays](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/reference_param_arrays) as NumPy matrices where rows represent different microstructure realisations, while columns are the tissue parameters corresponding to each microstructure realisation.  
 
-## Example: let's try Histo-μSim on the mouse data from our paper 
+### Example: let's try Histo-μSim on some data 
 As a concrete example, we show how to use Histo-μSim on the mouse data we have released on Zenodo at [https://doi.org/10.5281/zenodo.14559355](https://doi.org/10.5281/zenodo.14559355), specifically the breast cancer samples in `scans/breast`. For more information on parameter estimation check [parameter_estimation.md](https://github.com/radiomicsgroup/dMRIMC/tree/main/manuals/parameter_estimation.md) where we replicate some of the figures of our paper.
 
-### 1. Cloning the repository and setting things up
+## 1. Cloning the repository and setting things up
 To begin, clone the Histo-μSim repo, navigate to the [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim) folder and run a quick set-up:
 
 ```
@@ -98,7 +97,7 @@ python combine_arrays.py
 Note that running [combine_arrays.py](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/combine_arrays.py) is required to combine signal and parameter arrays into a signel dictionary, as this had to split into multiple sub-files for upload to comply with GitHub file size restrictions.
 
 
-### 2. The data and the code of this example
+## 2. The data and the code of this example
 
 The folder [zenodo_mouse_data](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim/zenodo_mouse_data) within [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main/using_Histo_uSim) already contains a pre-processed dMRI scan, ready to use for this tutorial (so there is no need for you to download anything). Pre-processing included MP-PCA denoising, Gibbs unringing and directional averaging. We will use the following files:
 
@@ -138,8 +137,7 @@ The folder [using_Histo_uSim](https://github.com/radiomicsgroup/dMRIMC/tree/main
 * `run_full_fitting_pipeline.py`
 
 
-
-### 2. Get synthetic signal subsets and pre-process the input dMRI scan
+## 3. Get synthetic signal subsets and pre-process the input dMRI scan
 
 Now we need to extract the scheme file (b-values and gradien duration/separation) matching as closely as possible the protocol used to acquire the diffusion MRI data that the user wants to fit. This is done using [`get_closest_scheme.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/get_closest_scheme.py) as shown below (note that all the input parameters are compulsory).
 
@@ -204,7 +202,7 @@ a folder `protocols` with the subfolder `MOUSE_BREAST_EXVIVO` should have been c
 
 The `signal_arr_subset.npy` and  file should have been created, containing the columns corresponding to the closest protocol. Also, the script will have normalized the input dMRI scan `zenodo_mouse_data/dwi_denoise_unring_sphmean.nii` scan and the noise level `zenodo_mouse_data/dwi_noise.nii` by the mean b = 0 volume. Do not worry if you do not have a noise map, as it is an optional input parameter. The processed dMRI file should appear with the name `dwi_normalized.nii` and the noise as `dwi_noise_normalized.nii`: these are, resepctively, the scan corresponding to the protocol that has been extracted, normalised to the b = 0 signal intensity level, and the noise map, also normalised to the b = 0 signal.  
 
-### 3. Select which tissue parameters to estimate
+## 4. Select which tissue parameters to estimate
 
 As mentioned above, you can now select a subset of the available parameters to fit using [`select_parameter_configuration.py`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/select_parameter_configuration.py). Note that **`D0in`, `D0ex` and `kappa` are always included**. We will focus on the estimation of `fin` and `vCS_cyl`, exactly as we did in our paper:
 
@@ -219,7 +217,7 @@ python select_parameter_configuration.py --params fin mCS varCS cellularity --ou
 ```
 This would have instead created a tissue parameter file `param_arr_subset.npy` with **7** columns: `fin`, `mCS`, `varCS`, `cellularity`, `D0in`, `D0ex` and `kappa`. Note that cellularity values will be outputted as log<sub>10</sub>(cellularity in cells/mm<sup>2</sup>), as this leads to more robust estimation.
 
-### 4. Perform Histo-μSim model fitting
+## 5. Perform Histo-μSim model fitting
 We are now ready to use the synthetic signals and the corresponding tissue parameter file for Histo-μSim fitting. Let's create a folder called `fitting` to store the fitting results:
 
 ```
@@ -304,14 +302,14 @@ The resulting map for `fin` should look like this:
   <img src="https://github.com/radiomicsgroup/dMRIMC/blob/main/imgs/ex_fitting_result.png" alt="commbio" width="auto" height="auto">
 </div>
 
-### 5. A script to run the whole thing at once
+## 6. A script to run the whole thing at once
 We have packaged all the above in one command line script, called [`run_full_fitting_pipeline.sh`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/run_full_fitting_pipeline.sh). You can run it by typing:
 
 ```
 bash run_full_fitting_pipeline.sh
 ```
 
-### 6. Additional tips
+## 7. Additional tips: fixing tissue parameters
 All the .py python scripts described in this tutorial have their own help manual. To check it, simply type
 ```
 python <SCRIPT>.py -h
@@ -328,8 +326,7 @@ However, be aware: **fixing tissue parameters will bias the estimation of the ot
 The first thing you can do is to fix `kappa` to a specific value. Additionally, you would need to fix  `D0in` and, potentially, `D0ex`, depending on the number of b-values that you have acquired. The script [`run_full_fitting_pipeline_fixpars.sh`](https://github.com/radiomicsgroup/dMRIMC/blob/main/using_Histo_uSim/run_full_fitting_pipeline_fixpars.sh) shows you how to do it in practice.
 
 
-
-## Dependencies
+# Dependencies
 The above tutorial has been ran and tested with:
 - **python** (3.9.23)
 - **numpy** (1.26.3)
@@ -337,5 +334,7 @@ The above tutorial has been ran and tested with:
 - **nibabel** (5.3.2)
 - **matplotlib** (3.9.2)
 
-## License
+
+# License
 This repository is distributed under the **Attribution-NonCommercial-ShareAlike 4.0 International license** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0)). Copyright (c) 2024, 2025, Fundació Privada Institut d’Investigació Oncològica de Vall d’Hebron (Vall d'Hebron Institute of Oncology (VHIO), Barcelona, Spain). All rights reserved. Link to license [here](https://github.com/radiomicsgroup/dMRIMC/blob/main/license.txt). 
+
