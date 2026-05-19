@@ -126,28 +126,25 @@ print(f"Saved closest protocol at: protocols/{INPUT_PROTOCOL_NAME}")
 # normalize by b = 0, assuming it is the first volume. If there are many b = 0
 # volumes, normalize by mean b = 0
 # also do the noise
-# Noise
-noise = nib.load(args.noise_map)
-noise_data = noise.get_fdata()
-noise_affine = noise.affine
-noise_header = noise.header
 print()
-print(f"Normalizing the scan and noise, assuming that any volumes with b < {args.bval_threshold} s/mm2 are b = 0")
+print(f"Normalizing the scan, assuming that any volumes with b < {args.bval_threshold} s/mm2 are b = 0")
 b0_vols = np.where(target_bvals <= int(args.bval_threshold))[0]
 if b0_vols.size > 1:
     mean_b0 = np.mean(data[..., b0_vols], axis=-1)
-    new_data = data/mean_b0[..., np.newaxis]
-    new_noise_data = noise_data/mean_b0
+    new_data = data / mean_b0[..., np.newaxis]
 else:
-    new_data = data/data[..., b0_vols]
-    new_noise_data = noise_data/b0_vols
+    mean_b0 = data[..., b0_vols[0]]
+    new_data = data / mean_b0[..., np.newaxis]
 
-# Save result
 output_img = nib.Nifti1Image(new_data, affine, header)
-nib.save(output_img, f"protocols/{INPUT_PROTOCOL_NAME}/dwi_normalized.nii")
+nib.save(output_img, f"protocols/{INPUT_PROTOCOL_NAME}/dwi_normalized.nii.gz")
 
-output_noise = nib.Nifti1Image(new_noise_data, noise_affine, noise_header)
-nib.save(output_noise, f"protocols/{INPUT_PROTOCOL_NAME}/dwi_noise_normalized.nii")
+if args.noise_map:
+    noise = nib.load(args.noise_map)
+    noise_data = noise.get_fdata()
+    new_noise_data = noise_data / mean_b0
+    output_noise = nib.Nifti1Image(new_noise_data, noise.affine, noise.header)
+    nib.save(output_noise, f"protocols/{INPUT_PROTOCOL_NAME}/dwi_noise_normalized.nii.gz")
 
 #%% Grab signal subset
 # Find indices that match ALL four parameters
