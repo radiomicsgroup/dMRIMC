@@ -6,7 +6,7 @@
 
 If you use the code released in this repository in your research, please cite our article:
 
-Athanasios Grigoriou, et al. **"Histology-informed microstructural diffusion simulations for MRI cancer characterisation — the Histo-μSim framework"**. Communications Biology 2025, 8: 1695, doi: [10.1101/2024.07.15.24310280](https://doi.org/10.1038/s42003-025-09096-3).
+Athanasios Grigoriou, et al. **"Histology-informed microstructural diffusion simulations for MRI cancer characterisation — the Histo-μSim framework"**. Communications Biology 2025, 8: 1695, doi: [10.1038/s42003-025-09096-3](https://doi.org/10.1038/s42003-025-09096-3).
 
 This repository was developed by Athanasios Grigoriou (<agrigoriou@vhio.net>) and Francesco Grussu (<fgrussu@vhio.net>). **The project that gave rise to these results received the support of a fellowship from ”la Caixa” Foundation (ID 100010434). The fellowship code is "LCF/BQ/PR22/11920010". This study has been funded by Instituto de Salud Carlos III (ISCIII) through the project "PI21/01019" and co-funded by the European Union and by a AEI Severo Ochoa PhD fellowship (PRE2022-102586).**
 
